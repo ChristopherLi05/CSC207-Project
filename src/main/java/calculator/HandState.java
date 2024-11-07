@@ -1,11 +1,12 @@
 package calculator;
 
 import calculator.mahjong.MahjongTile;
-import calculator.mahjong.OpenGroup;
+import calculator.mahjong.MahjongGroup;
 
 import java.util.List;
 
-public record HandState(List<MahjongTile> closedTiles, List<OpenGroup> openGroups, MahjongTile winningTile,
+public record HandState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroup, List<MahjongGroup> openGroups,
+                        MahjongTile winningTile,
                         List<MahjongTile> dora, List<MahjongTile> ura, MahjongTile seatWind, MahjongTile roundWind,
                         boolean ron, boolean tsumo, boolean riichi, boolean doubleRiichi, boolean ippatsu,
                         boolean chankan, boolean rinshanKaihou, boolean haitei, boolean houtei) {
@@ -19,7 +20,27 @@ public record HandState(List<MahjongTile> closedTiles, List<OpenGroup> openGroup
 
         builder.append(" ");
 
-        for (OpenGroup group : openGroups) {
+        boolean flag = false;
+        for (MahjongGroup group : closedGroup) {
+            if (!flag) {
+                flag = true;
+            } else {
+                builder.append(";");
+            }
+
+            builder.append(group.getSerialization());
+        }
+
+        builder.append(" ");
+
+        flag = false;
+        for (MahjongGroup group : openGroups) {
+            if (!flag) {
+                flag = true;
+            } else {
+                builder.append(";");
+            }
+
             builder.append(group.getSerialization());
         }
 
@@ -56,5 +77,10 @@ public record HandState(List<MahjongTile> closedTiles, List<OpenGroup> openGroup
         builder.append(flags);
 
         return builder.toString();
+    }
+
+    @Override
+    public String toString() {
+        return this.serializeHand();
     }
 }

@@ -1,7 +1,7 @@
 package calculator;
 
 import calculator.mahjong.MahjongTile;
-import calculator.mahjong.OpenGroup;
+import calculator.mahjong.MahjongGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +18,13 @@ public class HandStateFactory {
     // 0x80 = Haitei
     // 0x100 = Houtei
 
-    // Hand is stored like this: 1s1s1s2s2s2s3s3s3s5s 4s4s4s 5s
+    // Hand is stored like this: 2s2s2s3s3s3s5s 4s4s4s;1s1s1s1s 5s
     // First group represents closed
-    // Second group represents opened - will always be length of multiple 6, will always be grouped in thirds
+    // Second group represents opened, open groups are seperated by ;
     // Third group represents tile that won the hand
 
     // seatWind/roundWind is also just represented as a mahjong tile
-    public HandState createHandState(String closed, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
+    public HandState createHandState(String closed, String closedGroup, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
         // Basic input checking
         validateHandStrings(closed, open, winning, dora, ura, seatWind, roundWind, flags);
 
@@ -33,9 +33,31 @@ public class HandStateFactory {
             closedTiles.add(getMahjongTile(closed, i));
         }
 
-        List<OpenGroup> openGroups = new ArrayList<>();
-        for (int i = 0; i < open.length(); i += 6) {
-            openGroups.add(new OpenGroup(getMahjongTile(open, i), getMahjongTile(open, i + 2), getMahjongTile(open, i + 4)));
+        List<MahjongGroup> closedGroups = new ArrayList<>();
+        if (!closedGroup.isEmpty()) {
+            String[] groups = closedGroup.split(";");
+            for (String g : groups) {
+                // Only closed group is a kan
+                if (g.length() == 8) {
+                    closedGroups.add(new MahjongGroup(getMahjongTile(g, 0), getMahjongTile(g, 2), getMahjongTile(g, 4), getMahjongTile(g, 6)));
+                } else {
+                    throw new IllegalArgumentException("Invalid Closed Group: " + g);
+                }
+            }
+        }
+
+        List<MahjongGroup> openGroups = new ArrayList<>();
+        if (!open.isEmpty()) {
+            String[] groups = open.split(";");
+            for (String g : groups) {
+                if (g.length() == 6) {
+                    openGroups.add(new MahjongGroup(getMahjongTile(g, 0), getMahjongTile(g, 2), getMahjongTile(g, 4)));
+                } else if (g.length() == 8) {
+                    openGroups.add(new MahjongGroup(getMahjongTile(g, 0), getMahjongTile(g, 2), getMahjongTile(g, 4), getMahjongTile(g, 6)));
+                } else {
+                    throw new IllegalArgumentException("Invalid Open Group: " + g);
+                }
+            }
         }
 
         MahjongTile winningTile = getMahjongTile(winning, 0);
@@ -63,29 +85,25 @@ public class HandStateFactory {
         boolean haitei = (flags & 0x80) > 0;
         boolean houtei = (flags & 0x100) > 0;
 
-        return new HandState(closedTiles, openGroups, winningTile, doraList, uraList, seatWindTile, roundWindTile,
+        return new HandState(closedTiles, closedGroups, openGroups, winningTile, doraList, uraList, seatWindTile, roundWindTile,
                 ron, tsumo, riichi, doubleRiichi, ippatsu, chankan, rinshanKaihou, haitei, houtei);
     }
 
     public HandState createHandState(String serialization) {
         String[] strings = serialization.split(" ");
 
-        if (strings.length != 8) {
+        if (strings.length != 9) {
             throw new IllegalArgumentException("Invalid hand serialization");
         }
 
-        return createHandState(strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], Integer.parseInt(strings[7]));
+        return createHandState(strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7], Integer.parseInt(strings[8]));
     }
 
     private static void validateHandStrings(String closed, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
         if (closed.length() % 2 != 0) {
             throw new IllegalArgumentException("Invalid closed state: " + closed);
-        } else if (open.length() % 6 != 0) {
-            throw new IllegalArgumentException("Invalid open state: " + open);
         } else if (winning.length() != 2) {
             throw new IllegalArgumentException("Invalid winning tile: " + winning);
-        } else if (closed.length() + winning.length() != 26) {
-            throw new IllegalArgumentException("Invalid hand combination: " + closed + " " + open);
         } else if (dora.length() % 2 != 0) {
             throw new IllegalArgumentException("Invalid dora: " + dora);
         } else if (ura.length() % 2 != 0) {
