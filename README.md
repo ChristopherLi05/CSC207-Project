@@ -23,7 +23,7 @@ There are 3 main modes this program will have: a **Point Calculator** mode, a **
 - As a user, I want to be able to see the maximum number of hands that were scored during the Puzzle Rush mode, so I can set a goal for myself to achieve
 
 **Fuma User Story**
-- As a user, I want to be able to store my achievements somewhere, so I can track my progress over time
+- As a user, I want to be able to create an account to keep track of my progress, so I can keep track of my progress
 
 **David User Story**
 - As a user, I want to be able to calculate how much my mahjong hand is worth, so I can receive a correct amount of points
@@ -32,4 +32,4 @@ There are 3 main modes this program will have: a **Point Calculator** mode, a **
 - As a user, I want to be able to practice scoring hands without time pressure, so I can get more familiar with the scoring system
 
 **Max User Story**
-- As a user, I want to be able to login to my account to keep track of progress
+- As a user, I want to be able to login to my account, so I can keep track of my progress
