@@ -32,4 +32,4 @@ There are 3 main modes this program will have: a **Point Calculator** mode, a **
 - As a user, I want to be able to practice scoring hands without time pressure, so I can get more familiar with the scoring system
 
 **Max User Story**
-- As a user, I want to be able to compare myself under time pressure against others, so I can see where I rank amongst all of the users
+- As a user, I want to be able to login to my account to keep track of progress
