@@ -6,10 +6,11 @@ import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 
 class HandStateTest {
     @Test
@@ -27,7 +28,7 @@ class HandStateTest {
 
         HandState state = new HandState(closed, closedGroup, openGroup, winning, dora, ura, seatWind, roundWind, true, false, false, false, false, false, false, false, false);
 
-        assertEquals(serialization, state.serializeHand(), "Invalid Hand Serialization - Expected: " + serialization + " Received: " + state.serializeHand());
+        Assertions.assertEquals(serialization, state.serializeHand(), "Invalid Hand Serialization - Expected: " + serialization + " Received: " + state.serializeHand());
     }
 
     @Test
@@ -36,6 +37,14 @@ class HandStateTest {
         HandStateFactory factory = new HandStateFactory();
         HandState state = factory.createHandState(serialization);
 
-        assertEquals(serialization, state.serializeHand(), "Invalid Hand Deserialization - Expected: " + serialization + " Received: " + state.serializeHand());
+        Assertions.assertEquals(serialization, state.serializeHand(), "Invalid Hand Deserialization - Expected: " + serialization + " Received: " + state.serializeHand());
+    }
+
+    @Test
+    void testFilePaths() {
+        for (MahjongTile tile : MahjongTile.values()) {
+            File image = new File("src/main/resources", tile.getFilePath());
+            Assertions.assertTrue(image.exists(), "File " + tile.getFilePath() + " does not exist.");
+        }
     }
 }
