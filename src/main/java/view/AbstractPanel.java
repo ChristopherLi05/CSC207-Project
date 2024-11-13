@@ -5,7 +5,7 @@ import app.IApp;
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
 
-public abstract class AbstractPanel extends JPanel implements PropertyChangeListener {
+public abstract class AbstractPanel extends JPanel {
     protected IApp master;
 
     public AbstractPanel(IApp master) {
