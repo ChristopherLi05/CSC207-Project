@@ -1,4 +1,4 @@
-package calculator.mahjong;
+package entity.calculator.mahjong;
 
 public class MahjongGroup {
     private final MahjongTile[] tiles;

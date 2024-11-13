@@ -1,12 +1,11 @@
 package mahjong;
 
-import calculator.HandState;
-import calculator.HandStateFactory;
-import calculator.mahjong.MahjongGroup;
-import calculator.mahjong.MahjongTile;
+import entity.calculator.HandState;
+import entity.calculator.HandStateFactory;
+import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

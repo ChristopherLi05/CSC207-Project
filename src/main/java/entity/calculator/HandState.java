@@ -1,7 +1,7 @@
-package calculator;
+package entity.calculator;
 
-import calculator.mahjong.MahjongTile;
-import calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
+import entity.calculator.mahjong.MahjongGroup;
 
 import java.util.List;
 

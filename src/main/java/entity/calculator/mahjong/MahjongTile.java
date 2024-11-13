@@ -1,4 +1,4 @@
-package calculator.mahjong;
+package entity.calculator.mahjong;
 
 public enum MahjongTile {
     ONE_MAN("1m", MahjongSuit.MAN, 1),
