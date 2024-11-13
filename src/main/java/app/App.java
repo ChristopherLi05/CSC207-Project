@@ -2,6 +2,8 @@ package app;
 
 import data_access.DummyDataAccessor;
 import data_access.IDataAccessor;
+import entity.calculator.HandStateFactory;
+import entity.calculator.IHandStateFactory;
 import entity.user.IUserManager;
 import entity.user.UserManager;
 
@@ -10,6 +12,7 @@ import javax.swing.*;
 public class App extends JFrame implements IApp {
     private IUserManager userManager;
     private IDataAccessor dataAccessor;
+    private IHandStateFactory handStateFactory;
 
     // Default Implementation
     public App(String title) {
@@ -17,6 +20,7 @@ public class App extends JFrame implements IApp {
 
         userManager = new UserManager();
         dataAccessor = new DummyDataAccessor();
+        handStateFactory = new HandStateFactory();
     }
 
     public void setUserManager(IUserManager userManager) {
@@ -33,5 +37,13 @@ public class App extends JFrame implements IApp {
 
     public IDataAccessor getDataAccessor() {
         return dataAccessor;
+    }
+
+    public void setHandStateFactory(IHandStateFactory handStateFactory) {
+        this.handStateFactory = handStateFactory;
+    }
+
+    public IHandStateFactory getHandStateFactory() {
+        return handStateFactory;
     }
 }
