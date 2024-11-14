@@ -19,6 +19,18 @@ public class MahjongGroup {
         this.tiles = new MahjongTile[]{tile1, tile2, tile3, tile4};
     }
 
+    public MahjongTile[] getTiles() {
+        return tiles;
+    }
+
+    public MahjongTile getTile(int index) {
+        return tiles[index];
+    }
+
+    public void setTile(int index, MahjongTile tile) {
+        tiles[index] = tile;
+    }
+
     public String getSerialization() {
         StringBuilder builder = new StringBuilder();
         for (MahjongTile tile : tiles) {
