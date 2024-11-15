@@ -43,7 +43,7 @@ public class InMemoryDataAccessor implements IDataAccessor {
         leaderboard.sort(Comparator.comparingInt(LeaderboardEntry::score));
 
         while (leaderboard.size() > 10) {
-            leaderboard.removeLast();
+            leaderboard.remove(leaderboard.size() - 1);
         }
     }
 
