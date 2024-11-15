@@ -5,6 +5,7 @@ import entity.calculator.mahjong.MahjongTile;
 import view.CalculatorView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,20 +18,21 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
     private boolean containsAka = false;
     private ITileSelectorMaster.SelectorType selectorType = ITileSelectorMaster.SelectorType.NONE;
 
-    public  TileSelectorComponent(ITileSelectorMaster master) {
+    public TileSelectorComponent(ITileSelectorMaster master) {
         this.master = master;
+        setLayout(new GridLayout(4, 9)); // Example layout for Mahjong tiles
 
-        // Create buttons here
-        // buttons.add(new MahjongTileButton(...));
-
-        // Registers buttons to jpanel
-        // TODO: This is not what you're going to do in the final version
-        for (MahjongTileInputButton button : buttons) {
-            this.add(button);
-        }
-
-        for (MahjongTileInputButton button : buttons) {
+        // Initialize buttons for each MahjongTile in the enum
+        for (MahjongTile tile : MahjongTile.values()) {
+            MahjongTileInputButton button = new MahjongTileInputButton(tile);
             button.addActionListener(this);
+            buttons.add(button);
+            add(button);
+
+            // Check for aka (red-dora) tiles
+            if (tile.isAka()) {
+                containsAka = true;
+            }
         }
     }
 
