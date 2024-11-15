@@ -9,27 +9,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class TileSelectorComponent extends JPanel implements ActionListener {
     private final ITileSelectorMaster master;
     private final List<MahjongTileInputButton> buttons = new ArrayList<>();
+    private final List<MahjongTile> chiiTiles = new ArrayList<>();
 
     private boolean containsAka = false;
     private ITileSelectorMaster.SelectorType selectorType = ITileSelectorMaster.SelectorType.NONE;
 
     public TileSelectorComponent(ITileSelectorMaster master) {
         this.master = master;
-        setLayout(new GridLayout(4, 9)); // Example layout for Mahjong tiles
+        setLayout(new GridLayout(4, 9));
 
-        // Initialize buttons for each MahjongTile in the enum
+        // Initialize buttons for each MahjongTile in enum
         for (MahjongTile tile : MahjongTile.values()) {
             MahjongTileInputButton button = new MahjongTileInputButton(tile);
             button.addActionListener(this);
             buttons.add(button);
             add(button);
 
-            // Check for aka (red-dora) tiles
+            // Check for aka (red dora) tiles
             if (tile.isAka()) {
                 containsAka = true;
             }
@@ -43,7 +45,7 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
             if (selectorType == ITileSelectorMaster.SelectorType.NONE) {
                 master.addClosedTile(tile);
             } else if (selectorType == ITileSelectorMaster.SelectorType.CHII) {
-                // Will add later.
+                addChiiTile(tile);
             } else if (selectorType == ITileSelectorMaster.SelectorType.PON) {
                 MahjongGroup group;
 
@@ -65,6 +67,30 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
                 MahjongGroup group = new MahjongGroup(tile, tile, tile, tile);
                 master.addOpenKanGroup(group);
             }
+        }
+    }
+
+    private void addChiiTile(MahjongTile tile) {
+        chiiTiles.add(tile);
+
+        // Check if we have three tiles for CHII
+        if (chiiTiles.size() == 3) {
+            // Check if tiles form valid sequence
+            chiiTiles.sort(Comparator.comparingInt(MahjongTile::getValue));
+
+            boolean isSameSuit = chiiTiles.get(0).getSuit() == chiiTiles.get(1).getSuit()
+                    && chiiTiles.get(1).getSuit() == chiiTiles.get(2).getSuit();
+            boolean isSequential = chiiTiles.get(1).getValue() == chiiTiles.get(0).getValue() + 1
+                    && chiiTiles.get(2).getValue() == chiiTiles.get(1).getValue() + 1;
+
+            if (isSameSuit && isSequential) {
+                MahjongGroup chiiGroup = new MahjongGroup(chiiTiles.get(0), chiiTiles.get(1), chiiTiles.get(2));
+                master.addChiiGroup(chiiGroup);
+            } else {
+                // Handle invalid sequence selection
+                System.out.println("Invalid sequence for CHII. Please select consecutive tiles of the same suit.");
+            }
+            chiiTiles.clear(); // Reset for next CHII selection
         }
     }
 
