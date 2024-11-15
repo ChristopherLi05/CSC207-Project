@@ -2,6 +2,14 @@ package app;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        AppBuilder appBuilder = new AppBuilder();
+        appBuilder.setInMemoryDataAccessor()
+                .addSignupView()
+                .addLoginView()
+                .addCalculatorView()
+                .addTrainerView()
+                .addPuzzleRushView()
+                .addLeaderboardView()
+                .build();
     }
 }
