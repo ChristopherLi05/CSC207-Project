@@ -2,7 +2,6 @@ package view.component;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import view.CalculatorView;
 
 import javax.swing.*;
 import java.awt.*;
