@@ -1,7 +1,7 @@
 package app;
 
-import data_access.DummyDataAccessor;
 import data_access.IDataAccessor;
+import data_access.InMemoryDataAccessor;
 import entity.calculator.HandStateFactory;
 import entity.calculator.IHandStateFactory;
 import entity.user.IUserManager;
@@ -16,11 +16,14 @@ public class App extends JFrame implements IApp {
 
     // Default Implementation
     public App(String title) {
-        super(title);
+        this(title, new UserManager(), new InMemoryDataAccessor(), new HandStateFactory());
+    }
 
-        userManager = new UserManager();
-        dataAccessor = new DummyDataAccessor();
-        handStateFactory = new HandStateFactory();
+    public App(String title, IUserManager userManager, IDataAccessor dataAccessor, IHandStateFactory handStateFactory) {
+        super(title);
+        this.userManager = userManager;
+        this.dataAccessor = dataAccessor;
+        this.handStateFactory = handStateFactory;
     }
 
     public void setUserManager(IUserManager userManager) {

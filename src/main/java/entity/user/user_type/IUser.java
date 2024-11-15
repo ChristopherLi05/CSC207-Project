@@ -1,4 +1,4 @@
-package entity.user;
+package entity.user.user_type;
 
 public interface IUser {
     String getUsername();
@@ -8,4 +8,6 @@ public interface IUser {
     void setBestScore(int score);
 
     boolean isLoggedIn();
+
+    String getSessionId();
 }
