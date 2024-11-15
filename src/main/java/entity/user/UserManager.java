@@ -1,16 +1,17 @@
 package entity.user;
 
+import entity.user.user_type.IUser;
+
 public class UserManager implements IUserManager {
     // Defaults to guest login
     private IUser currentUser;
     private IUserFactory userFactory;
 
     public UserManager() {
-        userFactory = new UserFactory();
-        currentUser = userFactory.createGuest();
+        this(new LocalUserFactory());
     }
 
-    public UserManager(UserFactory userFactory) {
+    public UserManager(LocalUserFactory userFactory) {
         this.userFactory = userFactory;
         this.currentUser = userFactory.createGuest();
     }
@@ -21,8 +22,8 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public void setUserLoggedIn(String name, int bestScore) {
-        this.currentUser = userFactory.create(name, bestScore);
+    public void setUserLoggedIn(String sessionId, String name, int bestScore) {
+        this.currentUser = userFactory.create(sessionId, name, bestScore);
     }
 
     @Override
