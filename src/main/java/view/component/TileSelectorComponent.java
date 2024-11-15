@@ -36,7 +36,6 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
         }
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof MahjongTileInputButton) {
             MahjongTile tile = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
@@ -44,7 +43,7 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
             if (selectorType == ITileSelectorMaster.SelectorType.NONE) {
                 master.addClosedTile(tile);
             } else if (selectorType == ITileSelectorMaster.SelectorType.CHII) {
-
+                // Will add later.
             } else if (selectorType == ITileSelectorMaster.SelectorType.PON) {
                 MahjongGroup group;
 
@@ -60,9 +59,11 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
 
                 master.addPonGroup(group);
             } else if (selectorType == ITileSelectorMaster.SelectorType.CLOSED_KAN) {
-
+                MahjongGroup group = new MahjongGroup(tile, tile, tile, tile);
+                master.addClosedKanGroup(group);
             } else if (selectorType == ITileSelectorMaster.SelectorType.OPEN_KAN) {
-
+                MahjongGroup group = new MahjongGroup(tile, tile, tile, tile);
+                master.addOpenKanGroup(group);
             }
         }
     }
