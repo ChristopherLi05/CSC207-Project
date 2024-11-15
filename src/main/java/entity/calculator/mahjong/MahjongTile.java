@@ -96,4 +96,14 @@ public enum MahjongTile {
 
         return null;
     }
+
+    public static MahjongTile getMahjongTile(int value, MahjongSuit suit, boolean isAka) {
+        for (MahjongTile tile : MahjongTile.values()) {
+            if (tile.getValue() == value && tile.getSuit() == suit && tile.isAka() == isAka) {
+                return tile;
+            }
+        }
+
+        return null;
+    }
 }
