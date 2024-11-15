@@ -1,10 +1,12 @@
 package entity.user.user_type;
 
-public class LocalUser implements IUser {
+public class RemoteUser implements IUser {
     private final String username;
     private int bestScore;
+    private final String sessionId;
 
-    public LocalUser(String username, int bestScore) {
+    public RemoteUser(String sessionId, String username, int bestScore) {
+        this.sessionId = sessionId;
         this.username = username;
         this.bestScore = bestScore;
     }
@@ -31,6 +33,6 @@ public class LocalUser implements IUser {
 
     @Override
     public String getSessionId() {
-        return username;
+        return sessionId;
     }
 }

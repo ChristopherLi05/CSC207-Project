@@ -1,7 +1,5 @@
 package entity.user.user_type;
 
-import entity.user.IUser;
-
 public class GuestUser implements IUser {
     private int bestScore;
 
@@ -23,5 +21,10 @@ public class GuestUser implements IUser {
     @Override
     public boolean isLoggedIn() {
         return false;
+    }
+
+    @Override
+    public String getSessionId() {
+        return "Guest";
     }
 }
