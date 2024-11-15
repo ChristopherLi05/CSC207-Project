@@ -67,4 +67,8 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
             }
         }
     }
+
+    public void setSelectorType(ITileSelectorMaster.SelectorType selectorType) {
+        this.selectorType = selectorType;
+    }
 }
