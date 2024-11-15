@@ -15,4 +15,6 @@ public abstract class AbstractPanel extends JPanel {
     public IApp getMaster() {
         return master;
     }
+
+    public abstract String getViewName();
 }
