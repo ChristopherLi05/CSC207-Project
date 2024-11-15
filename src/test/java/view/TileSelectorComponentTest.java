@@ -18,9 +18,7 @@ class TileSelectorComponentTest {
     void setUp() {
         tileSelectorComponent = new TileSelectorComponent(new ITileSelectorMaster() {
             @Override
-            public void addClosedTile(MahjongTile mahjongTile) {
-                // Implement a simple callback mechanism for test validation if necessary
-            }
+            public void addClosedTile(MahjongTile mahjongTile) {}
 
             @Override
             public void addChiiGroup(MahjongGroup mahjongGroup) {}
