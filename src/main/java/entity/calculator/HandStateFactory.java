@@ -1,12 +1,12 @@
-package calculator;
+package entity.calculator;
 
-import calculator.mahjong.MahjongTile;
-import calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
+import entity.calculator.mahjong.MahjongGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HandStateFactory {
+public class HandStateFactory implements IHandStateFactory {
     // Flags:
     // 0x1 = Ron
     // 0x2 = Tsumo

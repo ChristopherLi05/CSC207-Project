@@ -1,6 +1,6 @@
-package calculator;
+package entity.calculator;
 
-import calculator.yaku.IYakuTestCase;
+import entity.calculator.yaku.IYakuTestCase;
 
 import java.util.ArrayList;
 import java.util.List;

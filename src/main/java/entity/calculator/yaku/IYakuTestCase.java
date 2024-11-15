@@ -1,6 +1,6 @@
-package calculator.yaku;
+package entity.calculator.yaku;
 
-import calculator.HandState;
+import entity.calculator.HandState;
 
 public interface IYakuTestCase {
     boolean isYaku(HandState hand);

@@ -1,4 +1,4 @@
-package calculator.mahjong;
+package entity.calculator.mahjong;
 
 public class MahjongGroup {
     private final MahjongTile[] tiles;
@@ -17,6 +17,18 @@ public class MahjongGroup {
 
     public MahjongGroup(MahjongTile tile1, MahjongTile tile2, MahjongTile tile3, MahjongTile tile4) {
         this.tiles = new MahjongTile[]{tile1, tile2, tile3, tile4};
+    }
+
+    public MahjongTile[] getTiles() {
+        return tiles;
+    }
+
+    public MahjongTile getTile(int index) {
+        return tiles[index];
+    }
+
+    public void setTile(int index, MahjongTile tile) {
+        tiles[index] = tile;
     }
 
     public String getSerialization() {

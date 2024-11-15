@@ -1,5 +1,11 @@
 package view;
 
-public class LeaderboardView {
-    // State Variables should be stored in the View class or something :shrug:
+import app.IApp;
+
+import java.beans.PropertyChangeEvent;
+
+public class LeaderboardView extends AbstractPanel {
+    public LeaderboardView(IApp master) {
+        super(master);
+    }
 }

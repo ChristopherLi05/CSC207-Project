@@ -1,4 +1,4 @@
-package calculator.mahjong;
+package entity.calculator.mahjong;
 
 public enum MahjongSuit {
     MAN(false), PIN(false), SOU(false), DRAGON(true), WIND(true);

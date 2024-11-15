@@ -5,7 +5,7 @@ import use_case.leaderboard.LeaderboardEntry;
 
 import java.util.List;
 
-public class DummyDataAccessor implements LeaderboardDataAccessInterface {
+public class DummyDataAccessor implements IDataAccessor {
     @Override
     public List<LeaderboardEntry> getTopTenLeaderboard() {
         return null;
