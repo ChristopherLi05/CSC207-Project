@@ -22,7 +22,7 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
 
     public TileSelectorComponent(ITileSelectorMaster master) {
         this.master = master;
-        setLayout(new BorderLayout()); // Changed layout to BorderLayout to add control panel
+        setLayout(new BorderLayout());
 
         // Control panel with action type buttons and checkboxes
         JPanel controlPanel = new JPanel(new FlowLayout());
