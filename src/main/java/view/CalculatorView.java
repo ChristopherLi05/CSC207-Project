@@ -64,4 +64,8 @@ public class CalculatorView extends AbstractPanel implements ITileSelectorMaster
             displayHandComponent.addTile(tile);
         }
     }
+
+    public DisplayHandComponent getDisplayHandComponent() {
+        return displayHandComponent;
+    }
 }

@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class DisplayHandComponent extends JPanel {
@@ -51,5 +52,9 @@ public class DisplayHandComponent extends JPanel {
     public void clearSelectedTiles() {
         selectedTiles.clear();
         updateTileDisplay();
+    }
+
+    public List<MahjongTile> getSelectedTiles() {
+        return selectedTiles;
     }
 }
