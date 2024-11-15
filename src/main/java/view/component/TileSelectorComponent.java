@@ -22,20 +22,58 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
 
     public TileSelectorComponent(ITileSelectorMaster master) {
         this.master = master;
-        setLayout(new GridLayout(4, 9));
+        setLayout(new BorderLayout()); // Changed layout to BorderLayout to add control panel
+
+        // Control panel with action type buttons and checkboxes
+        JPanel controlPanel = new JPanel(new FlowLayout());
+
+        // Checkboxes
+        JCheckBox containsAkaCheckbox = new JCheckBox("Contains Aka");
+        containsAkaCheckbox.addActionListener(e -> containsAka = containsAkaCheckbox.isSelected());
+        controlPanel.add(containsAkaCheckbox);
+
+        JCheckBox isOpenCheckbox = new JCheckBox("Is Open", true);
+        isOpenCheckbox.addActionListener(e -> setSelectorType(
+                isOpenCheckbox.isSelected() ? ITileSelectorMaster.SelectorType.OPEN_KAN : ITileSelectorMaster.SelectorType.CLOSED_KAN
+        ));
+        controlPanel.add(isOpenCheckbox);
+
+        add(controlPanel, BorderLayout.NORTH);
+
+        // Action type buttons
+        JButton chiiButton = new JButton("Chi");
+        chiiButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.CHII));
+        controlPanel.add(chiiButton);
+
+        JButton ponButton = new JButton("Pon");
+        ponButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.PON));
+        controlPanel.add(ponButton);
+
+        JButton closedKanButton = new JButton("Closed Kan");
+        closedKanButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.CLOSED_KAN));
+        controlPanel.add(closedKanButton);
+
+        JButton openKanButton = new JButton("Open Kan");
+        openKanButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.OPEN_KAN));
+        controlPanel.add(openKanButton);
+
+        // Tile panel with grid layout for Mahjong tiles
+        JPanel tilePanel = new JPanel(new GridLayout(4, 9));
 
         // Initialize buttons for each MahjongTile in enum
         for (MahjongTile tile : MahjongTile.values()) {
             MahjongTileInputButton button = new MahjongTileInputButton(tile);
             button.addActionListener(this);
             buttons.add(button);
-            add(button);
+            tilePanel.add(button);
 
             // Check for aka (red dora) tiles
             if (tile.isAka()) {
                 containsAka = true;
             }
         }
+
+        add(tilePanel, BorderLayout.CENTER);
     }
 
     public void actionPerformed(ActionEvent e) {
