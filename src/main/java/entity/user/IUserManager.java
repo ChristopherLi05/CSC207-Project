@@ -9,5 +9,7 @@ public interface IUserManager {
 
     void setUserGuest();
 
-    void injectFactory(IUserFactory factory);
+    void setUserFactory(IUserFactory factory);
+
+    IUserFactory getUserFactory();
 }
