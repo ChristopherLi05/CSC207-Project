@@ -1,4 +1,4 @@
-package mahjong;
+package entity.mahjong;
 
 import entity.calculator.HandState;
 import entity.calculator.HandStateFactory;
