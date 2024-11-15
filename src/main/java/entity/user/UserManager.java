@@ -11,7 +11,7 @@ public class UserManager implements IUserManager {
         this(new LocalUserFactory());
     }
 
-    public UserManager(LocalUserFactory userFactory) {
+    public UserManager(IUserFactory userFactory) {
         this.userFactory = userFactory;
         this.currentUser = userFactory.createGuest();
     }
@@ -32,7 +32,12 @@ public class UserManager implements IUserManager {
     }
 
     @Override
-    public void injectFactory(IUserFactory factory) {
+    public void setUserFactory(IUserFactory factory) {
         this.userFactory = factory;
+    }
+
+    @Override
+    public IUserFactory getUserFactory() {
+        return userFactory;
     }
 }
