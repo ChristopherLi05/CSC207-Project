@@ -4,6 +4,7 @@ import entity.calculator.mahjong.MahjongTile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class MahjongTileInputButton extends JButton {
     private final MahjongTile mahjongTile;
@@ -12,10 +13,10 @@ public class MahjongTileInputButton extends JButton {
         this.mahjongTile = tile;
 
         // Load tile image
-        ImageIcon tileImage = new ImageIcon(getClass().getResource("/" + tile.getFilePath()));
+        ImageIcon tileImage = new ImageIcon(Objects.requireNonNull(getClass().getResource(tile.getFilePath())));
         setIcon(tileImage);
-        setPreferredSize(new Dimension(60, 60));
-        setText(tile.name());
+        setPreferredSize(new Dimension(61, 88));
+        setBackground(new Color(255, 255, 255));
     }
 
     public MahjongTile getMahjongTile() {

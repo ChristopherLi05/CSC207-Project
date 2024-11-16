@@ -53,6 +53,8 @@ public class TileSelectorComponent extends JPanel {
             tilePanel.add(button);
         }
 
+        tilePanel.add(new JLabel(""), 30);
+
         add(tilePanel, BorderLayout.CENTER);
     }
 

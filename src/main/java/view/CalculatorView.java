@@ -13,7 +13,6 @@ import java.awt.*;
 public class CalculatorView extends AbstractPanel implements ITileSelectorMaster {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
-    private boolean containsAka = false;
 
     public CalculatorView(IApp master) {
         super(master);
@@ -28,10 +27,6 @@ public class CalculatorView extends AbstractPanel implements ITileSelectorMaster
         add(tileSelectorComponent, BorderLayout.CENTER);
     }
 
-    public void setContainsAka(boolean containsAka) {
-        this.containsAka = containsAka;
-    }
-
     @Override
     public String getViewName() {
         return "CalculatorView";
@@ -39,35 +34,32 @@ public class CalculatorView extends AbstractPanel implements ITileSelectorMaster
 
     @Override
     public void addClosedTile(MahjongTile mahjongTile) {
-        displayHandComponent.addTile(mahjongTile);
+        // Test Code
+        System.out.println("Closed tile: " + mahjongTile);
     }
 
     @Override
     public void addChiiGroup(MahjongGroup mahjongGroup) {
-        for (MahjongTile tile : mahjongGroup.getTiles()) {
-            displayHandComponent.addTile(tile);
-        }
+        // Test Code
+        System.out.println("Chii Group: " + mahjongGroup);
     }
 
     @Override
     public void addPonGroup(MahjongGroup mahjongGroup) {
-        for (MahjongTile tile : mahjongGroup.getTiles()) {
-            displayHandComponent.addTile(tile);
-        }
+        // Test Code
+        System.out.println("Chii Group: " + mahjongGroup);
     }
 
     @Override
     public void addClosedKanGroup(MahjongGroup mahjongGroup) {
-        for (MahjongTile tile : mahjongGroup.getTiles()) {
-            displayHandComponent.addTile(tile);
-        }
+        // Test Code
+        System.out.println("Closed Kan Group: " + mahjongGroup);
     }
 
     @Override
     public void addOpenKanGroup(MahjongGroup mahjongGroup) {
-        for (MahjongTile tile : mahjongGroup.getTiles()) {
-            displayHandComponent.addTile(tile);
-        }
+        // Test Code
+        System.out.println("Open Kan Group: " + mahjongGroup);
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
