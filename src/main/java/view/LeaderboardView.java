@@ -8,4 +8,9 @@ public class LeaderboardView extends AbstractPanel {
     public LeaderboardView(IApp master) {
         super(master);
     }
+
+    @Override
+    public String getViewName() {
+        return "LeaderboardView";
+    }
 }

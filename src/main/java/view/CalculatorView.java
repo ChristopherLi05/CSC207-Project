@@ -33,6 +33,11 @@ public class CalculatorView extends AbstractPanel implements ITileSelectorMaster
     }
 
     @Override
+    public String getViewName() {
+        return "CalculatorView";
+    }
+
+    @Override
     public void addClosedTile(MahjongTile mahjongTile) {
         displayHandComponent.addTile(mahjongTile);
     }
