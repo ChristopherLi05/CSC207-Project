@@ -38,7 +38,7 @@ public class AppBuilder {
     }
 
     public AppBuilder setAPIDataAccessor() {
-        this.app.setDataAccessor(new APIDataAccessor());
+        this.app.setDataAccessor(new APIDataAccessor("http://134.209.160.53:5000"));
         this.app.getUserManager().setUserFactory(new RemoteUserFactory());
         return this;
     }
