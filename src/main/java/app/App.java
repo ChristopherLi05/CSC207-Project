@@ -31,6 +31,7 @@ public class App extends JFrame implements IApp {
         this.handStateFactory = handStateFactory;
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.add(cardPanel);
     }
 
     public void setUserManager(IUserManager userManager) {
