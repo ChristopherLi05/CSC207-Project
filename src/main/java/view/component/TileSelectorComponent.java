@@ -4,13 +4,22 @@ import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class TileSelectorComponent extends JPanel {
+    private final Color UNTOGGLE_COLOR = new Color(0xFFFFFF);
+    private final Color TOGGLE_COLOR = new Color(0x89CFF0);
+
     private final ITileSelectorMaster master;
 
     private boolean containsAka = false;
     private ITileSelectorMaster.SelectorType selectorType = ITileSelectorMaster.SelectorType.NONE;
+
+    private final JButton chiiButton;
+    private final JButton ponButton;
+    private final JButton closedKanButton;
+    private final JButton openKanButton;
 
     public TileSelectorComponent(ITileSelectorMaster master) {
         this.master = master;
@@ -25,21 +34,27 @@ public class TileSelectorComponent extends JPanel {
         controlPanel.add(containsAkaCheckbox);
 
         // Action type buttons
-        JButton chiiButton = new JButton("Chi");
+        chiiButton = new JButton("Chii");
         chiiButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.CHII));
+        chiiButton.setFocusPainted(false);
         controlPanel.add(chiiButton);
 
-        JButton ponButton = new JButton("Pon");
+        ponButton = new JButton("Pon");
         ponButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.PON));
+        ponButton.setFocusPainted(false);
         controlPanel.add(ponButton);
 
-        JButton closedKanButton = new JButton("Closed Kan");
+        closedKanButton = new JButton("Closed Kan");
         closedKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.CLOSED_KAN));
+        closedKanButton.setFocusPainted(false);
         controlPanel.add(closedKanButton);
 
-        JButton openKanButton = new JButton("Open Kan");
+        openKanButton = new JButton("Open Kan");
         openKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.OPEN_KAN));
+        openKanButton.setFocusPainted(false);
         controlPanel.add(openKanButton);
+
+        toggleSelectorType(ITileSelectorMaster.SelectorType.NONE);
 
         // Adding button to control panel
         add(controlPanel, BorderLayout.NORTH);
@@ -54,8 +69,11 @@ public class TileSelectorComponent extends JPanel {
         }
 
         tilePanel.add(new JLabel(""), 30);
+        tilePanel.add(new JLabel(""), 34);
 
         add(tilePanel, BorderLayout.CENTER);
+
+        setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 
     private MahjongTileInputButton getMahjongTileInputButton(MahjongTile tile) {
@@ -82,6 +100,11 @@ public class TileSelectorComponent extends JPanel {
 
     public void toggleSelectorType(ITileSelectorMaster.SelectorType selectorType) {
         this.selectorType = selectorType == this.selectorType ? ITileSelectorMaster.SelectorType.NONE : selectorType;
+
+        this.chiiButton.setBackground(this.selectorType == ITileSelectorMaster.SelectorType.CHII ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.ponButton.setBackground(this.selectorType == ITileSelectorMaster.SelectorType.PON ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.closedKanButton.setBackground(this.selectorType == ITileSelectorMaster.SelectorType.CLOSED_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.openKanButton.setBackground(this.selectorType == ITileSelectorMaster.SelectorType.OPEN_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
     }
 
     private void addClosedTile(MahjongTile tile) {

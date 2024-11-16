@@ -7,6 +7,7 @@ import entity.calculator.HandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
 import entity.user.UserManager;
+import view.CalculatorView;
 
 public class AppBuilder {
     private final App app;
@@ -60,7 +61,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addCalculatorView() {
-        // TODO - do this
+        app.addPanel(new CalculatorView(app));
         return this;
     }
 
