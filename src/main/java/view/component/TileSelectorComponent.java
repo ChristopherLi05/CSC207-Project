@@ -5,16 +5,9 @@ import entity.calculator.mahjong.MahjongTile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
-public class TileSelectorComponent extends JPanel implements ActionListener {
+public class TileSelectorComponent extends JPanel {
     private final ITileSelectorMaster master;
-    private final List<MahjongTileInputButton> buttons = new ArrayList<>();
-    private final List<MahjongTile> chiiTiles = new ArrayList<>();
 
     private boolean containsAka = false;
     private ITileSelectorMaster.SelectorType selectorType = ITileSelectorMaster.SelectorType.NONE;
@@ -31,108 +24,125 @@ public class TileSelectorComponent extends JPanel implements ActionListener {
         containsAkaCheckbox.addActionListener(e -> containsAka = containsAkaCheckbox.isSelected());
         controlPanel.add(containsAkaCheckbox);
 
-        JCheckBox isOpenCheckbox = new JCheckBox("Is Open", true);
-        isOpenCheckbox.addActionListener(e -> setSelectorType(
-                isOpenCheckbox.isSelected() ? ITileSelectorMaster.SelectorType.OPEN_KAN : ITileSelectorMaster.SelectorType.CLOSED_KAN
-        ));
-        controlPanel.add(isOpenCheckbox);
-
-        add(controlPanel, BorderLayout.NORTH);
-
         // Action type buttons
         JButton chiiButton = new JButton("Chi");
-        chiiButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.CHII));
+        chiiButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.CHII));
         controlPanel.add(chiiButton);
 
         JButton ponButton = new JButton("Pon");
-        ponButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.PON));
+        ponButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.PON));
         controlPanel.add(ponButton);
 
         JButton closedKanButton = new JButton("Closed Kan");
-        closedKanButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.CLOSED_KAN));
+        closedKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.CLOSED_KAN));
         controlPanel.add(closedKanButton);
 
         JButton openKanButton = new JButton("Open Kan");
-        openKanButton.addActionListener(e -> setSelectorType(ITileSelectorMaster.SelectorType.OPEN_KAN));
+        openKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorMaster.SelectorType.OPEN_KAN));
         controlPanel.add(openKanButton);
+
+        // Adding button to control panel
+        add(controlPanel, BorderLayout.NORTH);
 
         // Tile panel with grid layout for Mahjong tiles
         JPanel tilePanel = new JPanel(new GridLayout(4, 9));
 
         // Initialize buttons for each MahjongTile in enum
         for (MahjongTile tile : MahjongTile.values()) {
-            MahjongTileInputButton button = new MahjongTileInputButton(tile);
-            button.addActionListener(this);
-            buttons.add(button);
+            MahjongTileInputButton button = getMahjongTileInputButton(tile);
             tilePanel.add(button);
-
-            // Check for aka (red dora) tiles
-            if (tile.isAka()) {
-                containsAka = true;
-            }
         }
 
         add(tilePanel, BorderLayout.CENTER);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof MahjongTileInputButton) {
-            MahjongTile tile = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
+    private MahjongTileInputButton getMahjongTileInputButton(MahjongTile tile) {
+        MahjongTileInputButton button = new MahjongTileInputButton(tile);
+        button.addActionListener(e -> {
+            if (e.getSource() instanceof MahjongTileInputButton) {
+                MahjongTile tile1 = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
 
-            if (selectorType == ITileSelectorMaster.SelectorType.NONE) {
-                master.addClosedTile(tile);
-            } else if (selectorType == ITileSelectorMaster.SelectorType.CHII) {
-                addChiiTile(tile);
-            } else if (selectorType == ITileSelectorMaster.SelectorType.PON) {
-                MahjongGroup group;
-
-                if (tile.isAka()) {
-                    MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
-                    group = new MahjongGroup(tile, tempTile, tempTile);
-                } else if (tile.getValue() == 5 && containsAka) {
-                    MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
-                    group = new MahjongGroup(tempTile, tile, tile);
-                } else {
-                    group = new MahjongGroup(tile, tile, tile);
+                if (selectorType == ITileSelectorMaster.SelectorType.NONE) {
+                    addClosedTile(tile1);
+                } else if (selectorType == ITileSelectorMaster.SelectorType.CHII) {
+                    addChii(tile1);
+                } else if (selectorType == ITileSelectorMaster.SelectorType.PON) {
+                    addPon(tile1);
+                } else if (selectorType == ITileSelectorMaster.SelectorType.CLOSED_KAN) {
+                    addClosedKan(tile1);
+                } else if (selectorType == ITileSelectorMaster.SelectorType.OPEN_KAN) {
+                    addOpenKan(tile1);
                 }
-
-                master.addPonGroup(group);
-            } else if (selectorType == ITileSelectorMaster.SelectorType.CLOSED_KAN) {
-                MahjongGroup group = new MahjongGroup(tile, tile, tile, tile);
-                master.addClosedKanGroup(group);
-            } else if (selectorType == ITileSelectorMaster.SelectorType.OPEN_KAN) {
-                MahjongGroup group = new MahjongGroup(tile, tile, tile, tile);
-                master.addOpenKanGroup(group);
             }
-        }
+        });
+        return button;
     }
 
-    private void addChiiTile(MahjongTile tile) {
-        chiiTiles.add(tile);
+    public void toggleSelectorType(ITileSelectorMaster.SelectorType selectorType) {
+        this.selectorType = selectorType == this.selectorType ? ITileSelectorMaster.SelectorType.NONE : selectorType;
+    }
 
-        // Check if we have three tiles for CHII
-        if (chiiTiles.size() == 3) {
-            // Check if tiles form valid sequence
-            chiiTiles.sort(Comparator.comparingInt(MahjongTile::getValue));
+    private void addClosedTile(MahjongTile tile) {
+        master.addClosedTile(tile);
+    }
 
-            boolean isSameSuit = chiiTiles.get(0).getSuit() == chiiTiles.get(1).getSuit()
-                    && chiiTiles.get(1).getSuit() == chiiTiles.get(2).getSuit();
-            boolean isSequential = chiiTiles.get(1).getValue() == chiiTiles.get(0).getValue() + 1
-                    && chiiTiles.get(2).getValue() == chiiTiles.get(1).getValue() + 1;
+    private void addChii(MahjongTile tile) {
+        if (tile.getValue() < 1 || tile.getValue() > 7) return;
 
-            if (isSameSuit && isSequential) {
-                MahjongGroup chiiGroup = new MahjongGroup(chiiTiles.get(0), chiiTiles.get(1), chiiTiles.get(2));
-                master.addChiiGroup(chiiGroup);
+        MahjongTile[] tiles = new MahjongTile[3];
+        tiles[0] = tile;
+
+        for (int i = 1; i < 3; i++) {
+            if (i + tile.getValue() == 5 && containsAka) {
+                tiles[i] = MahjongTile.getMahjongTile(i + tile.getValue(), tile.getSuit(), true);
             } else {
-                // Handle invalid sequence selection
-                System.out.println("Invalid sequence for CHII. Please select consecutive tiles of the same suit.");
+                tiles[i] = MahjongTile.getMahjongTile(i + tile.getValue(), tile.getSuit(), false);
             }
-            chiiTiles.clear(); // Reset for next CHII selection
         }
+
+        MahjongGroup group = new MahjongGroup(tiles);
+        master.addChiiGroup(group);
     }
 
-    public void setSelectorType(ITileSelectorMaster.SelectorType selectorType) {
-        this.selectorType = selectorType;
+    private void addPon(MahjongTile tile) {
+        MahjongGroup group;
+
+        if (tile.isAka()) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
+            group = new MahjongGroup(tile, tempTile, tempTile);
+        } else if (tile.getValue() == 5 && containsAka) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
+            group = new MahjongGroup(tempTile, tile, tile);
+        } else {
+            group = new MahjongGroup(tile, tile, tile);
+        }
+
+        master.addPonGroup(group);
+    }
+
+    private void addClosedKan(MahjongTile tile) {
+        MahjongGroup group = createKanGroup(tile);
+        master.addClosedKanGroup(group);
+    }
+
+    private void addOpenKan(MahjongTile tile) {
+        MahjongGroup group = createKanGroup(tile);
+        master.addOpenKanGroup(group);
+    }
+
+    private MahjongGroup createKanGroup(MahjongTile tile) {
+        MahjongGroup group;
+
+        if (tile.isAka()) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
+            group = new MahjongGroup(tile, tempTile, tempTile, tempTile);
+        } else if (tile.getValue() == 5 && containsAka) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
+            group = new MahjongGroup(tempTile, tile, tile, tile);
+        } else {
+            group = new MahjongGroup(tile, tile, tile, tile);
+        }
+        return group;
     }
 
     public ITileSelectorMaster.SelectorType getSelectorType() {
