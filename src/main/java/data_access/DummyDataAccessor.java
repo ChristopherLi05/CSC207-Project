@@ -1,6 +1,6 @@
 package data_access;
 
-import use_case.leaderboard.LeaderboardEntry;
+import entity.leaderboard.LeaderboardEntry;
 
 import java.util.List;
 
@@ -21,7 +21,12 @@ public class DummyDataAccessor implements IDataAccessor {
     }
 
     @Override
-    public void updateScore(String name, int score) {
+    public void updateScore(String sessionId, int score) {
+    }
+
+    @Override
+    public int getBestScore(String sessionId) {
+        return 0;
     }
 
     @Override

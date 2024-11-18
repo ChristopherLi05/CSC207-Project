@@ -10,7 +10,7 @@ import view.component.TileSelectorComponent;
 import javax.swing.*;
 import java.awt.*;
 
-public class CalculatorView extends AbstractPanel implements ITileSelectorMaster {
+public class CalculatorView extends AbstractPanel<> implements ITileSelectorMaster {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
 
@@ -25,11 +25,6 @@ public class CalculatorView extends AbstractPanel implements ITileSelectorMaster
         // Initialize and add TileSelectorComponent at center
         tileSelectorComponent = new TileSelectorComponent(this);
         add(tileSelectorComponent, BorderLayout.CENTER);
-    }
-
-    @Override
-    public String getViewName() {
-        return "CalculatorView";
     }
 
     @Override

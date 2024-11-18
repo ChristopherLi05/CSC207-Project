@@ -1,6 +1,6 @@
 package data_access;
 
-import use_case.leaderboard.LeaderboardEntry;
+import entity.leaderboard.LeaderboardEntry;
 
 import java.util.*;
 
@@ -33,17 +33,27 @@ public class InMemoryDataAccessor implements IDataAccessor {
     }
 
     @Override
-    public void updateScore(String name, int score) {
-        LeaderboardEntry entry = findScore(name);
+    public void updateScore(String sessionId, int score) {
+        LeaderboardEntry entry = findScore(sessionId);
         if (entry != null) {
             leaderboard.remove(entry);
         }
 
-        leaderboard.add(new LeaderboardEntry(name, score));
+        leaderboard.add(new LeaderboardEntry(sessionId, score));
         leaderboard.sort(Comparator.comparingInt(LeaderboardEntry::score));
 
         while (leaderboard.size() > 10) {
             leaderboard.remove(leaderboard.size() - 1);
+        }
+    }
+
+    @Override
+    public int getBestScore(String sessionId) {
+        LeaderboardEntry entry = findScore(sessionId);
+        if (entry != null) {
+            return entry.score();
+        } else {
+            return 0;
         }
     }
 
