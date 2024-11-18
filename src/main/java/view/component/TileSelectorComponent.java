@@ -80,6 +80,7 @@ public class TileSelectorComponent extends JPanel {
     private MahjongTileInputButton getMahjongTileInputButton(MahjongTile tile) {
         MahjongTileInputButton button = new MahjongTileInputButton(tile);
         button.addActionListener(e -> {
+            // Send to use case interactor
             if (e.getSource() instanceof MahjongTileInputButton) {
                 MahjongTile tile1 = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
 

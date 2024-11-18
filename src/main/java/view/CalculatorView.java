@@ -4,13 +4,16 @@ import interface_adapter.ViewManager;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import view.component.DisplayHandComponent;
+import view.component.MahjongTileInputButton;
 import view.component.TileSelectorComponent;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class CalculatorView extends AbstractPanel<CalculatorState> implements PropertyChangeListener {
+public class CalculatorView extends AbstractPanel<CalculatorState> implements PropertyChangeListener, ActionListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
 
@@ -37,5 +40,13 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Pr
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Execute controller.
+        if (e.getSource() instanceof MahjongTileInputButton) {
+            //addTileController.execute();
+        }
     }
 }
