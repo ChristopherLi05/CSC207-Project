@@ -2,6 +2,7 @@ package view.component;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
+import interface_adapter.calculator.CalculatorViewState;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -21,7 +22,7 @@ public class TileSelectorComponent extends JPanel {
     private final JButton closedKanButton;
     private final JButton openKanButton;
 
-    public TileSelectorComponent(ITileSelectorMaster master) {
+    public TileSelectorComponent(CalculatorViewState calculatorViewState) {
         this.master = master;
         setLayout(new BorderLayout());
 

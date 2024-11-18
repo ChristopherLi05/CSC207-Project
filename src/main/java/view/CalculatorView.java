@@ -14,7 +14,7 @@ import view.component.TileSelectorComponent;
 import javax.swing.*;
 import java.awt.*;
 
-public class CalculatorView extends AbstractPanel<CalculatorState> implements ITileSelectorMaster {
+public class CalculatorView extends AbstractPanel<CalculatorState> {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
 
@@ -29,36 +29,6 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements IT
         // Initialize and add TileSelectorComponent at center
         tileSelectorComponent = new TileSelectorComponent(this);
         add(tileSelectorComponent, BorderLayout.CENTER);
-    }
-
-    @Override
-    public void addClosedTile(MahjongTile mahjongTile) {
-        // Test Code
-        System.out.println("Closed tile: " + mahjongTile);
-    }
-
-    @Override
-    public void addChiiGroup(MahjongGroup mahjongGroup) {
-        // Test Code
-        System.out.println("Chii Group: " + mahjongGroup);
-    }
-
-    @Override
-    public void addPonGroup(MahjongGroup mahjongGroup) {
-        // Test Code
-        System.out.println("Chii Group: " + mahjongGroup);
-    }
-
-    @Override
-    public void addClosedKanGroup(MahjongGroup mahjongGroup) {
-        // Test Code
-        System.out.println("Closed Kan Group: " + mahjongGroup);
-    }
-
-    @Override
-    public void addOpenKanGroup(MahjongGroup mahjongGroup) {
-        // Test Code
-        System.out.println("Open Kan Group: " + mahjongGroup);
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
