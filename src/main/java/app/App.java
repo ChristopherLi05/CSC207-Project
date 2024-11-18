@@ -6,7 +6,7 @@ import entity.calculator.HandStateFactory;
 import entity.calculator.IHandStateFactory;
 import entity.user.IUserManager;
 import entity.user.UserManager;
-import use_case.ViewManager;
+import interface_adapter.ViewManager;
 import view.AbstractPanel;
 
 import javax.swing.*;

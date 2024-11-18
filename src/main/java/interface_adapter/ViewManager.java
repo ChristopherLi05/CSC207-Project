@@ -1,4 +1,4 @@
-package use_case;
+package interface_adapter;
 
 import util.StateNotifier;
 
