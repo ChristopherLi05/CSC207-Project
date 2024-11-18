@@ -79,7 +79,7 @@ public class UserTest {
         Assertions.assertEquals(manager.getCurrentUser().getUsername(), "Guest");
         Assertions.assertEquals(manager.getCurrentUser().getBestScore(), 0);
 
-        manager.injectFactory(new RemoteUserFactory());
+        manager.setUserFactory(new RemoteUserFactory());
         manager.setUserLoggedIn("test", "test1", 1);
         Assertions.assertInstanceOf(RemoteUser.class, manager.getCurrentUser());
         Assertions.assertEquals(manager.getCurrentUser().getSessionId(), "test");
