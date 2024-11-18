@@ -1,8 +1,12 @@
 package entity.calculator;
 
+import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongSuit;
+import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.yaku.IYakuTestCase;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Calculator {
