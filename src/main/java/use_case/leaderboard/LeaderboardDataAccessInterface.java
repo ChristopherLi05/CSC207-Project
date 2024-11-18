@@ -1,5 +1,7 @@
 package use_case.leaderboard;
 
+import entity.leaderboard.LeaderboardEntry;
+
 import java.util.List;
 
 public interface LeaderboardDataAccessInterface {

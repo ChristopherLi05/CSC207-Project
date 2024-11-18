@@ -11,8 +11,6 @@ import view.AbstractPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class App extends JFrame implements IApp {
     private final CardLayout cardLayout = new CardLayout();
@@ -38,6 +36,9 @@ public class App extends JFrame implements IApp {
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(cardPanel);
+
+        this.setPreferredSize(new Dimension(1000, 600));
+        this.setResizable(false);
     }
 
     public void setUserManager(IUserManager userManager) {
@@ -45,7 +46,7 @@ public class App extends JFrame implements IApp {
     }
 
     @Override
-    public void addPanel(AbstractPanel panel) {
+    public void addPanel(AbstractPanel<?> panel) {
         cardPanel.add(panel, panel.getViewName());
     }
 

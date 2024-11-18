@@ -3,7 +3,7 @@ package data_access;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import use_case.leaderboard.LeaderboardEntry;
+import entity.leaderboard.LeaderboardEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package use_case.leaderboard;
+package entity.leaderboard;
 
 public record LeaderboardEntry(String username, int score) {
 }
