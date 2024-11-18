@@ -4,7 +4,8 @@ public class Main {
     public static void main(String[] args) {
         AppBuilder appBuilder = new AppBuilder();
         appBuilder
-                .setInMemoryDataAccessor()
+//                .setInMemoryDataAccessor()
+                .setAPIDataAccessor()
                 .addSignupView()
                 .addLoginView()
                 .addCalculatorView()
