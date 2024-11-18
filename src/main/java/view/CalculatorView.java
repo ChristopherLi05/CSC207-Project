@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class CalculatorView extends AbstractPanel implements ITileSelectorMaster {
+public class CalculatorView extends AbstractPanel<> implements ITileSelectorMaster {
     private final TileSelectorComponent tileSelectorComponent;
 
     public CalculatorView(IApp master) {

@@ -6,11 +6,11 @@ import interface_adapter.ViewState;
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
 
-public abstract class AbstractPanel extends JPanel {
+public abstract class AbstractPanel<T> extends JPanel {
     private final IApp master;
-    private final ViewState<?> viewState;
+    private final ViewState<T> viewState;
 
-    public AbstractPanel(IApp master, ViewState<?> viewState) {
+    public AbstractPanel(IApp master, ViewState<T> viewState) {
         this.master = master;
         this.viewState = viewState;
     }
@@ -21,5 +21,9 @@ public abstract class AbstractPanel extends JPanel {
 
     public String getViewName() {
         return viewState.getViewName();
+    }
+
+    public ViewState<T> getViewState() {
+        return viewState;
     }
 }

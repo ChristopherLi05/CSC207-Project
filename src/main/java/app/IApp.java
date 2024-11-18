@@ -7,7 +7,7 @@ import interface_adapter.ViewManager;
 import view.AbstractPanel;
 
 public interface IApp {
-    void addPanel(AbstractPanel panel);
+    void addPanel(AbstractPanel<?> panel);
 
     IUserManager getUserManager();
 
