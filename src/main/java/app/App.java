@@ -83,14 +83,11 @@ public class App extends JFrame implements IApp {
     }
 
     private void addViewManagerListener() {
-        this.viewManager.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("state".equals(evt.getPropertyName())) {
-                    displayCard((String) evt.getNewValue());
-                } else {
-                    throw new RuntimeException("Non state call to view manager");
-                }
+        this.viewManager.addPropertyChangeListener(evt -> {
+            if ("state".equals(evt.getPropertyName())) {
+                displayCard((String) evt.getNewValue());
+            } else {
+                throw new RuntimeException("Non state call to view manager");
             }
         });
     }
