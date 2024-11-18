@@ -8,9 +8,4 @@ public class TrainerView extends AbstractPanel {
     public TrainerView(IApp master) {
         super(master);
     }
-
-    @Override
-    public String getViewName() {
-        return "TrainerView";
-    }
 }

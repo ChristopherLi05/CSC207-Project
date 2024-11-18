@@ -2,7 +2,7 @@ package interface_adapter;
 
 import util.StateNotifier;
 
-public class ViewState<T> extends StateNotifier<T> {
+public abstract class ViewState<T> extends StateNotifier<T> {
     private final String viewName;
 
     public ViewState(String viewName, T state) {
