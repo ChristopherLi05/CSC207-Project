@@ -44,6 +44,9 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
                 showPanel.update(state);
                 loadingShowLayout.show(loadingShowPanel, "show");
             }
+
+            revalidate();
+            repaint();
         } else {
             throw new RuntimeException("Leaderboard Component should never reach here");
         }
@@ -89,8 +92,6 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
                 this.add(username);
                 this.add(score);
             }
-
-            repaint();
         }
     }
 }
