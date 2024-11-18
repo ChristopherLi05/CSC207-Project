@@ -1,4 +1,4 @@
-package interface_adapter.Trainer;
+package interface_adapter.trainer;
 
 public class TrainerPresenter {
 }

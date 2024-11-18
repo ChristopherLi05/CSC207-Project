@@ -1,4 +1,4 @@
-package interface_adapter.Trainer;
+package interface_adapter.trainer;
 
 import use_case.trainer.TrainerInputBoundry;
 import use_case.trainer.TrainerInputData;
@@ -11,7 +11,7 @@ public class TrainerController {
     }
 
 
-    public void execute(long attempt) {
+    public void execute(int attempt) {
         final TrainerInputData trainerInputData = new TrainerInputData(attempt);
 
         trainerUseCaseInteractor.execute(trainerInputData);
