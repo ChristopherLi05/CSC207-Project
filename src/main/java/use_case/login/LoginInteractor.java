@@ -12,7 +12,11 @@ public class LoginInteractor implements LoginInputBoundary {
         this.loginPresenter = loginPresenter;
     }
 
-    public void execute(LoginInputData loginInputData) {
+    public void guestLogin() {
+        // TODO: implement
+    }
+
+    public void login(LoginInputData loginInputData) {
         final String username = loginInputData.getUsername();
         final String password = loginInputData.getPassword();
         final String result = dataAccessor.logIn(username, password);
@@ -22,5 +26,9 @@ public class LoginInteractor implements LoginInputBoundary {
         } else {
 
         }
+    }
+
+    public void signup() {
+        // TODO: implement
     }
 }

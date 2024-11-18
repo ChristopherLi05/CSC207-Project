@@ -10,8 +10,16 @@ public class LoginController {
         this.loginUseCaseInteractor = loginUseCaseInteractor;
     }
 
-    public void execute(String username, String password) {
+    public void guestLogin() {
+        loginUseCaseInteractor.guestLogin();
+    }
+
+    public void logIn(String username, String password) {
         final LoginInputData loginInputData = new LoginInputData(username, password);
-        loginUseCaseInteractor.execute(loginInputData);
+        loginUseCaseInteractor.login(loginInputData);
+    }
+
+    public void signup() {
+        loginUseCaseInteractor.signup();
     }
 }
