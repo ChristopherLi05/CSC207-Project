@@ -7,8 +7,10 @@ import view.component.DisplayHandComponent;
 import view.component.TileSelectorComponent;
 
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class CalculatorView extends AbstractPanel<CalculatorState> {
+public class CalculatorView extends AbstractPanel<CalculatorState> implements PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
 
@@ -23,9 +25,17 @@ public class CalculatorView extends AbstractPanel<CalculatorState> {
         // Initialize and add TileSelectorComponent at center
         tileSelectorComponent = new TileSelectorComponent(viewState);
         add(tileSelectorComponent, BorderLayout.CENTER);
+
+        viewState.addPropertyChangeListener(this);
+        viewManager.addPropertyChangeListener(this);
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
         return displayHandComponent;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
     }
 }
