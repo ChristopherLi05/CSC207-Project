@@ -4,7 +4,7 @@ import util.StateNotifier;
 
 public class ViewManager extends StateNotifier<String> {
     public ViewManager() {
-        super("none");
+        super("");
     }
 
     public void setView(String viewName) {
