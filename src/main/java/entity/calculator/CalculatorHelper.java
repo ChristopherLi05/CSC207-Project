@@ -1,9 +1,11 @@
 package entity.calculator;
 
+import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongSuit;
 import entity.calculator.mahjong.MahjongTile;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class CalculatorHelper {
             if (countNumTiles(tiles, tile.getValue(), tile.getSuit()) >= 2) {
                 HandGrouping grouping = new HandGrouping(new ArrayList<>(tiles));
 
-                MahjongTile tile1 = grouping.getUngroupedTiles().remove(indexTile(grouping.getUngroupedTiles(), tile.getValue(), tile.getSuit()));
-                MahjongTile tile2 = grouping.getUngroupedTiles().remove(indexTile(grouping.getUngroupedTiles(), tile.getValue(), tile.getSuit()));
+                MahjongTile tile1 = grouping.extractTile(tile.getValue(), tile.getSuit());
+                MahjongTile tile2 = grouping.extractTile(tile.getValue(), tile.getSuit());
 
                 grouping.setPair(tile1, tile2);
                 groups.add(grouping);
@@ -38,6 +40,27 @@ public class CalculatorHelper {
         }
     }
 
+    public static List<HandGrouping> extractGroup(HandGrouping state) {
+        if (state.getUngroupedTiles().isEmpty()) return Collections.singletonList(state);
+
+        List<HandGrouping> extractedGroupings = new ArrayList<>();
+
+        if (containsChiiGroup(state)) {
+            extractedGroupings.add(extractChiiGroup(state));
+        }
+
+        if (containsPonGroup(state)) {
+            extractedGroupings.add(extractPonGroup(state));
+        }
+
+        List<HandGrouping> finishedGroupings = new ArrayList<>();
+        for (HandGrouping grouping : extractedGroupings) {
+            finishedGroupings.addAll(extractGroup(grouping));
+        }
+
+        return finishedGroupings;
+    }
+
     public static int countNumTiles(List<MahjongTile> tileList, int value, MahjongSuit suit) {
         int count = 0;
         for (MahjongTile tile : tileList) {
@@ -49,22 +72,35 @@ public class CalculatorHelper {
         return count;
     }
 
-    public static int indexTile(List<MahjongTile> tileList, int value, MahjongSuit suit) {
-        for (int i = 0; i < tileList.size(); i++) {
-            MahjongTile tile = tileList.get(i);
-            if (tile.getValue() == value && tile.getSuit() == suit) {
-                return i;
-            }
-        }
-
-        return -1;
+    public static boolean containsChiiGroup(HandGrouping grouping) {
+        if (grouping.getFirstTile().getValue() <= 0 || grouping.getFirstTile().getValue() > 7) return false;
+        return (countNumTiles(grouping.getUngroupedTiles(), grouping.getFirstTile().getValue() + 1, grouping.getFirstTile().getSuit()) > 0 &&
+                countNumTiles(grouping.getUngroupedTiles(), grouping.getFirstTile().getValue() + 2, grouping.getFirstTile().getSuit()) > 0);
     }
 
-    public static boolean containsChiiGroup(HandGrouping grouping) {
-        return false;
+    public static HandGrouping extractChiiGroup(HandGrouping grouping) {
+        HandGrouping copy = grouping.copy();
+
+        MahjongTile tile1 = grouping.getUngroupedTiles().remove(0);
+        MahjongTile tile2 = grouping.extractTile(tile1.getValue() + 1, tile1.getSuit());
+        MahjongTile tile3 = grouping.extractTile(tile1.getValue() + 2, tile1.getSuit());
+
+        copy.addGroup(new MahjongGroup(tile1, tile2, tile3));
+        return copy;
     }
 
     public static boolean containsPonGroup(HandGrouping grouping) {
-        return false;
+        return countNumTiles(grouping.getUngroupedTiles(), grouping.getFirstTile().getValue(), grouping.getFirstTile().getSuit()) >= 3;
+    }
+
+    public static HandGrouping extractPonGroup(HandGrouping grouping) {
+        HandGrouping copy = grouping.copy();
+
+        MahjongTile tile1 = grouping.getUngroupedTiles().remove(0);
+        MahjongTile tile2 = grouping.extractTile(tile1.getValue(), tile1.getSuit());
+        MahjongTile tile3 = grouping.extractTile(tile1.getValue(), tile1.getSuit());
+
+        copy.addGroup(new MahjongGroup(tile1, tile2, tile3));
+        return copy;
     }
 }

@@ -1,6 +1,7 @@
 package entity.calculator;
 
 import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongSuit;
 import entity.calculator.mahjong.MahjongTile;
 
 import java.util.ArrayList;
@@ -33,6 +34,26 @@ public class HandGrouping {
 
     public List<MahjongTile> getUngroupedTiles() {
         return ungroupedTiles;
+    }
+
+    public MahjongTile getFirstTile() {
+        if (ungroupedTiles.isEmpty()) {
+            return null;
+        } else {
+            return ungroupedTiles.get(0);
+        }
+    }
+
+    public MahjongTile extractTile(int value, MahjongSuit suit) {
+        for (int i = 0; i < ungroupedTiles.size(); i++) {
+            MahjongTile tile = ungroupedTiles.get(i);
+            if (tile.getValue() == value && tile.getSuit() == suit) {
+                ungroupedTiles.remove(i);
+                return tile;
+            }
+        }
+
+        return null;
     }
 
     public HandGrouping copy() {
