@@ -7,21 +7,28 @@ import entity.calculator.HandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
 import entity.user.UserManager;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewState;
 import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
+import view.LoginView;
 import view.LeaderboardView;
 
 public class AppBuilder {
     private final App app;
 
     // Views
+    private LoginView loginView;
     private LeaderboardView leaderboardView;
 
     // ViewStates
+    private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
 
     public AppBuilder() {
@@ -68,7 +75,11 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginView() {
-        // TODO - do this
+        loginViewState = new LoginViewState("LoginView", new LoginState());
+//      // loginViewState.setState(new LoginState());
+
+        loginView = new LoginView(loginViewState);
+        app.addPanel(loginView);
         return this;
     }
 
