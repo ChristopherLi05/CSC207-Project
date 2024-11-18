@@ -10,7 +10,7 @@ import view.component.TileSelectorComponent;
 import javax.swing.*;
 import java.awt.*;
 
-public class CalculatorView extends AbstractPanel<> implements ITileSelectorMaster {
+public class CalculatorView extends AbstractPanel<CalculatorState> implements ITileSelectorMaster {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
 
