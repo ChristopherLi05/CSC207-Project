@@ -44,9 +44,6 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
                 showPanel.update(state);
                 loadingShowLayout.show(loadingShowPanel, "show");
             }
-
-            revalidate();
-            repaint();
         } else {
             throw new RuntimeException("Leaderboard Component should never reach here");
         }
@@ -86,11 +83,20 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
             int i = 1;
             for (LeaderboardEntry entry : state.getLeaderboardEntries()) {
                 JLabel username = new JLabel(i++ + ". " + entry.username());
+                username.setHorizontalAlignment(SwingConstants.CENTER);
                 JLabel score = new JLabel(String.valueOf(entry.score()));
                 score.setHorizontalAlignment(SwingConstants.CENTER);
 
                 this.add(username);
                 this.add(score);
+            }
+
+            while (i < 11) {
+                JLabel username = new JLabel(i++ + ". ");
+                username.setHorizontalAlignment(SwingConstants.CENTER);
+
+                this.add(username);
+                this.add(new JLabel(""));
             }
         }
     }
