@@ -7,9 +7,22 @@ import entity.calculator.HandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
 import entity.user.UserManager;
+import interface_adapter.leaderboard.LeaderboardController;
+import interface_adapter.leaderboard.LeaderboardPresenter;
+import interface_adapter.leaderboard.LeaderboardState;
+import interface_adapter.leaderboard.LeaderboardViewState;
+import use_case.leaderboard.LeaderboardInteractor;
+import use_case.leaderboard.LeaderboardOutputBoundary;
+import view.LeaderboardView;
 
 public class AppBuilder {
     private final App app;
+
+    // Views
+    private LeaderboardView leaderboardView;
+
+    // ViewStates
+    private LeaderboardViewState leaderboardViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -75,7 +88,20 @@ public class AppBuilder {
     }
 
     public AppBuilder addLeaderboardView() {
-        // TODO - do this
+        leaderboardViewState = new LeaderboardViewState("LeaderboardView", new LeaderboardState());
+        leaderboardViewState.setState(new LeaderboardState());
+
+        leaderboardView = new LeaderboardView(leaderboardViewState, app.getViewManager());
+        app.addPanel(leaderboardView);
+        return this;
+    }
+
+    public AppBuilder addLeaderboardUseCase() {
+        LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewState);
+        LeaderboardInteractor leaderboardInteractor = new LeaderboardInteractor(leaderboardOutputBoundary, app.getDataAccessor());
+
+        LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor, leaderboardViewState);
+        leaderboardView.setLeaderboardController(leaderboardController);
         return this;
     }
 
