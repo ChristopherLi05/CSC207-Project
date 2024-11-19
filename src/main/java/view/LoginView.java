@@ -6,8 +6,11 @@ import interface_adapter.login.LoginState;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginView extends AbstractPanel<LoginState> {
+
     private final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
@@ -42,9 +45,40 @@ public class LoginView extends AbstractPanel<LoginState> {
         signup = new JButton("sign up");
         buttons.add(signup);
 
-//        logIn.addActionListener();
-//        guest.addActionListener();
-//        signup.addActionListener();
+        logIn.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logIn)) {
+                            final LoginState currentState = viewState.getState();
+
+                            loginController.logIn(
+                                    currentState.getUsername(),
+                                    currentState.getPassword()
+                            );
+                        }
+            }
+        }
+        );
+
+        guest.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(guest)) {
+                            loginController.guestLogin();
+                        }
+                    }
+                }
+        );
+
+        signup.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(signup)) {
+                            loginController.signup();
+                        }
+                    }
+                }
+        );
 
         this.add(title);
         this.add(usernameInfo);
