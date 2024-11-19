@@ -13,7 +13,8 @@ public class LoginInteractor implements LoginInputBoundary {
     }
 
     public void guestLogin() {
-        // TODO: implement
+        final LoginOutputData loginOutputData = new LoginOutputData("Guest", false);
+        loginPresenter.prepareCalculatorView(loginOutputData);
     }
 
     public void login(LoginInputData loginInputData) {
@@ -22,13 +23,14 @@ public class LoginInteractor implements LoginInputBoundary {
         final String result = dataAccessor.logIn(username, password);
 
         if (!result.equals(username)) {
-            loginPresenter.prepareFailView();
+            loginPresenter.prepareFailView("Incorrect username or password");
         } else {
-
+            final LoginOutputData loginOutputData = new LoginOutputData(result, false);
+            loginPresenter.prepareCalculatorView(loginOutputData);
         }
     }
 
     public void signup() {
-        // TODO: implement
+        loginPresenter.prepareSignupView();
     }
 }
