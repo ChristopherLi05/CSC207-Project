@@ -15,10 +15,13 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewState;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import view.LoginView;
 import view.LeaderboardView;
+import view.SignupView;
 
 public class AppBuilder {
     private final App app;
@@ -26,10 +29,12 @@ public class AppBuilder {
     // Views
     private LoginView loginView;
     private LeaderboardView leaderboardView;
+    private SignupView signupView;
 
     // ViewStates
     private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
+    private SignupViewState signupViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -70,7 +75,11 @@ public class AppBuilder {
     }
 
     public AppBuilder addSignupView() {
-        // TODO - do this
+        signupViewState = new SignupViewState("LeaderboardView", new SignupState());
+        signupViewState.setState(new SignupState());
+
+        signupView = new SignupView(signupViewState, app.getViewManager());
+        app.addPanel(signupView);
         return this;
     }
 
