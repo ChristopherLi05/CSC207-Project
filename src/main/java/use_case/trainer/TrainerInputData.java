@@ -1,14 +1,21 @@
 package use_case.trainer;
 
+import entity.calculator.HandState;
+
 public class TrainerInputData {
+    private final int attempt;
+    private final HandState handState;
 
-    private final long attempt;
-
-    public TrainerInputData(long attempt) {
+    public TrainerInputData(int attempt, HandState handState) {
         this.attempt = attempt;
+        this.handState = handState;
     }
 
-    long getAttempt() {
-            return attempt;
-        }
+    public int getAttempt() {
+        return attempt;
+    }
+
+    public HandState getHandState() {
+        return handState;
+    }
 }
