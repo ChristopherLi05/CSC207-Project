@@ -3,6 +3,7 @@ package interface_adapter.calculator;
 import entity.calculator.Calculator;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
+import use_case.addtile.AddTileOutputData;
 import view.component.ITileSelectorMaster;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class CalculatorState implements ITileSelectorMaster {
     private boolean rinshanKaihou;
     private boolean haitei;
     private boolean houtei;
+
+    public CalculatorState(AddTileOutputData outputData) {
+    }
 
     public List<MahjongTile> getSelectedTiles() {
         return selectedTiles;
