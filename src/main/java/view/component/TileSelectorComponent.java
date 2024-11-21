@@ -109,69 +109,6 @@ public class TileSelectorComponent extends JPanel {
         this.openKanButton.setBackground(this.selectorType == ITileSelectorMaster.SelectorType.OPEN_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
     }
 
-    private void addClosedTile(MahjongTile tile) {
-        master.addClosedTile(tile);
-    }
-
-    private void addChii(MahjongTile tile) {
-        if (tile.getValue() < 1 || tile.getValue() > 7) return;
-
-        MahjongTile[] tiles = new MahjongTile[3];
-        tiles[0] = tile;
-
-        for (int i = 1; i < 3; i++) {
-            if (i + tile.getValue() == 5 && containsAka) {
-                tiles[i] = MahjongTile.getMahjongTile(i + tile.getValue(), tile.getSuit(), true);
-            } else {
-                tiles[i] = MahjongTile.getMahjongTile(i + tile.getValue(), tile.getSuit(), false);
-            }
-        }
-
-        MahjongGroup group = new MahjongGroup(tiles);
-        master.addChiiGroup(group);
-    }
-
-    private void addPon(MahjongTile tile) {
-        MahjongGroup group;
-
-        if (tile.isAka()) {
-            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
-            group = new MahjongGroup(tile, tempTile, tempTile);
-        } else if (tile.getValue() == 5 && containsAka) {
-            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
-            group = new MahjongGroup(tempTile, tile, tile);
-        } else {
-            group = new MahjongGroup(tile, tile, tile);
-        }
-
-        master.addPonGroup(group);
-    }
-
-    private void addClosedKan(MahjongTile tile) {
-        MahjongGroup group = createKanGroup(tile);
-        master.addClosedKanGroup(group);
-    }
-
-    private void addOpenKan(MahjongTile tile) {
-        MahjongGroup group = createKanGroup(tile);
-        master.addOpenKanGroup(group);
-    }
-
-    private MahjongGroup createKanGroup(MahjongTile tile) {
-        MahjongGroup group;
-
-        if (tile.isAka()) {
-            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
-            group = new MahjongGroup(tile, tempTile, tempTile, tempTile);
-        } else if (tile.getValue() == 5 && containsAka) {
-            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
-            group = new MahjongGroup(tempTile, tile, tile, tile);
-        } else {
-            group = new MahjongGroup(tile, tile, tile, tile);
-        }
-        return group;
-    }
-
     public ITileSelectorMaster.SelectorType getSelectorType() {
         return selectorType;
     }

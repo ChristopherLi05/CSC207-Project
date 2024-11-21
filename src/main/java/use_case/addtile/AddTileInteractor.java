@@ -1,6 +1,7 @@
 package use_case.addtile;
 
 import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
 import view.component.ITileSelectorMaster;
 import view.component.MahjongTileInputButton;
 
@@ -9,36 +10,87 @@ public class AddTileInteractor implements AddTileInputBoundary {
     @Override
     public void execute(AddTileInputData inputData) {
         // Create tile
-        MahjongGroup newTiles = addTiles(inputData);
+        Object newTiles = addTiles(inputData);
+
     }
 
-    private MahjongGroup addTiles(AddTileInputData inputData) {
+    private Object addTiles(AddTileInputData inputData) {
         if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.NONE) {
-            addClosedTile(inputData);
+            return addClosedTile(inputData);
         } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.CHII) {
-            addChii(inputData);
+            return addChii(inputData);
         } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.PON) {
-            addPon(inputData);
+            return addPon(inputData);
         } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.CLOSED_KAN) {
-            addClosedKan(inputData);
+            return addClosedKan(inputData);
         } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.OPEN_KAN) {
-            addOpenKan(inputData);
+            return addOpenKan(inputData);
         }
     }
 
-    private void addClosedTile(AddTileInputData inputData) {
+    private Object addClosedTile(AddTileInputData inputData) {
+        return inputData.getTile();
     }
 
-    private void addChii(AddTileInputData inputData) {
+    private Object addChii(AddTileInputData inputData) {
+        MahjongTile tile = inputData.getTile();
+        if (tile.getValue() < 1 || tile.getValue() > 7) {return null;}
+
+        MahjongTile[] tiles = new MahjongTile[3];
+
+        tiles[0] = tile;
+
+        for (int i = 1; i < 3; i++) {
+            if (i + tile.getValue() == 5 && inputData.isAka()) {
+                tiles[i] = MahjongTile.getMahjongTile(i + tile.getValue(), tile.getSuit(), true);
+            } else {
+                tiles[i] = MahjongTile.getMahjongTile(i + tile.getValue(), tile.getSuit(), false);
+            }
+        }
+
+        return new MahjongGroup(tiles);
     }
 
-    private void addPon(AddTileInputData inputData) {
+    private MahjongGroup addPon(AddTileInputData inputData) {
+        MahjongTile tile = inputData.getTile();
+        MahjongGroup group;
+
+        if (tile.isAka()) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
+            group = new MahjongGroup(tile, tempTile, tempTile);
+        } else if (tile.getValue() == 5 && inputData.isAka()) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
+            group = new MahjongGroup(tempTile, tile, tile);
+        } else {
+            group = new MahjongGroup(tile, tile, tile);
+        }
+
+        return group;
     }
 
-    private void addClosedKan(AddTileInputData inputData) {
+    private MahjongGroup addClosedKan(AddTileInputData inputData) {
+        // Not sure how to do open kan vs closed kan
+        return createKanGroup(inputData);
     }
 
-    private void addOpenKan(AddTileInputData inputData) {
+    private MahjongGroup addOpenKan(AddTileInputData inputData) {
+        // Not sure how to do open kan vs closed kan
+        return createKanGroup(inputData);
     }
 
+    private MahjongGroup createKanGroup(AddTileInputData inputData) {
+        MahjongTile tile = inputData.getTile();
+        MahjongGroup group;
+
+        if (tile.isAka()) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), false);
+            group = new MahjongGroup(tile, tempTile, tempTile, tempTile);
+        } else if (tile.getValue() == 5 && inputData.isAka()) {
+            MahjongTile tempTile = MahjongTile.getMahjongTile(tile.getValue(), tile.getSuit(), true);
+            group = new MahjongGroup(tempTile, tile, tile, tile);
+        } else {
+            group = new MahjongGroup(tile, tile, tile, tile);
+        }
+        return group;
+    }
 }
