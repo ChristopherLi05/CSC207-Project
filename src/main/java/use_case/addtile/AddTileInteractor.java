@@ -2,9 +2,7 @@ package use_case.addtile;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import interface_adapter.addtile.AddTileViewState;
 import view.component.ITileSelectorMaster;
-import view.component.MahjongTileInputButton;
 
 public class AddTileInteractor implements AddTileInputBoundary {
     AddTileOutputBoundary addTileOutputBoundary;
@@ -15,11 +13,14 @@ public class AddTileInteractor implements AddTileInputBoundary {
 
     @Override
     public void execute(AddTileInputData inputData) {
-        // Create tiles to send to input boundary
+        // Create tiles
         Object newTiles = addTiles(inputData);
 
+        // Package tiles into output data
+        AddTileOutputData outputData = new AddTileOutputData(newTiles);
+
         // Pass tiles to output boundary
-        addTileOutputBoundary.execute(newTiles);
+        addTileOutputBoundary.execute(outputData);
     }
 
     private Object addTiles(AddTileInputData inputData) {
