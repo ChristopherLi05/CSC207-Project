@@ -69,6 +69,7 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
                                     currentState.getPassword(),
                                     currentState.getRepeatPassword()
                             );
+                            clearFields();
                         }
                     }
                 }
@@ -95,6 +96,12 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
+    }
+
+    private void clearFields() {
+        usernameInputField.setText("");
+        passwordInputField.setText("");
+        repeatPasswordInputField.setText("");
     }
 
     private void addUsernameListener() {

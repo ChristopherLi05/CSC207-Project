@@ -68,10 +68,10 @@ public class AppBuilder {
     }
 
     public AppBuilder addSignupView() {
-        signupViewState = new SignupViewState("LeaderboardView", new SignupState());
+        signupViewState = new SignupViewState("SignupView", new SignupState());
         signupViewState.setState(new SignupState());
 
-        signupView = new SignupView(signupViewState, app.getViewManager());
+        signupView = new SignupView(signupViewState, app.getViewManager(), signupViewState);
         app.addPanel(signupView);
         return this;
     }
