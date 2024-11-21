@@ -3,20 +3,24 @@ package use_case.addtile;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 public class AddTileOutputData {
-    private String type = null;
-    private Object newTiles = null;
+    private final List<MahjongTile> selectedTiles = new ArrayList<>();
 
     public AddTileOutputData(Object newTiles) {
-        this.newTiles = newTiles;
         if (newTiles instanceof MahjongGroup) {
-            this.type = "group";
+            this.selectedTiles.addAll(Arrays.asList(((MahjongGroup) newTiles).getTiles()));
         }
         else if (newTiles instanceof MahjongTile) {
-            this.type = "tile";
+            this.selectedTiles.add((MahjongTile) newTiles);
         }
-        else {
-            this.type = "none";
-        }
+    }
+
+    public Collection<MahjongTile> getSelectedTiles() {
+        return selectedTiles;
     }
 }
