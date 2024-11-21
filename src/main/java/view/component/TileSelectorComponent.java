@@ -22,7 +22,7 @@ public class TileSelectorComponent extends JPanel {
     private final JButton openKanButton;
 
     public TileSelectorComponent(CalculatorViewState calculatorViewState) {
-        this.master = master;
+        this.master = null;
         setLayout(new BorderLayout());
 
         // Control panel with action type buttons and checkboxes
