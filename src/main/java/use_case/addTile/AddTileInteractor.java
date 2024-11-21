@@ -14,13 +14,13 @@ public class AddTileInteractor implements AddTileInputBoundary {
     @Override
     public void execute(AddTileInputData inputData) {
         // Create tiles
-        Object newTiles = addTiles(inputData);
+        AddTileOutputBoundary newTiles = addTiles(inputData);
 
         // Pass tiles to output boundary
         addTileOutputBoundary.present(new AddTileOutputData(newTiles));
     }
 
-    private Object addTiles(AddTileInputData inputData) {
+    private AddTileOutputBoundary addTiles(AddTileInputData inputData) {
         if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.NONE) {
             return addClosedTile(inputData);
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CHII) {
@@ -35,11 +35,11 @@ public class AddTileInteractor implements AddTileInputBoundary {
         return null;
     }
 
-    private Object addClosedTile(AddTileInputData inputData) {
+    private AddTileOutputBoundary addClosedTile(AddTileInputData inputData) {
         return inputData.getTile();
     }
 
-    private Object addChii(AddTileInputData inputData) {
+    private AddTileOutputBoundary addChii(AddTileInputData inputData) {
         MahjongTile tile = inputData.getTile();
         if (tile.getValue() < 1 || tile.getValue() > 7) {return null;}
 
@@ -58,7 +58,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
         return new MahjongGroup(tiles);
     }
 
-    private MahjongGroup addPon(AddTileInputData inputData) {
+    private AddTileOutputBoundary addPon(AddTileInputData inputData) {
         MahjongTile tile = inputData.getTile();
         MahjongGroup group;
 
@@ -75,12 +75,12 @@ public class AddTileInteractor implements AddTileInputBoundary {
         return group;
     }
 
-    private MahjongGroup addClosedKan(AddTileInputData inputData) {
+    private AddTileOutputBoundary addClosedKan(AddTileInputData inputData) {
         // Not sure how to do open kan vs closed kan
         return createKanGroup(inputData);
     }
 
-    private MahjongGroup addOpenKan(AddTileInputData inputData) {
+    private AddTileOutputBoundary addOpenKan(AddTileInputData inputData) {
         // Not sure how to do open kan vs closed kan
         return createKanGroup(inputData);
     }

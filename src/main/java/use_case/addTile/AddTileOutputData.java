@@ -9,18 +9,34 @@ import java.util.Collection;
 import java.util.List;
 
 public class AddTileOutputData {
-    private final List<MahjongTile> selectedTiles = new ArrayList<>();
+    private final List<MahjongTile> addedTile = new ArrayList<>();
+    private final List<MahjongGroup> addedClosedGroup = new ArrayList<>();
+    private final List<MahjongGroup> addedOpenGroup = new ArrayList<>();
 
-    public AddTileOutputData(Object newTiles) {
-        if (newTiles instanceof MahjongGroup) {
-            this.selectedTiles.addAll(Arrays.asList(((MahjongGroup) newTiles).getTiles()));
-        }
-        else if (newTiles instanceof MahjongTile) {
-            this.selectedTiles.add((MahjongTile) newTiles);
-        }
+    public AddTileOutputData() {
     }
 
-    public Collection<MahjongTile> getSelectedTiles() {
-        return selectedTiles;
+    public void addTile(MahjongTile tile) {
+        this.addedTile.add(tile);
+    }
+
+    public void addClosedGroup(MahjongGroup mahjongGroup) {
+        this.addedClosedGroup.add(mahjongGroup);
+    }
+
+    public void addOpenGroup(MahjongGroup mahjongGroup) {
+        this.addedOpenGroup.add(mahjongGroup);
+    }
+
+    public List<MahjongGroup> getAddedClosedGroup() {
+        return addedClosedGroup;
+    }
+
+    public List<MahjongGroup> getAddedOpenGroup() {
+        return addedOpenGroup;
+    }
+
+    public List<MahjongTile> getAddedTile() {
+        return addedTile;
     }
 }

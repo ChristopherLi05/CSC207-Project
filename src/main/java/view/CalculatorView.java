@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.ViewManager;
-import interface_adapter.addtile.AddTileController;
+import interface_adapter.addTile.AddTileController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import view.component.DisplayHandComponent;
