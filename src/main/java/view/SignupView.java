@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -13,11 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import interface_adapter.ViewManager;
-import interface_adapter.ViewState;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
@@ -30,7 +25,7 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
     private SignupController signupController;
 
     private final JButton signUp;
-    private final JButton cancel;
+    private final JButton guest;
     private final JButton toLogin;
 
     public SignupView(SignupViewState viewState, ViewManager viewManager) {
@@ -52,8 +47,8 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
         buttons.add(toLogin);
         signUp = new JButton(viewState.SIGNUP_BUTTON_LABEL);
         buttons.add(signUp);
-        cancel = new JButton(viewState.CANCEL_BUTTON_LABEL);
-        buttons.add(cancel);
+        guest = new JButton(viewState.GUEST_BUTTON_LABEL);
+        buttons.add(guest);
 
 //        signUp.addActionListener(
 //                // This creates an anonymous subclass of ActionListener and instantiates it.
