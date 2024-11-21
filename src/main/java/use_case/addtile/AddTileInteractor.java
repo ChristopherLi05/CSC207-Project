@@ -16,11 +16,8 @@ public class AddTileInteractor implements AddTileInputBoundary {
         // Create tiles
         Object newTiles = addTiles(inputData);
 
-        // Package tiles into output data
-        AddTileOutputData outputData = new AddTileOutputData(newTiles);
-
         // Pass tiles to output boundary
-        addTileOutputBoundary.present(outputData);
+        addTileOutputBoundary.present(new AddTileOutputData(newTiles));
     }
 
     private Object addTiles(AddTileInputData inputData) {
