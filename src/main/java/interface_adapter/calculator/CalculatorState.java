@@ -13,21 +13,9 @@ public class CalculatorState implements ITileSelectorMaster {
     private final List<MahjongTile> selectedTiles = new ArrayList<>();
     private boolean containsAka = false;
     private boolean isOpen = false;
-    private List<MahjongTile> dora;
-    private List<MahjongTile> ura;
-    private MahjongTile seatWind;
-    private MahjongTile roundWind;
-    private boolean ron;
-    private boolean tsumo;
-    private boolean riichi;
-    private boolean doubleRiichi;
-    private boolean ippatsu;
-    private boolean chankan;
-    private boolean rinshanKaihou;
-    private boolean haitei;
-    private boolean houtei;
 
     public CalculatorState(AddTileOutputData outputData) {
+        this.selectedTiles.addAll(outputData.getSelectedTiles());
     }
 
     public List<MahjongTile> getSelectedTiles() {
