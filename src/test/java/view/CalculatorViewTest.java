@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorViewTest {
     private CalculatorView calculatorView;
-    private CalculatorState calculatorState
-    private DisplayHandComponent displayHandComponent;
+    private CalculatorState calculatorState;    private DisplayHandComponent displayHandComponent;
 
     @Test
     void testAddTileToDisplay() {
