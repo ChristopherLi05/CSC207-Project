@@ -1,8 +1,8 @@
-package use_case.addtile;
+package use_case.addTile;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import view.component.ITileSelectorMaster;
+import view.component.TileSelectorComponentState;
 
 public class AddTileInteractor implements AddTileInputBoundary {
     AddTileOutputBoundary addTileOutputBoundary;
@@ -21,15 +21,15 @@ public class AddTileInteractor implements AddTileInputBoundary {
     }
 
     private Object addTiles(AddTileInputData inputData) {
-        if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.NONE) {
+        if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.NONE) {
             return addClosedTile(inputData);
-        } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.CHII) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CHII) {
             return addChii(inputData);
-        } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.PON) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.PON) {
             return addPon(inputData);
-        } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.CLOSED_KAN) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CLOSED_KAN) {
             return addClosedKan(inputData);
-        } else if (inputData.getSelectorType() == ITileSelectorMaster.SelectorType.OPEN_KAN) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.OPEN_KAN) {
             return addOpenKan(inputData);
         }
         return null;

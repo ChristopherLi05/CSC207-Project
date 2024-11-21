@@ -3,7 +3,7 @@ package view.component;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 
-public interface ITileSelectorMaster {
+public interface TileSelectorComponentState {
     void addClosedTile(MahjongTile mahjongTile);
 
     void addChiiGroup(MahjongGroup mahjongGroup);

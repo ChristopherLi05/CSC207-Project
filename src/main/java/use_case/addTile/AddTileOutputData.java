@@ -1,4 +1,4 @@
-package use_case.addtile;
+package use_case.addTile;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;

@@ -1,15 +1,14 @@
 package interface_adapter.calculator;
 
-import entity.calculator.Calculator;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import use_case.addtile.AddTileOutputData;
-import view.component.ITileSelectorMaster;
+import use_case.addTile.AddTileOutputData;
+import view.component.TileSelectorComponentState;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatorState implements ITileSelectorMaster {
+public class CalculatorState implements TileSelectorComponentState {
     private final List<MahjongTile> selectedTiles = new ArrayList<>();
     private boolean containsAka = false;
     private boolean isOpen = false;
