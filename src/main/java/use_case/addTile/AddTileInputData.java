@@ -14,4 +14,6 @@ public class AddTileInputData {
         this.selectorType = selectorType;
 
     }
+
+    public ITileSelectorMaster.SelectorType getSelectorType() {return selectorType;}
 }
