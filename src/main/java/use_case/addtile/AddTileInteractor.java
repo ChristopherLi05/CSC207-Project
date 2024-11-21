@@ -20,7 +20,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
         AddTileOutputData outputData = new AddTileOutputData(newTiles);
 
         // Pass tiles to output boundary
-        addTileOutputBoundary.execute(outputData);
+        addTileOutputBoundary.present(outputData);
     }
 
     private Object addTiles(AddTileInputData inputData) {

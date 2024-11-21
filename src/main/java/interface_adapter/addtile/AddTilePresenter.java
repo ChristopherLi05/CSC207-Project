@@ -8,7 +8,7 @@ import use_case.addtile.AddTileOutputData;
 public class AddTilePresenter implements AddTileOutputBoundary {
 
     @Override
-    public void execute(AddTileOutputData outputData) {
+    public void present(AddTileOutputData outputData) {
         if (outputData instanceof MahjongGroup) {
 
         }
