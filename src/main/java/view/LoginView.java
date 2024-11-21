@@ -80,6 +80,8 @@ public class LoginView extends AbstractPanel<LoginState> {
                 }
         );
 
+        // TODO: add document listener for username and password to update LoginState
+
         this.add(title);
         this.add(usernameInfo);
         this.add(usernameErrorField);
