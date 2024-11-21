@@ -48,7 +48,8 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Pr
     public void actionPerformed(ActionEvent e) {
         // Execute controller.
         if (e.getSource() instanceof MahjongTileInputButton) {
-            addTileController.execute();
+            addTileController.execute(e.getSource(), tileSelectorComponent.containsAka(),
+                    tileSelectorComponent.getSelectorType());
         }
     }
 }
