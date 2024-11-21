@@ -8,8 +8,7 @@ import view.component.ITileSelectorMaster;
 public class AddTileController {
     private final AddTileInputBoundary addTileInputBoundary;
 
-
-    public AddTileController(AddTileInputBoundary addTileInputBoundary, AddTileViewState addTileViewState) {
+    public AddTileController(AddTileInputBoundary addTileInputBoundary) {
         this.addTileInputBoundary = addTileInputBoundary;
     }
 
