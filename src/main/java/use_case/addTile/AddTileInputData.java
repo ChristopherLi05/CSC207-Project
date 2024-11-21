@@ -16,4 +16,6 @@ public class AddTileInputData {
     }
 
     public ITileSelectorMaster.SelectorType getSelectorType() {return selectorType;}
+
+    public MahjongTileInputButton getTileClicked() {return tileClicked;}
 }
