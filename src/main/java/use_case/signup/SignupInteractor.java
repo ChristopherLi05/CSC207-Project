@@ -2,6 +2,7 @@ package use_case.signup;
 
 import entity.user.IUserFactory;
 import entity.user.user_type.IUser;
+import data_access.APIDataAccessor;
 
 /**
  * The Signup Interactor.
@@ -10,6 +11,7 @@ public class SignupInteractor implements SignupInputBoundary {
     private final SignupUserDataAccessInterface userDataAccessObject;
     private final SignupOutputBoundary userPresenter;
     private final IUserFactory userFactory;
+    private final APIDataAccessor apiDataAccessor;
 
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
@@ -17,23 +19,12 @@ public class SignupInteractor implements SignupInputBoundary {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
         this.userFactory = userFactory;
+        this.apiDataAccessor = new APIDataAccessor("");
     }
 
     @Override
     public void execute(SignupInputData signupInputData) {
-        if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
-            userPresenter.prepareFailView("User already exists.");
-        }
-        else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-            userPresenter.prepareFailView("Passwords don't match.");
-        }
-        else {
-            final IUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword(), signupInputData.getRepeatPassword());
-            userDataAccessObject.save(user);
-
-            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
-            userPresenter.prepareSuccessView(signupOutputData);
-        }
+        apiDataAccessor.signUp(signupInputData.getUsername(), signupInputData.getPassword());
     }
 
     @Override
