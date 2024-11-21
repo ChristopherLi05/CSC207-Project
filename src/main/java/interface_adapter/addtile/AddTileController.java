@@ -13,10 +13,7 @@ public class AddTileController {
     }
 
     public void execute(MahjongTile tileClicked, boolean isAka, ITileSelectorMaster.SelectorType selectorType) {
-        // Create input data
-        AddTileInputData inputData = new AddTileInputData(tileClicked, isAka, selectorType);
-
         // Pass input data
-        addTileInputBoundary.execute(inputData);
+        addTileInputBoundary.execute(new AddTileInputData(tileClicked, isAka, selectorType));
     }
 }
