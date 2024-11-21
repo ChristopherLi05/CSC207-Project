@@ -1,4 +1,4 @@
-package use_case.addTile;
+package use_case.addtile;
 
 public class AddTileOutputData {
 }

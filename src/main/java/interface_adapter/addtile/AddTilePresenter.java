@@ -1,4 +1,4 @@
-package interface_adapter.addTile;
+package interface_adapter.addtile;
 
 public class AddTilePresenter {
 }

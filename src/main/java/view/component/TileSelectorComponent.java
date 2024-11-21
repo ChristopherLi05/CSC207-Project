@@ -175,4 +175,6 @@ public class TileSelectorComponent extends JPanel {
     public ITileSelectorMaster.SelectorType getSelectorType() {
         return selectorType;
     }
+
+    public boolean containsAka() {return containsAka;}
 }

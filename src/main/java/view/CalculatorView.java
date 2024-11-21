@@ -1,7 +1,7 @@
 package view;
 
 import interface_adapter.ViewManager;
-import interface_adapter.addTile.AddTileController;
+import interface_adapter.addtile.AddTileController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import view.component.DisplayHandComponent;
@@ -48,8 +48,8 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Pr
     public void actionPerformed(ActionEvent e) {
         // Execute controller.
         if (e.getSource() instanceof MahjongTileInputButton) {
-            addTileController.execute(e.getSource(), tileSelectorComponent.containsAka(),
-                    tileSelectorComponent.getSelectorType());
+            addTileController.execute(((MahjongTileInputButton) e.getSource()).getMahjongTile(),
+                    tileSelectorComponent.containsAka(), tileSelectorComponent.getSelectorType());
         }
     }
 }

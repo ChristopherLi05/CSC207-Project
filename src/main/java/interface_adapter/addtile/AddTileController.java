@@ -1,7 +1,8 @@
-package interface_adapter.addTile;
+package interface_adapter.addtile;
 
-import use_case.addTile.AddTileInputBoundary;
-import use_case.addTile.AddTileInputData;
+import entity.calculator.mahjong.MahjongTile;
+import use_case.addtile.AddTileInputBoundary;
+import use_case.addtile.AddTileInputData;
 import view.component.ITileSelectorMaster;
 
 public class AddTileController {
@@ -12,7 +13,7 @@ public class AddTileController {
         this.addTileInputBoundary = addTileInputBoundary;
     }
 
-    public void execute(Object tileClicked, boolean isAka, ITileSelectorMaster.SelectorType selectorType) {
+    public void execute(MahjongTile tileClicked, boolean isAka, ITileSelectorMaster.SelectorType selectorType) {
         // Create input data
         AddTileInputData inputData = new AddTileInputData(tileClicked, isAka, selectorType);
 
