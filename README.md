@@ -26,10 +26,10 @@ There are 3 main modes this program will have: a **Point Calculator** mode, a **
 - As a user, I want to be able to create an account to keep track of my progress, so I can keep track of my progress
 
 **David User Story**
-- As a user, I want to be able to calculate how much my mahjong hand is worth, so I can receive a correct amount of points
+- As a user, I want to be able to click on tiles to add to the calculator
 
 **Hiro User Story**
-- As a user, I want to be able to practice scoring hands without time pressure, so I can get more familiar with the scoring system
+- As a user, I want to be able to calculate how much my mahjong hand is worth, so I can receive a correct amount of points
 
 **Max User Story**
 - As a user, I want to be able to login to my account, so I can keep track of my progress
