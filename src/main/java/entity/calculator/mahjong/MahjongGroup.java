@@ -39,4 +39,9 @@ public class MahjongGroup {
 
         return builder.toString();
     }
+
+    @Override
+    public String toString() {
+        return "MahjongGroup(" + getSerialization() + ")";
+    }
 }

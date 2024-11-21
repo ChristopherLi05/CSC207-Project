@@ -1,48 +1,41 @@
 package view;
 
-import app.IApp;
-import entity.calculator.mahjong.MahjongGroup;
-import entity.calculator.mahjong.MahjongTile;
-import view.component.ITileSelectorMaster;
-import view.component.MahjongTileInputButton;
+import interface_adapter.ViewManager;
+import interface_adapter.calculator.CalculatorState;
+import interface_adapter.calculator.CalculatorViewState;
+import view.component.DisplayHandComponent;
 import view.component.TileSelectorComponent;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class CalculatorView extends AbstractPanel<> implements ITileSelectorMaster {
+public class CalculatorView extends AbstractPanel<CalculatorState> implements PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
+    private final DisplayHandComponent displayHandComponent;
 
-    public CalculatorView(IApp master) {
-        super(master);
+    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
+        super(viewState);
+        setLayout(new BorderLayout());
 
-        tileSelectorComponent = new TileSelectorComponent(this);
+        // Initialize and add DisplayHandComponent at top
+        displayHandComponent = new DisplayHandComponent();
+        add(displayHandComponent, BorderLayout.NORTH);
+
+        // Initialize and add TileSelectorComponent at center
+        tileSelectorComponent = new TileSelectorComponent(viewState);
+        add(tileSelectorComponent, BorderLayout.CENTER);
+
+        viewState.addPropertyChangeListener(this);
+        viewManager.addPropertyChangeListener(this);
+    }
+
+    public DisplayHandComponent getDisplayHandComponent() {
+        return displayHandComponent;
     }
 
     @Override
-    public void addClosedTile(MahjongTile mahjongTile) {
-
-    }
-
-    @Override
-    public void addChiiGroup(MahjongGroup mahjongGroup) {
-
-    }
-
-    @Override
-    public void addPonGroup(MahjongGroup mahjongGroup) {
-
-    }
-
-    @Override
-    public void addClosedKanGroup(MahjongGroup mahjongGroup) {
-
-    }
-
-    @Override
-    public void addOpenKanGroup(MahjongGroup mahjongGroup) {
+    public void propertyChange(PropertyChangeEvent evt) {
 
     }
 }
