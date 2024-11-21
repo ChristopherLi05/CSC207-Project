@@ -1,30 +1,24 @@
 package use_case.signup;
 
-import entity.user.IUserFactory;
-import entity.user.user_type.IUser;
 import data_access.APIDataAccessor;
+import interface_adapter.signup.SignupPresenter;
 
 /**
  * The Signup Interactor.
  */
 public class SignupInteractor implements SignupInputBoundary {
-    private final SignupUserDataAccessInterface userDataAccessObject;
-    private final SignupOutputBoundary userPresenter;
-    private final IUserFactory userFactory;
-    private final APIDataAccessor apiDataAccessor;
+    private final APIDataAccessor dataAccessor;
+    private final SignupPresenter userPresenter;
 
-    public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
-                            SignupOutputBoundary signupOutputBoundary,
-                            IUserFactory userFactory) {
-        this.userDataAccessObject = signupDataAccessInterface;
-        this.userPresenter = signupOutputBoundary;
-        this.userFactory = userFactory;
-        this.apiDataAccessor = new APIDataAccessor("");
+    public SignupInteractor(APIDataAccessor dataAccessor, SignupPresenter userPresenter) {
+        this.dataAccessor = dataAccessor;
+        this.userPresenter = userPresenter;
+
     }
 
     @Override
     public void execute(SignupInputData signupInputData) {
-        apiDataAccessor.signUp(signupInputData.getUsername(), signupInputData.getPassword());
+        dataAccessor.signUp(signupInputData.getUsername(), signupInputData.getPassword());
     }
 
     @Override
