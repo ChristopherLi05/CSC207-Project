@@ -1,11 +1,11 @@
 package view;
 
-import app.IApp;
 
-import java.beans.PropertyChangeEvent;
+import interface_adapter.trainer.TrainerState;
+import interface_adapter.trainer.TrainerViewState;
 
-public class TrainerView extends AbstractPanel<> {
-    public TrainerView(IApp master) {
-        super(master);
+public class TrainerView extends AbstractPanel<TrainerState> {
+    public TrainerView(TrainerViewState viewState) {
+        super(viewState);
     }
 }
