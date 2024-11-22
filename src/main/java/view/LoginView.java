@@ -86,4 +86,9 @@ public class LoginView extends AbstractPanel<LoginState> {
         this.add(passwordInfo);
         this.add(buttons);
     }
+
+    public void setLoginController(LoginController loginController) {
+        this.loginController = loginController;
+    }
 }
+
