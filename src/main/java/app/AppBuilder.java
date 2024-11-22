@@ -130,12 +130,8 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
-        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewState,
-                signupViewState,
-                calculatorViewState,
-                app.getViewManager());
-        LoginInteractor loginInteractor = new LoginInteractor(app.getDataAccessor(),
-                loginOutputBoundary);
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(app, loginViewState, signupViewState, calculatorViewState);
+        LoginInteractor loginInteractor = new LoginInteractor(app, loginOutputBoundary);
         LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
         return this;

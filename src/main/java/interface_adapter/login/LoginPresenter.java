@@ -1,5 +1,6 @@
 package interface_adapter.login;
 
+import app.IApp;
 import interface_adapter.ViewManager;
 import interface_adapter.signup.SignupViewState;
 import interface_adapter.signup.SignupState;
@@ -10,18 +11,18 @@ import use_case.login.LoginOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewState loginViewState;
+    private final IApp app;
     private final SignupViewState signupViewState;
     private final CalculatorViewState calculatorViewState;
-    private final ViewManager viewManager;
 
-    public LoginPresenter(LoginViewState loginViewState,
+    public LoginPresenter(IApp app,
+                          LoginViewState loginViewState,
                           SignupViewState signupViewState,
-                          CalculatorViewState calculatorViewState,
-                          ViewManager viewManager) {
+                          CalculatorViewState calculatorViewState) {
         this.loginViewState = loginViewState;
         this.signupViewState = signupViewState;
         this.calculatorViewState = calculatorViewState;
-        this.viewManager = viewManager;
+        this.app = app;
     }
 
     @Override
@@ -29,7 +30,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         this.signupViewState.setState(new SignupState());
         this.signupViewState.firePropertyChanged();
 
-        this.viewManager.setView(signupViewState.getViewName());
+        this.app.getViewManager().setView(signupViewState.getViewName());
     }
 
     @Override
@@ -37,7 +38,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         this.calculatorViewState.setState(new CalculatorState());
         this.calculatorViewState.firePropertyChanged();
 
-        this.viewManager.setView(calculatorViewState.getViewName());
+        this.app.getViewManager().setView(calculatorViewState.getViewName());
     }
 
     @Override
