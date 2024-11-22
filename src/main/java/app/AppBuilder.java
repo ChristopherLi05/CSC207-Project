@@ -28,6 +28,7 @@ import view.SignupView;
 
 public class AppBuilder {
     private final App app;
+    private BuildState buildState = BuildState.START;
 
     // Views
     private LoginView loginView;
@@ -50,23 +51,27 @@ public class AppBuilder {
 
     // Not Necessary - set by default
     public AppBuilder setDefaultUserManager() {
+        ensureState(BuildState.ATTR);
         this.app.setUserManager(new UserManager(this.app.getUserManager().getUserFactory()));
         return this;
     }
 
     public AppBuilder setDummyDataAccessor() {
+        ensureState(BuildState.ATTR);
         this.app.setDataAccessor(new DummyDataAccessor());
         return this;
     }
 
     // Not Necessary - set by default
     public AppBuilder setInMemoryDataAccessor() {
+        ensureState(BuildState.ATTR);
         this.app.setDataAccessor(new InMemoryDataAccessor());
         this.app.getUserManager().setUserFactory(new LocalUserFactory());
         return this;
     }
 
     public AppBuilder setAPIDataAccessor() {
+        ensureState(BuildState.ATTR);
         this.app.setDataAccessor(new APIDataAccessor("http://134.209.160.53:5000"));
         this.app.getUserManager().setUserFactory(new RemoteUserFactory());
         return this;
@@ -74,11 +79,13 @@ public class AppBuilder {
 
     // Not Necessary - set by default
     public AppBuilder setDefaultHandStateFactory() {
+        ensureState(BuildState.ATTR);
         this.app.setHandStateFactory(new HandStateFactory());
         return this;
     }
 
     public AppBuilder addSignupView() {
+        ensureState(BuildState.VIEW);
         signupViewState = new SignupViewState("LeaderboardView", new SignupState());
         signupViewState.setState(new SignupState());
 
@@ -88,6 +95,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginView() {
+        ensureState(BuildState.VIEW);
         loginViewState = new LoginViewState("LoginView", new LoginState());
         loginViewState.setState(new LoginState());
 
@@ -97,21 +105,19 @@ public class AppBuilder {
     }
 
     public AppBuilder addCalculatorView() {
-        // TODO - do this
-        return this;
-    }
-
-    public AppBuilder addTrainerView() {
+        ensureState(BuildState.VIEW);
         // TODO - do this
         return this;
     }
 
     public AppBuilder addPuzzleRushView() {
+        ensureState(BuildState.VIEW);
         //TODO - do this
         return this;
     }
 
     public AppBuilder addLeaderboardView() {
+        ensureState(BuildState.VIEW);
         leaderboardViewState = new LeaderboardViewState("LeaderboardView", new LeaderboardState());
         leaderboardViewState.setState(new LeaderboardState());
 
@@ -121,6 +127,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addLeaderboardUseCase() {
+        ensureState(BuildState.USE_CASE);
         LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewState);
         LeaderboardInteractor leaderboardInteractor = new LeaderboardInteractor(leaderboardOutputBoundary, app.getDataAccessor());
 
@@ -130,6 +137,7 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginUseCase() {
+        ensureState(BuildState.USE_CASE);
         LoginOutputBoundary loginOutputBoundary = new LoginPresenter(app, loginViewState, signupViewState, calculatorViewState);
         LoginInteractor loginInteractor = new LoginInteractor(app, loginOutputBoundary);
         LoginController loginController = new LoginController(loginInteractor);
@@ -138,9 +146,37 @@ public class AppBuilder {
     }
 
     public IApp build() {
+        ensureState(BuildState.BUILD);
+
         app.pack();
         app.setVisible(true);
 
         return app;
+    }
+
+    private void ensureState(BuildState state) {
+        if (state.getState() < buildState.getState()) {
+            throw new RuntimeException("You are building app in the wrong order");
+        }
+
+        buildState = state;
+    }
+
+    private enum BuildState {
+        START(0),
+        ATTR(1),
+        VIEW(2),
+        USE_CASE(3),
+        BUILD(4);
+
+        private final int state;
+
+        BuildState(int state) {
+            this.state = state;
+        }
+
+        public int getState() {
+            return state;
+        }
     }
 }
