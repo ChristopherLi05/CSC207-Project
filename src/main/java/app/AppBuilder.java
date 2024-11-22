@@ -7,14 +7,22 @@ import entity.calculator.HandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
 import entity.user.UserManager;
+import interface_adapter.login.LoginController;
+import interface_adapter.login.LoginPresenter;
+import interface_adapter.login.LoginState;
+import interface_adapter.login.LoginViewState;
 import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
+import interface_adapter.calculator.CalculatorViewState;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
+import view.LoginView;
 import view.LeaderboardView;
 import view.SignupView;
 
@@ -22,12 +30,15 @@ public class AppBuilder {
     private final App app;
 
     // Views
+    private LoginView loginView;
     private LeaderboardView leaderboardView;
     private SignupView signupView;
 
     // ViewStates
+    private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
     private SignupViewState signupViewState;
+    private CalculatorViewState calculatorViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -77,7 +88,11 @@ public class AppBuilder {
     }
 
     public AppBuilder addLoginView() {
-        // TODO - do this
+        loginViewState = new LoginViewState("LoginView", new LoginState());
+        loginViewState.setState(new LoginState());
+
+        loginView = new LoginView(loginViewState);
+        app.addPanel(loginView);
         return this;
     }
 
@@ -111,6 +126,14 @@ public class AppBuilder {
 
         LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor, leaderboardViewState);
         leaderboardView.setLeaderboardController(leaderboardController);
+        return this;
+    }
+
+    public AppBuilder addLoginUseCase() {
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(app, loginViewState, signupViewState, calculatorViewState);
+        LoginInteractor loginInteractor = new LoginInteractor(app, loginOutputBoundary);
+        LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
         return this;
     }
 

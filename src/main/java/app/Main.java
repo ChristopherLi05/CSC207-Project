@@ -12,6 +12,7 @@ public class Main {
                 .addTrainerView()
                 .addPuzzleRushView()
                 .addLeaderboardView()
+                .addLoginUseCase()
                 .addLeaderboardUseCase()
                 .build();
     }
