@@ -1,15 +1,19 @@
 package use_case.login;
 
 public class LoginOutputData {
-    private final String username;
+    private final String sessionId;
     private final boolean useCaseFailed;
 
-    public LoginOutputData(String username, boolean useCaseFailed) {
-        this.username = username;
+    public LoginOutputData(String sessionId, boolean useCaseFailed) {
+        this.sessionId = sessionId;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getUsername() {
-        return username;
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
     }
 }

@@ -8,9 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class LoginView extends AbstractPanel<LoginState> {
-
     private final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
 
@@ -24,6 +24,7 @@ public class LoginView extends AbstractPanel<LoginState> {
 
     public LoginView(ViewState<LoginState> viewState) {
         super(viewState);
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         final JLabel title = new JLabel("Login Screen");
@@ -46,39 +47,21 @@ public class LoginView extends AbstractPanel<LoginState> {
         buttons.add(signup);
 
         logIn.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(logIn)) {
-                            final LoginState currentState = viewState.getState();
+                evt -> {
+                    char[] password = passwordInputField.getPassword();
 
-                            loginController.logIn(
-                                    currentState.getUsername(),
-                                    currentState.getPassword()
-                            );
-                        }
-            }
-        }
-        );
+                    loginController.logIn(
+                            usernameInputField.getText(),
+                            String.valueOf(password)
+                    );
 
-        guest.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(guest)) {
-                            loginController.guestLogin();
-                        }
-                    }
+                    Arrays.fill(password, (char) 0);
                 }
+
         );
 
-        signup.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(signup)) {
-                            loginController.signup();
-                        }
-                    }
-                }
-        );
+        guest.addActionListener(evt -> loginController.guestLogin());
+        signup.addActionListener(evt -> loginController.signup());
 
         this.add(title);
         this.add(usernameInfo);

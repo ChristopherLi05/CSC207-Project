@@ -9,7 +9,6 @@ import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
-
     private final LoginViewState loginViewState;
     private final SignupViewState signupViewState;
     private final CalculatorViewState calculatorViewState;
@@ -27,8 +26,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSignupView() {
-        final SignupState signupState = signupViewState.getState();
-        this.signupViewState.setState(signupState);
+        this.signupViewState.setState(new SignupState());
         this.signupViewState.firePropertyChanged();
 
         this.viewManager.setView(signupViewState.getViewName());
@@ -36,8 +34,7 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareCalculatorView(LoginOutputData loginOutputData) {
-        final CalculatorState calculatorState = calculatorViewState.getState();
-        this.calculatorViewState.setState(calculatorState);
+        this.calculatorViewState.setState(new CalculatorState());
         this.calculatorViewState.firePropertyChanged();
 
         this.viewManager.setView(calculatorViewState.getViewName());
