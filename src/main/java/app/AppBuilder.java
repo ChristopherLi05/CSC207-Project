@@ -17,8 +17,11 @@ import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
+import interface_adapter.calculator.CalculatorViewState;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
 import view.LoginView;
 import view.LeaderboardView;
 import view.SignupView;
@@ -35,6 +38,7 @@ public class AppBuilder {
     private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
     private SignupViewState signupViewState;
+    private CalculatorViewState calculatorViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -85,7 +89,7 @@ public class AppBuilder {
 
     public AppBuilder addLoginView() {
         loginViewState = new LoginViewState("LoginView", new LoginState());
-//      // loginViewState.setState(new LoginState());
+        loginViewState.setState(new LoginState());
 
         loginView = new LoginView(loginViewState);
         app.addPanel(loginView);
@@ -122,6 +126,18 @@ public class AppBuilder {
 
         LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor, leaderboardViewState);
         leaderboardView.setLeaderboardController(leaderboardController);
+        return this;
+    }
+
+    public AppBuilder addLoginUseCase() {
+        LoginOutputBoundary loginOutputBoundary = new LoginPresenter(loginViewState,
+                signupViewState,
+                calculatorViewState,
+                app.getViewManager());
+        LoginInteractor loginInteractor = new LoginInteractor(app.getDataAccessor(),
+                loginOutputBoundary);
+        LoginController loginController = new LoginController(loginInteractor);
+        loginView.setLoginController(loginController);
         return this;
     }
 
