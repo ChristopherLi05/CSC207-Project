@@ -9,9 +9,9 @@ public class Main {
                 .addSignupView()
                 .addLoginView()
                 .addCalculatorView()
-                .addTrainerView()
                 .addPuzzleRushView()
                 .addLeaderboardView()
+                .addLoginUseCase()
                 .addLeaderboardUseCase()
                 .build();
     }
