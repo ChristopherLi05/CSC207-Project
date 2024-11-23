@@ -3,22 +3,24 @@ package view.component;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface ITileSelectorMaster {
-    List<MahjongTile> getClosedTiles();
 
-    void addClosedTiles(List<MahjongTile> closedTiles);
+    void addClosedTile(MahjongTile mahjongTile);
 
-    List<MahjongGroup> getClosedGroup();
+    void addChiiGroup(MahjongGroup mahjongGroup);
 
-    void addClosedGroup(List<MahjongGroup> closedGroup);
+    void addPonGroup(MahjongGroup mahjongGroup  );
 
-    List<MahjongGroup> getOpenGroups();
+    void addClosedKanGroup(MahjongGroup mahjongGroup);
 
-    void addOpenGroups(List<MahjongGroup> openGroups);
+    void addOpenKanGroup(MahjongGroup mahjongGroup);
 
-    MahjongTile getWinningTile();
 
-    void addWinningTile(MahjongTile winningTile);
+    enum SelectorType {
+        NONE, PON, CHII, CLOSED_KAN, OPEN_KAN;
+    }
+
 }
