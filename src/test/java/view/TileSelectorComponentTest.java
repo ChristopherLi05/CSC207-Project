@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import view.component.TileSelectorComponent;
 import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.mahjong.MahjongGroup;
-import view.component.TileSelectorComponentState;
+import view.component.ITileSelectorComponentState;
 
 import javax.swing.*;
 
@@ -16,7 +16,7 @@ class TileSelectorComponentTest {
 
     @BeforeEach
     void setUp() {
-        tileSelectorComponent = new TileSelectorComponent(new TileSelectorComponentState() {
+        tileSelectorComponent = new TileSelectorComponent(new ITileSelectorComponentState() {
             @Override
             public void addClosedTile(MahjongTile mahjongTile) {}
 
@@ -43,7 +43,7 @@ class TileSelectorComponentTest {
 
     @Test
     void testSelectorType() {
-        tileSelectorComponent.setSelectorType(TileSelectorComponentState.SelectorType.CHII);
-        assertEquals(TileSelectorComponentState.SelectorType.CHII, tileSelectorComponent.getSelectorType());
+        tileSelectorComponent.setSelectorType(ITileSelectorComponentState.SelectorType.CHII);
+        assertEquals(ITileSelectorComponentState.SelectorType.CHII, tileSelectorComponent.getSelectorType());
     }
 }

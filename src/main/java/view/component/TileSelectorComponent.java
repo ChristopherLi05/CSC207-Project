@@ -11,10 +11,10 @@ public class TileSelectorComponent extends JPanel {
     private final Color UNTOGGLE_COLOR = new Color(0xFFFFFF);
     private final Color TOGGLE_COLOR = new Color(0x89CFF0);
 
-    private final TileSelectorComponentState master;
+    private final ITileSelectorComponentState master;
 
     private boolean containsAka = false;
-    private TileSelectorComponentState.SelectorType selectorType = TileSelectorComponentState.SelectorType.NONE;
+    private ITileSelectorComponentState.SelectorType selectorType = ITileSelectorComponentState.SelectorType.NONE;
 
     private final JButton chiiButton;
     private final JButton ponButton;
@@ -35,26 +35,26 @@ public class TileSelectorComponent extends JPanel {
 
         // Action type buttons
         chiiButton = new JButton("Chii");
-        chiiButton.addActionListener(e -> toggleSelectorType(TileSelectorComponentState.SelectorType.CHII));
+        chiiButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.CHII));
         chiiButton.setFocusPainted(false);
         controlPanel.add(chiiButton);
 
         ponButton = new JButton("Pon");
-        ponButton.addActionListener(e -> toggleSelectorType(TileSelectorComponentState.SelectorType.PON));
+        ponButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.PON));
         ponButton.setFocusPainted(false);
         controlPanel.add(ponButton);
 
         closedKanButton = new JButton("Closed Kan");
-        closedKanButton.addActionListener(e -> toggleSelectorType(TileSelectorComponentState.SelectorType.CLOSED_KAN));
+        closedKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.CLOSED_KAN));
         closedKanButton.setFocusPainted(false);
         controlPanel.add(closedKanButton);
 
         openKanButton = new JButton("Open Kan");
-        openKanButton.addActionListener(e -> toggleSelectorType(TileSelectorComponentState.SelectorType.OPEN_KAN));
+        openKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.OPEN_KAN));
         openKanButton.setFocusPainted(false);
         controlPanel.add(openKanButton);
 
-        toggleSelectorType(TileSelectorComponentState.SelectorType.NONE);
+        toggleSelectorType(ITileSelectorComponentState.SelectorType.NONE);
 
         // Adding button to control panel
         add(controlPanel, BorderLayout.NORTH);
@@ -83,15 +83,15 @@ public class TileSelectorComponent extends JPanel {
             if (e.getSource() instanceof MahjongTileInputButton) {
                 MahjongTile tile1 = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
 
-                if (selectorType == TileSelectorComponentState.SelectorType.NONE) {
+                if (selectorType == ITileSelectorComponentState.SelectorType.NONE) {
                     addClosedTile(tile1);
-                } else if (selectorType == TileSelectorComponentState.SelectorType.CHII) {
+                } else if (selectorType == ITileSelectorComponentState.SelectorType.CHII) {
                     addChii(tile1);
-                } else if (selectorType == TileSelectorComponentState.SelectorType.PON) {
+                } else if (selectorType == ITileSelectorComponentState.SelectorType.PON) {
                     addPon(tile1);
-                } else if (selectorType == TileSelectorComponentState.SelectorType.CLOSED_KAN) {
+                } else if (selectorType == ITileSelectorComponentState.SelectorType.CLOSED_KAN) {
                     addClosedKan(tile1);
-                } else if (selectorType == TileSelectorComponentState.SelectorType.OPEN_KAN) {
+                } else if (selectorType == ITileSelectorComponentState.SelectorType.OPEN_KAN) {
                     addOpenKan(tile1);
                 }
             }
@@ -99,16 +99,16 @@ public class TileSelectorComponent extends JPanel {
         return button;
     }
 
-    public void toggleSelectorType(TileSelectorComponentState.SelectorType selectorType) {
-        this.selectorType = selectorType == this.selectorType ? TileSelectorComponentState.SelectorType.NONE : selectorType;
+    public void toggleSelectorType(ITileSelectorComponentState.SelectorType selectorType) {
+        this.selectorType = selectorType == this.selectorType ? ITileSelectorComponentState.SelectorType.NONE : selectorType;
 
-        this.chiiButton.setBackground(this.selectorType == TileSelectorComponentState.SelectorType.CHII ? TOGGLE_COLOR : UNTOGGLE_COLOR);
-        this.ponButton.setBackground(this.selectorType == TileSelectorComponentState.SelectorType.PON ? TOGGLE_COLOR : UNTOGGLE_COLOR);
-        this.closedKanButton.setBackground(this.selectorType == TileSelectorComponentState.SelectorType.CLOSED_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
-        this.openKanButton.setBackground(this.selectorType == TileSelectorComponentState.SelectorType.OPEN_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.chiiButton.setBackground(this.selectorType == ITileSelectorComponentState.SelectorType.CHII ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.ponButton.setBackground(this.selectorType == ITileSelectorComponentState.SelectorType.PON ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.closedKanButton.setBackground(this.selectorType == ITileSelectorComponentState.SelectorType.CLOSED_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
+        this.openKanButton.setBackground(this.selectorType == ITileSelectorComponentState.SelectorType.OPEN_KAN ? TOGGLE_COLOR : UNTOGGLE_COLOR);
     }
 
-    public TileSelectorComponentState.SelectorType getSelectorType() {
+    public ITileSelectorComponentState.SelectorType getSelectorType() {
         return selectorType;
     }
 
