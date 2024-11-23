@@ -6,14 +6,11 @@ import entity.calculator.mahjong.MahjongTile;
 public interface ITileSelectorComponentState {
     void addClosedTile(MahjongTile mahjongTile);
 
-    void addChiiGroup(MahjongGroup mahjongGroup);
+    void addClosedGroup(MahjongGroup mahjongGroup);
 
-    void addPonGroup(MahjongGroup mahjongGroup  );
+    void addOpenGroup(MahjongGroup mahjongGroup);
 
-    void addClosedKanGroup(MahjongGroup mahjongGroup);
-
-    void addOpenKanGroup(MahjongGroup mahjongGroup);
-
+    void setWinningTile(MahjongTile mahjongTile);
 
     enum SelectorType {
         NONE, PON, CHII, CLOSED_KAN, OPEN_KAN;

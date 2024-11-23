@@ -6,7 +6,6 @@ import entity.calculator.mahjong.MahjongTile;
 import java.util.List;
 
 public interface IDisplayHandComponentState {
-
     List<MahjongTile> getClosedTiles();
 
     List<MahjongGroup> getClosedGroup();
