@@ -7,6 +7,8 @@ import entity.calculator.HandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
 import entity.user.UserManager;
+import interface_adapter.calculator.CalculatorController;
+import interface_adapter.calculator.CalculatorPresenter;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginState;
@@ -18,10 +20,13 @@ import interface_adapter.leaderboard.LeaderboardViewState;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
 import interface_adapter.calculator.CalculatorViewState;
+import use_case.calculator.CalculatorInteractor;
+import use_case.calculator.CalculatorOutputBoundary;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
+import view.CalculatorView;
 import view.LoginView;
 import view.LeaderboardView;
 import view.SignupView;
@@ -34,6 +39,7 @@ public class AppBuilder {
     private LoginView loginView;
     private LeaderboardView leaderboardView;
     private SignupView signupView;
+    private CalculatorView calculatorView;
 
     // ViewStates
     private LoginViewState loginViewState;
@@ -113,6 +119,15 @@ public class AppBuilder {
     public AppBuilder addPuzzleRushView() {
         ensureState(BuildState.VIEW);
         //TODO - do this
+        return this;
+    }
+
+    public AppBuilder addCalculatorUseCase() {
+        ensureState(BuildState.USE_CASE);
+        CalculatorOutputBoundary calculatorOutputBoundary = new CalculatorPresenter(calculatorViewState);
+        CalculatorInteractor calculatorInteractor = new CalculatorInteractor(calculatorOutputBoundary);
+        CalculatorController calculatorController = new CalculatorController(calculatorInteractor);
+        calculatorView.setCalculatorController(calculatorController);
         return this;
     }
 
