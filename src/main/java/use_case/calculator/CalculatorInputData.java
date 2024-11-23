@@ -1,16 +1,20 @@
 package use_case.calculator;
 
 import entity.calculator.HandState;
+import entity.calculator.mahjong.MahjongTile;
+
+import java.util.List;
 
 public class CalculatorInputData {
 
-    private final HandState hand;
+    private final List<MahjongTile> selectedtiles;
 
-    public CalculatorInputData(HandState hand) {
-        this.hand = hand;
+    //TO DO not sure if this input type is Handstate
+    public CalculatorInputData(List<MahjongTile> selectedtiles) {
+        this.selectedtiles = selectedtiles;
     }
 
-    HandState getHand() {
-        return hand;
+    List<MahjongTile> getSelectedtiles() {
+        return selectedtiles;
     }
 }
