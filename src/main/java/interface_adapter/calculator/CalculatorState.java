@@ -13,6 +13,9 @@ public class CalculatorState implements ITileModifierState {
     private final List<MahjongGroup> openGroups;
     private MahjongTile winningTile;
 
+    private boolean isAka = false;
+    private SelectorType selectorType = SelectorType.NONE;
+
     public CalculatorState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
         this.closedTiles = closedTiles;
         this.closedGroups = closedGroups;
@@ -23,7 +26,6 @@ public class CalculatorState implements ITileModifierState {
     public CalculatorState() {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null);
     }
-
 
     @Override
     public List<MahjongTile> getClosedTiles() {
@@ -65,8 +67,33 @@ public class CalculatorState implements ITileModifierState {
         this.winningTile = mahjongTile;
     }
 
+    public void setWinningTile() {
+        this.winningTile = this.closedTiles.remove(this.closedTiles.size() - 1);
+    }
+
     public int getTileNumber() {
         return this.closedTiles.size() + (this.winningTile != null ? 1 : 0) + 3 * this.closedGroups.size() + 3 * this.openGroups.size();
+    }
+
+    public SelectorType getSelectorType() {
+        return selectorType;
+    }
+
+    public void setSelectorType(SelectorType selectorType) {
+        this.selectorType = selectorType;
+    }
+
+    public boolean isAka() {
+        return isAka;
+    }
+
+    public void setAka(boolean aka) {
+        isAka = aka;
+    }
+
+    @Override
+    public String toString() {
+        return "CalculatorState(closedTiles=" + closedTiles + ", closedGroups=" + closedGroups + ", openGroups=" + openGroups + ", winningTile=" + winningTile + ")";
     }
 }
 

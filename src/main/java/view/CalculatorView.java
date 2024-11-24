@@ -1,10 +1,12 @@
 package view;
 
+import entity.calculator.mahjong.MahjongTile;
 import interface_adapter.ViewManager;
 import interface_adapter.addTile.AddTileController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import view.component.DisplayHandComponent;
+import view.component.ITileSelectorComponentState;
 import view.component.MahjongTileInputButton;
 import view.component.TileSelectorComponent;
 
@@ -14,25 +16,25 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class CalculatorView extends AbstractPanel<CalculatorState> implements PropertyChangeListener, ActionListener {
+public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
+
     private AddTileController addTileController;
 
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
         super(viewState);
         setLayout(new BorderLayout());
 
+        viewState.addPropertyChangeListener(this);
+
         // Initialize and add DisplayHandComponent at top
         displayHandComponent = new DisplayHandComponent();
         add(displayHandComponent, BorderLayout.NORTH);
 
         // Initialize and add TileSelectorComponent at center
-        tileSelectorComponent = new TileSelectorComponent(viewState);
+        tileSelectorComponent = new TileSelectorComponent(viewState, this);
         add(tileSelectorComponent, BorderLayout.CENTER);
-
-        viewState.addPropertyChangeListener(this);
-        viewManager.addPropertyChangeListener(this);
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
@@ -40,16 +42,23 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Pr
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
         // Execute controller.
         if (e.getSource() instanceof MahjongTileInputButton) {
-            addTileController.execute(((MahjongTileInputButton) e.getSource()).getMahjongTile(),
-                    tileSelectorComponent.containsAka(), tileSelectorComponent.getSelectorType());
+            MahjongTile clickedTile = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
+            boolean isAka = getViewState().getState().isAka();
+            ITileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
+
+            addTileController.execute(clickedTile, isAka, selectorType);
         }
+    }
+
+    public void setAddTileController(AddTileController addTileController) {
+        this.addTileController = addTileController;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println(getViewState().getState());
     }
 }
