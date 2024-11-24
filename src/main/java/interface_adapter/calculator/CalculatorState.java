@@ -1,61 +1,99 @@
 package interface_adapter.calculator;
 
-import entity.calculator.Calculator;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import view.component.ITileSelectorMaster;
+import view.component.ITileModifierState;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatorState implements ITileSelectorMaster {
-    private final List<MahjongTile> selectedTiles = new ArrayList<>();
-    private boolean containsAka = false;
-    private boolean isOpen = false;
+public class CalculatorState implements ITileModifierState {
+    private final List<MahjongTile> closedTiles;
+    private final List<MahjongGroup> closedGroups;
+    private final List<MahjongGroup> openGroups;
+    private MahjongTile winningTile;
 
-    public List<MahjongTile> getSelectedTiles() {
-        return selectedTiles;
+    private boolean isAka = false;
+    private SelectorType selectorType = SelectorType.NONE;
+
+    public CalculatorState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
+        this.closedTiles = closedTiles;
+        this.closedGroups = closedGroups;
+        this.openGroups = openGroups;
+        this.winningTile = winningTile;
     }
 
-    public boolean isContainsAka() {
-        return containsAka;
+    public CalculatorState() {
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null);
     }
 
-    public void setContainsAka(boolean containsAka) {
-        this.containsAka = containsAka;
+    @Override
+    public List<MahjongTile> getClosedTiles() {
+        return closedTiles;
     }
 
-    public boolean isOpen() {
-        return isOpen;
+    @Override
+    public List<MahjongGroup> getClosedGroup() {
+        return closedGroups;
     }
 
-    public void setIsOpen(boolean isOpen) {
-        this.isOpen = isOpen;
+    @Override
+    public List<MahjongGroup> getOpenGroups() {
+        return openGroups;
+    }
+
+    @Override
+    public MahjongTile getWinningTile() {
+        return winningTile;
     }
 
     @Override
     public void addClosedTile(MahjongTile mahjongTile) {
-        System.out.println("Closed tile: " + mahjongTile);
+        this.closedTiles.add(mahjongTile);
     }
 
     @Override
-    public void addChiiGroup(MahjongGroup mahjongGroup) {
-        System.out.println("Chii Group: " + mahjongGroup);
+    public void addClosedGroup(MahjongGroup mahjongGroup) {
+        this.closedGroups.add(mahjongGroup);
     }
 
     @Override
-    public void addPonGroup(MahjongGroup mahjongGroup) {
-        System.out.println("Chii Group: " + mahjongGroup);
+    public void addOpenGroup(MahjongGroup mahjongGroup) {
+        this.openGroups.add(mahjongGroup);
     }
 
     @Override
-    public void addClosedKanGroup(MahjongGroup mahjongGroup) {
-        System.out.println("Closed Kan Group: " + mahjongGroup);
+    public void setWinningTile(MahjongTile mahjongTile) {
+        this.winningTile = mahjongTile;
+    }
+
+    public void setWinningTile() {
+        this.winningTile = this.closedTiles.remove(this.closedTiles.size() - 1);
+    }
+
+    public int getTileNumber() {
+        return this.closedTiles.size() + (this.winningTile != null ? 1 : 0) + 3 * this.closedGroups.size() + 3 * this.openGroups.size();
+    }
+
+    public SelectorType getSelectorType() {
+        return selectorType;
+    }
+
+    public void setSelectorType(SelectorType selectorType) {
+        this.selectorType = selectorType;
+    }
+
+    public boolean isAka() {
+        return isAka;
+    }
+
+    public void setAka(boolean aka) {
+        isAka = aka;
     }
 
     @Override
-    public void addOpenKanGroup(MahjongGroup mahjongGroup) {
-        System.out.println("Open Kan Group: " + mahjongGroup);
+    public String toString() {
+        return "CalculatorState(closedTiles=" + closedTiles + ", closedGroups=" + closedGroups + ", openGroups=" + openGroups + ", winningTile=" + winningTile + ")";
     }
 }
 
