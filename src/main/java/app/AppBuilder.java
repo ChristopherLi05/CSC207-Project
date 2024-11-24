@@ -19,6 +19,8 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.puzzleRush.PuzzleRushController;
+import interface_adapter.puzzleRush.PuzzleRushPresenter;
 import interface_adapter.puzzleRushHand.PuzzleRushHandController;
 import interface_adapter.puzzleRushHand.PuzzleRushHandPresenter;
 import interface_adapter.puzzleRush.PuzzleRushState;
@@ -33,6 +35,8 @@ import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
+import use_case.puzzleRush.PuzzleRushInteractor;
+import use_case.puzzleRush.PuzzleRushOutputBoundary;
 import use_case.puzzleRushHand.PuzzleRushHandInteractor;
 import use_case.puzzleRushHand.PuzzleRushHandOutputBoundary;
 import use_case.signup.SignupInteractor;
@@ -181,13 +185,23 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addPuzzleRushUseCase() {
+        ensureState(BuildState.USE_CASE);
+        PuzzleRushOutputBoundary puzzleRushHandOutputBoundary = new PuzzleRushPresenter(puzzleRushViewState);
+        PuzzleRushInteractor puzzleRushInteractor = new PuzzleRushInteractor(puzzleRushHandOutputBoundary);
+
+        PuzzleRushController controller = new PuzzleRushController(puzzleRushInteractor);
+        puzzleRushView.setPuzzleRushController(controller);
+        return this;
+    }
+
     public AppBuilder addPuzzleRushHandUseCase() {
         ensureState(BuildState.USE_CASE);
         PuzzleRushHandOutputBoundary puzzleRushHandOutputBoundary = new PuzzleRushHandPresenter(puzzleRushViewState);
         PuzzleRushHandInteractor puzzleRushInteractor = new PuzzleRushHandInteractor(puzzleRushHandOutputBoundary, app.getHandStateFactory());
 
         PuzzleRushHandController controller = new PuzzleRushHandController(puzzleRushInteractor);
-        puzzleRushView.setPuzzleRushController(controller);
+        puzzleRushView.setPuzzleRushHandController(controller);
         return this;
     }
 

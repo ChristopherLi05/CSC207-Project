@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
+import interface_adapter.puzzleRush.PuzzleRushController;
 import interface_adapter.puzzleRushHand.PuzzleRushHandController;
 import interface_adapter.puzzleRush.PuzzleRushState;
 import util.GUIHelper;
@@ -55,8 +56,12 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         this.add(startRunningPanel);
     }
 
-    public void setPuzzleRushController(PuzzleRushHandController puzzleRushHandController) {
+    public void setPuzzleRushHandController(PuzzleRushHandController puzzleRushHandController) {
         this.puzzleRushHandController = puzzleRushHandController;
+    }
+
+    public void setPuzzleRushController(PuzzleRushController puzzleRushController) {
+        gamePanel.setPuzzleRushController(puzzleRushController);
     }
 
     private static class StartPanel extends JPanel {
@@ -75,6 +80,8 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         private JTextField pointEntry;
         private JLabel errorField;
         private JButton inputButton;
+
+        private PuzzleRushController puzzleRushController = null;
 
         public GamePanel(ViewState<PuzzleRushState> viewState) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -129,6 +136,10 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
 
             timerLabel.setText("Time Left: " + state.getTimeLeft());
             scoreLabel.setText("Score: " + state.getCurrScore());
+        }
+
+        public void setPuzzleRushController(PuzzleRushController puzzleRushController) {
+            this.puzzleRushController = puzzleRushController;
         }
     }
 }

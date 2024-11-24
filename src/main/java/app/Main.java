@@ -16,6 +16,7 @@ public class Main {
                 .addLoginUseCase()
                 .addLeaderboardUseCase()
                 .addPuzzleRushHandUseCase()
+                .addPuzzleRushUseCase()
                 .build();
     }
 }
