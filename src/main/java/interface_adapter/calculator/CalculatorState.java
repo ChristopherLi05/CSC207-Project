@@ -1,91 +1,99 @@
 package interface_adapter.calculator;
 
-import entity.calculator.Calculator;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import use_case.calculator.CalculatorDataAccessInterface;
-import view.component.ITileSelectorMaster;
+import view.component.ITileModifierState;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatorState implements CalculatorDataAccessInterface {
+public class CalculatorState implements ITileModifierState {
     private final List<MahjongTile> closedTiles;
-    private final List<MahjongGroup> closedGroup;
-    private final List<MahjongGroup> openedGroup;
-    private final MahjongTile winningTile;
+    private final List<MahjongGroup> closedGroups;
+    private final List<MahjongGroup> openGroups;
+    private MahjongTile winningTile;
 
-    public CalculatorState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroup, List<MahjongGroup> openedGroup, MahjongTile winningTile) {
+    private boolean isAka = false;
+    private SelectorType selectorType = SelectorType.NONE;
+
+    public CalculatorState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
         this.closedTiles = closedTiles;
-        this.closedGroup = closedGroup;
-        this.openedGroup = openedGroup;
+        this.closedGroups = closedGroups;
+        this.openGroups = openGroups;
         this.winningTile = winningTile;
     }
 
+    public CalculatorState() {
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null);
+    }
 
-    String getClosedTiles() {};
+    @Override
+    public List<MahjongTile> getClosedTiles() {
+        return closedTiles;
+    }
 
-    void addClosedTiles(List<MahjongTile> closedTiles);
+    @Override
+    public List<MahjongGroup> getClosedGroup() {
+        return closedGroups;
+    }
 
-    String getClosedGroup();
+    @Override
+    public List<MahjongGroup> getOpenGroups() {
+        return openGroups;
+    }
 
-    void addClosedGroup(List<MahjongGroup> closedGroup);
+    @Override
+    public MahjongTile getWinningTile() {
+        return winningTile;
+    }
 
-    String getOpenGroups();
+    @Override
+    public void addClosedTile(MahjongTile mahjongTile) {
+        this.closedTiles.add(mahjongTile);
+    }
 
-    void addOpenGroups(List<MahjongGroup> openGroups);
+    @Override
+    public void addClosedGroup(MahjongGroup mahjongGroup) {
+        this.closedGroups.add(mahjongGroup);
+    }
 
-    String getWinningTile();
+    @Override
+    public void addOpenGroup(MahjongGroup mahjongGroup) {
+        this.openGroups.add(mahjongGroup);
+    }
 
-    void addWinningTile(MahjongTile winningTile);
+    @Override
+    public void setWinningTile(MahjongTile mahjongTile) {
+        this.winningTile = mahjongTile;
+    }
 
-//    private final List<MahjongTile> selectedTiles = new ArrayList<>();
-//    private boolean containsAka = false;
-//    private boolean isOpen = false;
-//
-//    public List<MahjongTile> getSelectedTiles() {
-//        return selectedTiles;
-//    }
-//
-//    public boolean isContainsAka() {
-//        return containsAka;
-//    }
-//
-//    public void setContainsAka(boolean containsAka) {
-//        this.containsAka = containsAka;
-//    }
-//
-//    public boolean isOpen() {
-//        return isOpen;
-//    }
-//
-//    public void setIsOpen(boolean isOpen) {
-//        this.isOpen = isOpen;
-//    }
-//
-//    @Override
-//    public void addClosedTile(MahjongTile mahjongTile) {
-//        System.out.println("Closed tile: " + mahjongTile);
-//    }
-//
-//    @Override
-//    public void addChiiGroup(MahjongGroup mahjongGroup) {
-//        System.out.println("Chii Group: " + mahjongGroup);
-//    }
-//
-//    @Override
-//    public void addPonGroup(MahjongGroup mahjongGroup) {
-//        System.out.println("Chii Group: " + mahjongGroup);
-//    }
-//
-//    @Override
-//    public void addClosedKanGroup(MahjongGroup mahjongGroup) {
-//        System.out.println("Closed Kan Group: " + mahjongGroup);
-//    }
-//
-//    @Override
-//    public void addOpenKanGroup(MahjongGroup mahjongGroup) {
-//        System.out.println("Open Kan Group: " + mahjongGroup);
-//        }
+    public void setWinningTile() {
+        this.winningTile = this.closedTiles.remove(this.closedTiles.size() - 1);
+    }
+
+    public int getTileNumber() {
+        return this.closedTiles.size() + (this.winningTile != null ? 1 : 0) + 3 * this.closedGroups.size() + 3 * this.openGroups.size();
+    }
+
+    public SelectorType getSelectorType() {
+        return selectorType;
+    }
+
+    public void setSelectorType(SelectorType selectorType) {
+        this.selectorType = selectorType;
+    }
+
+    public boolean isAka() {
+        return isAka;
+    }
+
+    public void setAka(boolean aka) {
+        isAka = aka;
+    }
+
+    @Override
+    public String toString() {
+        return "CalculatorState(closedTiles=" + closedTiles + ", closedGroups=" + closedGroups + ", openGroups=" + openGroups + ", winningTile=" + winningTile + ")";
+    }
 }
 

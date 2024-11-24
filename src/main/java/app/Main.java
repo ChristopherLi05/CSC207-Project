@@ -11,6 +11,7 @@ public class Main {
                 .addCalculatorView()
                 .addPuzzleRushView()
                 .addLeaderboardView()
+                .addTileSelectorUseCase()
                 .addLoginUseCase()
                 .addLeaderboardUseCase()
                 .build();
