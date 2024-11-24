@@ -10,6 +10,7 @@ import view.component.ITileSelectorComponentState;
 import view.component.MahjongTileInputButton;
 import view.component.TileSelectorComponent;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,17 +25,20 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
         super(viewState);
-        setLayout(new BorderLayout());
-
-        viewState.addPropertyChangeListener(this);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Initialize and add DisplayHandComponent at top
-        displayHandComponent = new DisplayHandComponent();
-        add(displayHandComponent, BorderLayout.NORTH);
+        displayHandComponent = new DisplayHandComponent(true);
+        add(displayHandComponent);
+        viewState.addPropertyChangeListener(displayHandComponent);
 
         // Initialize and add TileSelectorComponent at center
         tileSelectorComponent = new TileSelectorComponent(viewState, this);
-        add(tileSelectorComponent, BorderLayout.CENTER);
+        JPanel dontStretch = new JPanel(new FlowLayout());
+        dontStretch.add(tileSelectorComponent);
+        add(dontStretch);
+
+        add(Box.createVerticalGlue());
     }
 
     public DisplayHandComponent getDisplayHandComponent() {

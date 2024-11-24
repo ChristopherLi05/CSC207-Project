@@ -30,7 +30,7 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
 
     public SignupView(SignupViewState viewState, ViewManager viewManager) {
         super(viewState);
-        viewManager.addPropertyChangeListener(this);
+//        viewManager.addPropertyChangeListener(this);
 
         final JLabel title = new JLabel(viewState.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
