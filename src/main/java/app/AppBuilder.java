@@ -18,15 +18,18 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
-import interface_adapter.calculator.CalculatorViewState;
 import use_case.addTile.AddTileInteractor;
 import use_case.addTile.AddTileOutputBoundary;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
 import view.CalculatorView;
 import view.LoginView;
 import view.LeaderboardView;
@@ -46,7 +49,7 @@ public class AppBuilder {
     private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
     private SignupViewState signupViewState;
-    private CalculatorViewState calculatorViewState;
+    private interface_adapter.calculator.CalculatorViewState calculatorViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -93,7 +96,7 @@ public class AppBuilder {
 
     public AppBuilder addSignupView() {
         ensureState(BuildState.VIEW);
-        signupViewState = new SignupViewState("LeaderboardView", new SignupState());
+        signupViewState = new SignupViewState("SignupView", new SignupState());
         signupViewState.setState(new SignupState());
 
         signupView = new SignupView(signupViewState, app.getViewManager());
@@ -113,7 +116,7 @@ public class AppBuilder {
 
     public AppBuilder addCalculatorView() {
         ensureState(BuildState.VIEW);
-        calculatorViewState = new CalculatorViewState("CalculatorView", new CalculatorState());
+        calculatorViewState = new interface_adapter.calculator.CalculatorViewState("CalculatorView", new CalculatorState());
         calculatorView = new CalculatorView(calculatorViewState, app.getViewManager());
         app.addPanel(calculatorView);
 
@@ -133,6 +136,17 @@ public class AppBuilder {
 
         leaderboardView = new LeaderboardView(leaderboardViewState, app.getViewManager());
         app.addPanel(leaderboardView);
+        return this;
+    }
+
+    public AppBuilder addSignupUseCase() {
+        ensureState(BuildState.USE_CASE);
+        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(app.getViewManager(), app.getUserManager(), calculatorViewState, loginViewState);
+        SignupInteractor signupInteractor = new SignupInteractor(signupOutputBoundary, app.getDataAccessor());
+
+        SignupController signupController = new SignupController(signupInteractor);
+        signupView.setSignupController(signupController);
+
         return this;
     }
 

@@ -55,6 +55,8 @@ public class LoginView extends AbstractPanel<LoginState> {
                             String.valueOf(password)
                     );
 
+                    passwordInputField.setText("");
+
                     Arrays.fill(password, (char) 0);
                 }
 
