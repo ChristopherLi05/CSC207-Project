@@ -17,6 +17,7 @@ public class MahjongTileInputButton extends JButton {
         ImageIcon tileImage = new ImageIcon(Objects.requireNonNull(getClass().getResource(tile.getFilePath())));
         setIcon(tileImage);
         setPreferredSize(new Dimension(61, 88));
+        setSize(new Dimension(61, 88));
         setBackground(new Color(255, 255, 255));
         setFocusPainted(false);
 

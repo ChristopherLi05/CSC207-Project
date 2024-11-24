@@ -37,7 +37,7 @@ public class App extends JFrame implements IApp {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.add(cardPanel);
 
-        this.setPreferredSize(new Dimension(1000, 600));
+        this.setPreferredSize(new Dimension(1300, 850));
         this.setResizable(false);
     }
 

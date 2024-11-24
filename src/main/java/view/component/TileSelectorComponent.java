@@ -21,7 +21,7 @@ public class TileSelectorComponent extends JPanel {
 
     public TileSelectorComponent(CalculatorViewState calculatorViewState, ActionListener tileListener) {
         this.calculatorViewState = calculatorViewState;
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Control panel with action type buttons and checkboxes
         JPanel controlPanel = new JPanel(new FlowLayout());
@@ -54,7 +54,7 @@ public class TileSelectorComponent extends JPanel {
         toggleSelectorType(ITileSelectorComponentState.SelectorType.NONE);
 
         // Adding button to control panel
-        add(controlPanel, BorderLayout.NORTH);
+        add(controlPanel);
 
         // Tile panel with grid layout for Mahjong tiles
         JPanel tilePanel = new JPanel(new GridLayout(4, 9));
@@ -69,7 +69,7 @@ public class TileSelectorComponent extends JPanel {
         tilePanel.add(new JLabel(""), 30);
         tilePanel.add(new JLabel(""), 34);
 
-        add(tilePanel, BorderLayout.CENTER);
+        add(tilePanel);
 
         setBorder(new EmptyBorder(10, 10, 10, 10));
     }
