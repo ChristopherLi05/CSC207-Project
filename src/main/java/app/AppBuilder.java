@@ -10,6 +10,7 @@ import entity.user.UserManager;
 import interface_adapter.addTile.AddTileController;
 import interface_adapter.addTile.AddTilePresenter;
 import interface_adapter.calculator.CalculatorState;
+import interface_adapter.calculator.CalculatorViewState;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginState;
@@ -18,6 +19,8 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.puzzleRush.PuzzleRushState;
+import interface_adapter.puzzleRush.PuzzleRushViewState;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupState;
@@ -30,10 +33,7 @@ import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.CalculatorView;
-import view.LoginView;
-import view.LeaderboardView;
-import view.SignupView;
+import view.*;
 
 public class AppBuilder {
     private final App app;
@@ -44,12 +44,14 @@ public class AppBuilder {
     private LeaderboardView leaderboardView;
     private SignupView signupView;
     private CalculatorView calculatorView;
+    private PuzzleRushView puzzleRushView;
 
     // ViewStates
     private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
     private SignupViewState signupViewState;
-    private interface_adapter.calculator.CalculatorViewState calculatorViewState;
+    private CalculatorViewState calculatorViewState;
+    private PuzzleRushViewState puzzleRushViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -112,16 +114,17 @@ public class AppBuilder {
 
     public AppBuilder addCalculatorView() {
         ensureState(BuildState.VIEW);
-        calculatorViewState = new interface_adapter.calculator.CalculatorViewState("CalculatorView", new CalculatorState());
+        calculatorViewState = new CalculatorViewState("CalculatorView", new CalculatorState());
         calculatorView = new CalculatorView(calculatorViewState, app.getViewManager());
-
         app.addPanel(calculatorView);
         return this;
     }
 
     public AppBuilder addPuzzleRushView() {
         ensureState(BuildState.VIEW);
-        //TODO - do this
+        puzzleRushViewState = new PuzzleRushViewState("PuzzleRushView", new PuzzleRushState());
+        puzzleRushView = new PuzzleRushView(puzzleRushViewState, app.getViewManager());
+        app.addPanel(puzzleRushView);
         return this;
     }
 

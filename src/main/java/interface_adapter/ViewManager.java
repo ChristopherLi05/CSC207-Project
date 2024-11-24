@@ -2,11 +2,11 @@ package interface_adapter;
 
 import util.StateNotifier;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class ViewManager extends StateNotifier<String> {
-    private final Map<String, ViewState<?>> viewStates = new TreeMap<>();
+    private final Map<String, ViewState<?>> viewStates = new LinkedHashMap<>();
 
     public ViewManager() {
         super("");

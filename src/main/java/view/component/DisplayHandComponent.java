@@ -32,7 +32,7 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!(evt.getNewValue() instanceof ITileModifierState)) return;
+        if (!(evt.getNewValue() instanceof IDisplayHandComponentState)) return;
         ITileModifierState state = (ITileModifierState) evt.getNewValue();
 
         this.closedTiles.removeAll();
