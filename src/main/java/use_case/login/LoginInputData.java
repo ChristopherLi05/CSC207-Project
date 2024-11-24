@@ -1,7 +1,6 @@
 package use_case.login;
 
 public class LoginInputData {
-
     private final String username;
     private final String password;
 

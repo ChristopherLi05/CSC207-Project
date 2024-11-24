@@ -1,4 +1,6 @@
 package use_case.calculator;
 
-public record CalculatorOutputData() {
+import entity.calculator.HandState;
+
+public record CalculatorOutputData(int score, boolean useCaseFailed) {
 }

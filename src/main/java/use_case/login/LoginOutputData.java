@@ -1,15 +1,21 @@
 package use_case.login;
 
+import entity.user.user_type.IUser;
+
 public class LoginOutputData {
-    private final String username;
+    private final IUser user;
     private final boolean useCaseFailed;
 
-    public LoginOutputData(String username, boolean useCaseFailed) {
-        this.username = username;
+    public LoginOutputData(IUser user, boolean useCaseFailed) {
+        this.user = user;
         this.useCaseFailed = useCaseFailed;
     }
 
-    public String getUsername() {
-        return username;
+    public IUser getUser() {
+        return user;
+    }
+
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
     }
 }
