@@ -39,12 +39,12 @@ public class LoginView extends AbstractPanel<LoginState> {
         passwordInfo.add(passwordInputField);
 
         final JPanel buttons = new JPanel();
-        logIn = new JButton("log in");
+        logIn = new JButton("Log In");
+        signup = new JButton("Go to Sign Up");
+        guest = new JButton("Guest");
         buttons.add(logIn);
-        guest = new JButton("guest");
-        buttons.add(guest);
-        signup = new JButton("sign up");
         buttons.add(signup);
+        buttons.add(guest);
 
         logIn.addActionListener(
                 evt -> {
