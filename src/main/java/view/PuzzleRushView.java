@@ -2,8 +2,8 @@ package view;
 
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
-import interface_adapter.puzzleRush.PuzzleRushController;
-import interface_adapter.puzzleRush.PuzzleRushState;
+import interface_adapter.puzzleRushHand.PuzzleRushHandController;
+import interface_adapter.puzzleRushHand.PuzzleRushState;
 import util.GUIHelper;
 import view.component.DisplayHandComponent;
 import view.component.TabSwitcherComponent;
@@ -12,17 +12,18 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
 public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private final CardLayout startRunningLayout = new CardLayout();
     private final JPanel startRunningPanel = new JPanel(startRunningLayout);
 
-    private PuzzleRushController puzzleRushController;
+    private PuzzleRushHandController puzzleRushHandController;
 
     private GamePanel gamePanel;
     private StartPanel startPanel;
-
 
     public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager) {
         super(viewState);
@@ -40,10 +41,11 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         this.add(new TabSwitcherComponent(viewManager));
 
         gamePanel = new GamePanel(viewState);
+
         startPanel = new StartPanel(e -> {
             System.out.println("here");
 
-            puzzleRushController.execute();
+            puzzleRushHandController.execute(viewState.getState().getTimeLeft(), viewState.getState().getTimeLeft());
             startRunningLayout.show(startRunningPanel, "running");
         });
 
@@ -53,8 +55,8 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         this.add(startRunningPanel);
     }
 
-    public void setPuzzleRushController(PuzzleRushController puzzleRushController) {
-        this.puzzleRushController = puzzleRushController;
+    public void setPuzzleRushController(PuzzleRushHandController puzzleRushHandController) {
+        this.puzzleRushHandController = puzzleRushHandController;
     }
 
     private static class StartPanel extends JPanel {
@@ -65,7 +67,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         }
     }
 
-    private static class GamePanel extends JPanel {
+    private static class GamePanel extends JPanel implements PropertyChangeListener {
         private final DisplayHandComponent displayHandComponent;
         private JLabel timerLabel;
         private JLabel scoreLabel;
@@ -116,7 +118,17 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             add(GUIHelper.wrapJpanel(errorField));
 
             inputButton = new JButton("Submit");
+//            inputButton.addActionListener(submitListener);
             add(GUIHelper.wrapJpanel(inputButton));
+        }
+
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            if (!(evt.getNewValue() instanceof PuzzleRushState)) return;
+            PuzzleRushState state = (PuzzleRushState) evt.getNewValue();
+
+            timerLabel.setText("Time Left: " + state.getTimeLeft());
+            scoreLabel.setText("Score: " + state.getCurrScore());
         }
     }
 }

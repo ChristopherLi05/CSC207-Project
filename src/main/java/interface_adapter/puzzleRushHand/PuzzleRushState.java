@@ -1,4 +1,4 @@
-package interface_adapter.puzzleRush;
+package interface_adapter.puzzleRushHand;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
@@ -13,15 +13,20 @@ public class PuzzleRushState implements IDisplayHandComponentState {
     private final List<MahjongGroup> openGroups;
     private MahjongTile winningTile;
 
-    public PuzzleRushState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
+    private int timeLeft;
+    private int currScore;
+
+    public PuzzleRushState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile, int timeLeft, int currScore) {
         this.closedTiles = closedTiles;
         this.closedGroups = closedGroups;
         this.openGroups = openGroups;
         this.winningTile = winningTile;
+        this.timeLeft = timeLeft;
+        this.currScore = currScore;
     }
 
     public PuzzleRushState() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null);
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, 0, 0);
     }
 
     @Override
@@ -46,5 +51,21 @@ public class PuzzleRushState implements IDisplayHandComponentState {
 
     public void setWinningTile(MahjongTile winningTile) {
         this.winningTile = winningTile;
+    }
+
+    public int getTimeLeft() {
+        return timeLeft;
+    }
+
+    public int getCurrScore() {
+        return currScore;
+    }
+
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
+    public void setCurrScore(int currScore) {
+        this.currScore = currScore;
     }
 }
