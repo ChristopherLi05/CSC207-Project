@@ -48,6 +48,7 @@ public class App extends JFrame implements IApp {
     @Override
     public void addPanel(AbstractPanel<?> panel) {
         cardPanel.add(panel, panel.getViewName());
+        viewManager.addPane(panel.getViewName(), panel.getViewState());
     }
 
     @Override
