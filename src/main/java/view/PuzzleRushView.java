@@ -3,7 +3,7 @@ package view;
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
 import interface_adapter.puzzleRushHand.PuzzleRushHandController;
-import interface_adapter.puzzleRushHand.PuzzleRushState;
+import interface_adapter.puzzleRush.PuzzleRushState;
 import util.GUIHelper;
 import view.component.DisplayHandComponent;
 import view.component.TabSwitcherComponent;

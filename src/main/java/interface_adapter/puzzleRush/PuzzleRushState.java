@@ -1,4 +1,4 @@
-package interface_adapter.puzzleRushHand;
+package interface_adapter.puzzleRush;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;

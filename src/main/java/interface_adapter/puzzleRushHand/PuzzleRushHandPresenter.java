@@ -1,5 +1,7 @@
 package interface_adapter.puzzleRushHand;
 
+import interface_adapter.puzzleRush.PuzzleRushState;
+import interface_adapter.puzzleRush.PuzzleRushViewState;
 import use_case.puzzleRushHand.PuzzleRushHandOutputBoundary;
 import use_case.puzzleRushHand.PuzzleRushHandOutputData;
 

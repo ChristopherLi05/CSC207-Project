@@ -1,4 +1,4 @@
-package interface_adapter.puzzleRushHand;
+package interface_adapter.puzzleRush;
 
 import interface_adapter.ViewState;
 
