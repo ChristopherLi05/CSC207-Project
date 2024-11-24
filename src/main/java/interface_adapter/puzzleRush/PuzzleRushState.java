@@ -13,6 +13,8 @@ public class PuzzleRushState implements IDisplayHandComponentState {
     private final List<MahjongGroup> openGroups;
     private MahjongTile winningTile;
 
+    private String failMessage = null;
+
     private int timeLeft;
     private int currScore;
 
@@ -67,5 +69,13 @@ public class PuzzleRushState implements IDisplayHandComponentState {
 
     public void setCurrScore(int currScore) {
         this.currScore = currScore;
+    }
+
+    public String getFailMessage() {
+        return failMessage;
+    }
+
+    public void setFailMessage(String failMessage) {
+        this.failMessage = failMessage;
     }
 }
