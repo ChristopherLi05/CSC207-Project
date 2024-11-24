@@ -15,6 +15,7 @@ public class Main {
                 .addTileSelectorUseCase()
                 .addLoginUseCase()
                 .addLeaderboardUseCase()
+                .addPuzzleRushUseCase()
                 .build();
     }
 }

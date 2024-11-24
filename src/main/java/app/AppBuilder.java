@@ -19,6 +19,8 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.puzzleRush.PuzzleRushController;
+import interface_adapter.puzzleRush.PuzzleRushPresenter;
 import interface_adapter.puzzleRush.PuzzleRushState;
 import interface_adapter.puzzleRush.PuzzleRushViewState;
 import interface_adapter.signup.SignupController;
@@ -31,6 +33,8 @@ import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
+import use_case.puzzleRush.PuzzleRushInteractor;
+import use_case.puzzleRush.PuzzleRushOutputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
 import view.*;
@@ -174,6 +178,17 @@ public class AppBuilder {
         LoginInteractor loginInteractor = new LoginInteractor(app, loginOutputBoundary);
         LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        return this;
+    }
+
+    public AppBuilder addPuzzleRushUseCase() {
+        ensureState(BuildState.USE_CASE);
+        PuzzleRushOutputBoundary puzzleRushOutputBoundary = new PuzzleRushPresenter(puzzleRushViewState);
+        PuzzleRushInteractor puzzleRushInteractor = new PuzzleRushInteractor(puzzleRushOutputBoundary, app.getHandStateFactory());
+
+        PuzzleRushController controller = new PuzzleRushController(puzzleRushInteractor);
+        puzzleRushView.setPuzzleRushController(controller);
+
         return this;
     }
 
