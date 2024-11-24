@@ -2,21 +2,23 @@ package view;
 
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
+import interface_adapter.puzzleRush.PuzzleRushController;
 import interface_adapter.puzzleRush.PuzzleRushState;
 import util.GUIHelper;
 import view.component.DisplayHandComponent;
 import view.component.TabSwitcherComponent;
 
 import javax.swing.*;
-import javax.swing.text.NumberFormatter;
+import javax.swing.text.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-public class PuzzleRushView extends AbstractPanel<PuzzleRushState> implements PropertyChangeListener {
+public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private final CardLayout startRunningLayout = new CardLayout();
     private final JPanel startRunningPanel = new JPanel(startRunningLayout);
+
+    private PuzzleRushController puzzleRushController;
 
     private GamePanel gamePanel;
     private StartPanel startPanel;
@@ -25,40 +27,40 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> implements Pr
     public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager) {
         super(viewState);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        viewManager.addPropertyChangeListener(this);
+        viewManager.addPropertyChangeListener((evt) -> {
+            if (evt.getPropertyName().equals("state")) {
+                if (evt.getNewValue().equals(getViewName())) {
+                    startRunningLayout.show(startRunningPanel, "start");
+                } else {
+
+                }
+            }
+        });
 
         this.add(new TabSwitcherComponent(viewManager));
 
         gamePanel = new GamePanel(viewState);
-        startPanel = new StartPanel();
+        startPanel = new StartPanel(e -> {
+            System.out.println("here");
+
+            puzzleRushController.execute();
+            startRunningLayout.show(startRunningPanel, "running");
+        });
 
         startRunningPanel.add(startPanel, "start");
         startRunningPanel.add(gamePanel, "running");
 
         this.add(startRunningPanel);
-
-        startRunningLayout.show(startRunningPanel, "running");
-
-
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state")) {
-            if (evt.getNewValue().equals(getViewName())) {
-
-            } else {
-
-            }
-        }
+    public void setPuzzleRushController(PuzzleRushController puzzleRushController) {
+        this.puzzleRushController = puzzleRushController;
     }
 
     private static class StartPanel extends JPanel {
-        public StartPanel() {
+        public StartPanel(ActionListener startListener) {
             JButton startButton = new JButton("Start");
-            startButton.addActionListener(e -> {
-                System.out.println("here");
-            });
+            startButton.addActionListener(startListener);
             this.add(startButton);
         }
     }
@@ -68,7 +70,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> implements Pr
         private JLabel timerLabel;
         private JLabel scoreLabel;
         private JLabel inputLabel;
-        private JFormattedTextField pointEntry;
+        private JTextField pointEntry;
         private JLabel errorField;
         private JButton inputButton;
 
@@ -91,15 +93,23 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> implements Pr
             NumberFormat format = NumberFormat.getInstance();
             format.setGroupingUsed(false);
 
-            NumberFormatter formatter = new NumberFormatter(format);
+            pointEntry = new JTextField(20);
+            ((AbstractDocument) pointEntry.getDocument()).setDocumentFilter(new DocumentFilter() {
+                @Override
+                public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                    if (string != null && string.matches("\\d*")) {
+                        super.insertString(fb, offset, string, attr);
+                    }
+                }
 
-            formatter.setValueClass(Integer.class);
-            formatter.setAllowsInvalid(false);
-            formatter.setMinimum(0);
-            formatter.setMaximum(128000);
+                @Override
+                public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                    if (text != null && text.matches("\\d*")) {
+                        super.replace(fb, offset, length, text, attrs);
+                    }
+                }
+            });
 
-            pointEntry = new JFormattedTextField(formatter);
-            pointEntry.setColumns(20);
             add(GUIHelper.wrapJpanel(inputLabel, pointEntry));
 
             errorField = new JLabel();
