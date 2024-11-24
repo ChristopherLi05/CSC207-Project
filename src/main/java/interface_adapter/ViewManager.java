@@ -2,11 +2,11 @@ package interface_adapter;
 
 import util.StateNotifier;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class ViewManager extends StateNotifier<String> {
-    private final Map<String, ViewState<?>> viewStates = new HashMap<>();
+    private final Map<String, ViewState<?>> viewStates = new TreeMap<>();
 
     public ViewManager() {
         super("");
@@ -19,6 +19,7 @@ public class ViewManager extends StateNotifier<String> {
 
     public void addPane(String viewName, ViewState<?> viewState) {
         viewStates.put(viewName, viewState);
+        firePropertyChanged("stateAdded");
     }
 
     public Map<String, ViewState<?>> getViewStates() {

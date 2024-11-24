@@ -97,8 +97,6 @@ public class AppBuilder {
     public AppBuilder addSignupView() {
         ensureState(BuildState.VIEW);
         signupViewState = new SignupViewState("SignupView", new SignupState());
-        signupViewState.setState(new SignupState());
-
         signupView = new SignupView(signupViewState, app.getViewManager());
         app.addPanel(signupView);
         return this;
@@ -107,8 +105,6 @@ public class AppBuilder {
     public AppBuilder addLoginView() {
         ensureState(BuildState.VIEW);
         loginViewState = new LoginViewState("LoginView", new LoginState());
-        loginViewState.setState(new LoginState());
-
         loginView = new LoginView(loginViewState);
         app.addPanel(loginView);
         return this;
@@ -118,8 +114,8 @@ public class AppBuilder {
         ensureState(BuildState.VIEW);
         calculatorViewState = new interface_adapter.calculator.CalculatorViewState("CalculatorView", new CalculatorState());
         calculatorView = new CalculatorView(calculatorViewState, app.getViewManager());
-        app.addPanel(calculatorView);
 
+        app.addPanel(calculatorView);
         return this;
     }
 
@@ -132,8 +128,6 @@ public class AppBuilder {
     public AppBuilder addLeaderboardView() {
         ensureState(BuildState.VIEW);
         leaderboardViewState = new LeaderboardViewState("LeaderboardView", new LeaderboardState());
-        leaderboardViewState.setState(new LeaderboardState());
-
         leaderboardView = new LeaderboardView(leaderboardViewState, app.getViewManager());
         app.addPanel(leaderboardView);
         return this;
