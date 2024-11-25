@@ -1,58 +1,60 @@
 package interface_adapter.puzzleRush;
 
+import entity.calculator.HandState;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import view.component.IDisplayHandComponentState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PuzzleRushState implements IDisplayHandComponentState {
-    private final List<MahjongTile> closedTiles;
-    private final List<MahjongGroup> closedGroups;
-    private final List<MahjongGroup> openGroups;
-    private MahjongTile winningTile;
+    private final HandState handState;
 
     private String failMessage = null;
+    private boolean changedState = false;
 
     private int timeLeft;
     private int currScore;
 
-    public PuzzleRushState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile, int timeLeft, int currScore) {
-        this.closedTiles = closedTiles;
-        this.closedGroups = closedGroups;
-        this.openGroups = openGroups;
-        this.winningTile = winningTile;
+    public PuzzleRushState(HandState handState, int timeLeft, int currScore) {
+        this.handState = handState;
         this.timeLeft = timeLeft;
         this.currScore = currScore;
     }
 
-    public PuzzleRushState() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null, 0, 0);
+    public PuzzleRushState(HandState handState) {
+        this(handState, 0, 0);
     }
 
     @Override
     public List<MahjongTile> getClosedTiles() {
-        return closedTiles;
+        return handState.closedTiles();
     }
 
     @Override
     public List<MahjongGroup> getClosedGroup() {
-        return closedGroups;
+        return handState.closedGroup();
     }
 
     @Override
     public List<MahjongGroup> getOpenGroups() {
-        return openGroups;
+        return handState.openGroups();
     }
 
     @Override
     public MahjongTile getWinningTile() {
-        return winningTile;
+        return handState.winningTile();
     }
 
-    public void setWinningTile(MahjongTile winningTile) {
-        this.winningTile = winningTile;
+    @Override
+    public boolean changedState() {
+        boolean changedState = this.changedState;
+        this.changedState = false;
+        return changedState;
+    }
+
+    public void setChangedState(boolean changedState) {
+        this.changedState = changedState;
     }
 
     public int getTimeLeft() {
@@ -77,5 +79,9 @@ public class PuzzleRushState implements IDisplayHandComponentState {
 
     public void setFailMessage(String failMessage) {
         this.failMessage = failMessage;
+    }
+
+    public HandState getHandState() {
+        return handState;
     }
 }

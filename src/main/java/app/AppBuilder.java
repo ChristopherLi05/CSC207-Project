@@ -130,8 +130,8 @@ public class AppBuilder {
 
     public AppBuilder addPuzzleRushView() {
         ensureState(BuildState.VIEW);
-        puzzleRushViewState = new PuzzleRushViewState("PuzzleRushView", new PuzzleRushState());
-        puzzleRushView = new PuzzleRushView(puzzleRushViewState, app.getViewManager());
+        puzzleRushViewState = new PuzzleRushViewState("PuzzleRushView", new PuzzleRushState(app.getHandStateFactory().createHandState("1p1p2p2p3p3p9p 4p4p4p4p 5p5p5p 9p 9m  ww ew 1")));
+        puzzleRushView = new PuzzleRushView(puzzleRushViewState, app.getViewManager(), app);
         app.addPanel(puzzleRushView);
         return this;
     }

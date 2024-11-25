@@ -1,5 +1,7 @@
 package view;
 
+import app.IApp;
+import data_access.IDataAccessor;
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
 import interface_adapter.puzzleRush.PuzzleRushController;
@@ -16,17 +18,20 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private final CardLayout startRunningLayout = new CardLayout();
     private final JPanel startRunningPanel = new JPanel(startRunningLayout);
 
-    private PuzzleRushHandController puzzleRushHandController;
 
     private GamePanel gamePanel;
     private StartPanel startPanel;
+    private ResultPanel resultPanel;
 
-    public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager) {
+    // IApp is temporary
+    public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager, IApp app) {
         super(viewState);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         viewManager.addPropertyChangeListener((evt) -> {
@@ -34,7 +39,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
                 if (evt.getNewValue().equals(getViewName())) {
                     startRunningLayout.show(startRunningPanel, "start");
                 } else {
-
+                    gamePanel.stop();
                 }
             }
         });
@@ -44,20 +49,27 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         gamePanel = new GamePanel(viewState);
 
         startPanel = new StartPanel(e -> {
-            System.out.println("here");
-
-            puzzleRushHandController.execute(viewState.getState().getTimeLeft(), viewState.getState().getTimeLeft());
+            gamePanel.start();
             startRunningLayout.show(startRunningPanel, "running");
+        });
+
+        resultPanel = new ResultPanel(app);
+        viewState.addPropertyChangeListener(resultPanel);
+        viewState.addPropertyChangeListener(e -> {
+            if (e.getPropertyName().equals("timerEnd")) {
+                startRunningLayout.show(startRunningPanel, "result");
+            }
         });
 
         startRunningPanel.add(startPanel, "start");
         startRunningPanel.add(gamePanel, "running");
+        startRunningPanel.add(resultPanel, "result");
 
         this.add(startRunningPanel);
     }
 
     public void setPuzzleRushHandController(PuzzleRushHandController puzzleRushHandController) {
-        this.puzzleRushHandController = puzzleRushHandController;
+        gamePanel.setPuzzleRushHandController(puzzleRushHandController);
     }
 
     public void setPuzzleRushController(PuzzleRushController puzzleRushController) {
@@ -81,10 +93,19 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         private JLabel errorField;
         private JButton inputButton;
 
+        private final ViewState<PuzzleRushState> viewState;
+
+        private java.util.Timer timer;
+        private TimerTask timerTask;
+
         private PuzzleRushController puzzleRushController = null;
+        private PuzzleRushHandController puzzleRushHandController = null;
 
         public GamePanel(ViewState<PuzzleRushState> viewState) {
+            this.viewState = viewState;
+
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            viewState.addPropertyChangeListener(this);
 
             displayHandComponent = new DisplayHandComponent(false);
             viewState.addPropertyChangeListener(displayHandComponent);
@@ -125,8 +146,15 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             add(GUIHelper.wrapJpanel(errorField));
 
             inputButton = new JButton("Submit");
-//            inputButton.addActionListener(submitListener);
+            inputButton.addActionListener(e -> {
+                if (pointEntry.getText() == null || pointEntry.getText().isEmpty()) return;
+
+                puzzleRushController.execute(Integer.parseInt(pointEntry.getText()), viewState.getState().getHandState());
+                pointEntry.setText("");
+            });
             add(GUIHelper.wrapJpanel(inputButton));
+
+            timer = new Timer();
         }
 
         @Override
@@ -134,12 +162,77 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             if (!(evt.getNewValue() instanceof PuzzleRushState)) return;
             PuzzleRushState state = (PuzzleRushState) evt.getNewValue();
 
-            timerLabel.setText("Time Left: " + state.getTimeLeft());
+            timerLabel.setText("Time Left: " + state.getTimeLeft() / 1000);
             scoreLabel.setText("Score: " + state.getCurrScore());
+
+            if (evt.getPropertyName().equals("successChangeHand")) {
+                puzzleRushHandController.execute(state.getTimeLeft(), state.getCurrScore() + 1);
+            } else if (evt.getPropertyName().equals("failChangeHand")) {
+                puzzleRushHandController.execute(state.getTimeLeft() - 5000, state.getCurrScore());
+            }
         }
 
         public void setPuzzleRushController(PuzzleRushController puzzleRushController) {
             this.puzzleRushController = puzzleRushController;
+        }
+
+        public void start() {
+            if (timerTask != null) {
+                timerTask.cancel();
+            }
+
+            // 1 minute
+            puzzleRushHandController.execute(60200, 0);
+
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    int timeLeft = viewState.getState().getTimeLeft() - 200;
+                    viewState.getState().setTimeLeft(timeLeft);
+                    viewState.firePropertyChanged();
+
+                    if (timeLeft < 0) {
+                        this.cancel();
+                        viewState.firePropertyChanged("timerEnd");
+                    }
+                }
+            };
+
+            timer.scheduleAtFixedRate(timerTask, 0, 200);
+        }
+
+        public void stop() {
+            if (timerTask != null) {
+                timerTask.cancel();
+                timerTask = null;
+            }
+        }
+
+        public void setPuzzleRushHandController(PuzzleRushHandController puzzleRushHandController) {
+            this.puzzleRushHandController = puzzleRushHandController;
+        }
+    }
+
+    private static class ResultPanel extends JPanel implements PropertyChangeListener {
+        private JLabel finalScore;
+        private IApp app;
+
+        // app temp
+        public ResultPanel(IApp app) {
+            this.app = app;
+
+            finalScore = new JLabel("Final Score: ");
+            this.add(finalScore);
+        }
+
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            if (evt.getPropertyName().equals("timerEnd") && evt.getNewValue() instanceof PuzzleRushState) {
+                finalScore.setText("Final Score: " + ((PuzzleRushState) evt.getNewValue()).getCurrScore());
+                if (app.getUserManager().getCurrentUser().isLoggedIn()) {
+                    app.getDataAccessor().updateScore(app.getUserManager().getCurrentUser().getSessionId(), ((PuzzleRushState) evt.getNewValue()).getCurrScore());
+                }
+            }
         }
     }
 }

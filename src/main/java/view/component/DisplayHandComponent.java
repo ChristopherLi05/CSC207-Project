@@ -34,6 +34,7 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
     public void propertyChange(PropertyChangeEvent evt) {
         if (!(evt.getNewValue() instanceof IDisplayHandComponentState)) return;
         IDisplayHandComponentState state = (IDisplayHandComponentState) evt.getNewValue();
+        if (!state.changedState()) return;
 
         this.closedTiles.removeAll();
         List<MahjongTile> tiles = new ArrayList<>(state.getClosedTiles());

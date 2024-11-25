@@ -14,7 +14,8 @@ public class PuzzleRushHandPresenter implements PuzzleRushHandOutputBoundary {
 
     @Override
     public void prepareSuccessView(PuzzleRushHandOutputData outputData) {
-        PuzzleRushState state = new PuzzleRushState(outputData.getNewHandState().closedTiles(), outputData.getNewHandState().closedGroup(), outputData.getNewHandState().openGroups(), outputData.getNewHandState().winningTile(), outputData.getTimeLeft(), outputData.getCurrScore());
+        PuzzleRushState state = new PuzzleRushState(outputData.getNewHandState(), outputData.getTimeLeft(), outputData.getCurrScore());
+        state.setChangedState(true);
         puzzleRushViewState.setState(state);
         puzzleRushViewState.firePropertyChanged();
     }

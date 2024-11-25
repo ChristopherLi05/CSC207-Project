@@ -48,6 +48,11 @@ public class CalculatorState implements ITileModifierState {
     }
 
     @Override
+    public boolean changedState() {
+        return true;
+    }
+
+    @Override
     public void addClosedTile(MahjongTile mahjongTile) {
         this.closedTiles.add(mahjongTile);
     }
