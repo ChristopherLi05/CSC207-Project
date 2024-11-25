@@ -3,6 +3,7 @@ package view;
 import entity.calculator.mahjong.MahjongTile;
 import interface_adapter.ViewManager;
 import interface_adapter.addTile.AddTileController;
+import interface_adapter.calculator.CalculatorController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import view.component.DisplayHandComponent;
@@ -10,6 +11,7 @@ import view.component.ITileSelectorComponentState;
 import view.component.MahjongTileInputButton;
 import view.component.TileSelectorComponent;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +21,8 @@ import java.beans.PropertyChangeListener;
 public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
-
     private AddTileController addTileController;
+    private CalculatorController calculatorController;
 
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
         super(viewState);
@@ -35,6 +37,14 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         // Initialize and add TileSelectorComponent at center
         tileSelectorComponent = new TileSelectorComponent(viewState, this);
         add(tileSelectorComponent, BorderLayout.CENTER);
+
+        final JPanel buttons = new JPanel();
+        JButton calculate = new JButton("calculate");
+        buttons.add(calculate);
+//TODO
+        calculate.addActionListener(evt -> calculatorController.execute());
+
+        this.add(buttons, BorderLayout.SOUTH);
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
@@ -55,6 +65,10 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
     public void setAddTileController(AddTileController addTileController) {
         this.addTileController = addTileController;
+    }
+
+    public void setCalculatorController(CalculatorController calculatorController) {
+        this.calculatorController = calculatorController;
     }
 
     @Override
