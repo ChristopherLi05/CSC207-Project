@@ -14,6 +14,7 @@ public class Main {
                 .addTileSelectorUseCase()
                 .addLoginUseCase()
                 .addLeaderboardUseCase()
+                .addCalculatorUseCase()
                 .build();
     }
 }
