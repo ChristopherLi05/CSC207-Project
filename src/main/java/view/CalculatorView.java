@@ -1,5 +1,8 @@
 package view;
 
+import entity.calculator.HandState;
+import entity.calculator.HandStateFactory;
+import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import interface_adapter.ViewManager;
 import interface_adapter.addTile.AddTileController;
@@ -17,6 +20,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import static entity.calculator.mahjong.MahjongTile.EAST_WIND;
+import static java.util.Collections.emptyList;
 
 public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
@@ -24,7 +32,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     private AddTileController addTileController;
     private CalculatorController calculatorController;
 
-    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
+    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager, HandStateFactory handStateFactory) {
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -44,11 +52,18 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
         buttons.add(calculate);
-//TODO
-        calculate.addActionListener(evt -> calculatorController.execute());
+
+        List<MahjongTile> closedTiles = viewState.getState().getClosedTiles();
+        List<MahjongGroup> closedGroups = viewState.getState().getClosedGroup();
+        List<MahjongGroup> openGroups = viewState.getState().getOpenGroups();
+        MahjongTile winningTile = viewState.getState().getWinningTile();
+
+        HandState handstate =
+                handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+
+        calculate.addActionListener(evt -> calculatorController.execute(handstate));
 
         this.add(buttons, BorderLayout.SOUTH);
-
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
@@ -64,6 +79,9 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
             ITileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
 
             addTileController.execute(clickedTile, isAka, selectorType);
+        }
+        if (e.getSource() instanceof JButton) {
+
         }
     }
 
