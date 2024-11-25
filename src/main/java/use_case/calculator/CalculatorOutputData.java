@@ -5,11 +5,9 @@ import entity.calculator.HandState;
 public class CalculatorOutputData {
 
     private final int score;
-    private final boolean useCaseFailed;
 
-    public CalculatorOutputData(int score, boolean useCaseFailed) {
+    public CalculatorOutputData(int score) {
         this.score = score;
-        this.useCaseFailed = useCaseFailed;
     }
 
     public int getScore() {
