@@ -24,7 +24,10 @@ public class TanyaoTestCase implements IYakuTestCase {
     }
 
     @Override
-    public int getHanValue() {
-        return 2;
+    public int getClosedHanValue() {
+        return 1;
     }
+
+    @Override
+    public int getOpenHanValue() { return 1; }
 }

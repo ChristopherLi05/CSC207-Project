@@ -18,7 +18,12 @@ public class WhiteDragonTestCase implements IYakuTestCase {
 
 
     @Override
-    public int getHanValue() {
+    public int getClosedHanValue() {
+        return 1;
+    }
+
+    @Override
+    public int getOpenHanValue() {
         return 1;
     }
 }
