@@ -10,6 +10,7 @@ import entity.user.UserManager;
 import interface_adapter.addTile.AddTileController;
 import interface_adapter.addTile.AddTilePresenter;
 import interface_adapter.calculator.CalculatorState;
+import interface_adapter.calculator.CalculatorViewState;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginState;
@@ -18,19 +19,29 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardPresenter;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.puzzleRush.PuzzleRushController;
+import interface_adapter.puzzleRush.PuzzleRushPresenter;
+import interface_adapter.puzzleRushHand.PuzzleRushHandController;
+import interface_adapter.puzzleRushHand.PuzzleRushHandPresenter;
+import interface_adapter.puzzleRush.PuzzleRushState;
+import interface_adapter.puzzleRush.PuzzleRushViewState;
+import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
-import interface_adapter.calculator.CalculatorViewState;
 import use_case.addTile.AddTileInteractor;
 import use_case.addTile.AddTileOutputBoundary;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
-import view.CalculatorView;
-import view.LoginView;
-import view.LeaderboardView;
-import view.SignupView;
+import use_case.puzzleRush.PuzzleRushInteractor;
+import use_case.puzzleRush.PuzzleRushOutputBoundary;
+import use_case.puzzleRushHand.PuzzleRushHandInteractor;
+import use_case.puzzleRushHand.PuzzleRushHandOutputBoundary;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
+import view.*;
 
 public class AppBuilder {
     private final App app;
@@ -41,12 +52,14 @@ public class AppBuilder {
     private LeaderboardView leaderboardView;
     private SignupView signupView;
     private CalculatorView calculatorView;
+    private PuzzleRushView puzzleRushView;
 
     // ViewStates
     private LoginViewState loginViewState;
     private LeaderboardViewState leaderboardViewState;
     private SignupViewState signupViewState;
     private CalculatorViewState calculatorViewState;
+    private PuzzleRushViewState puzzleRushViewState;
 
     public AppBuilder() {
         this(new App("Mahjong Point Calculator"));
@@ -93,9 +106,7 @@ public class AppBuilder {
 
     public AppBuilder addSignupView() {
         ensureState(BuildState.VIEW);
-        signupViewState = new SignupViewState("LeaderboardView", new SignupState());
-        signupViewState.setState(new SignupState());
-
+        signupViewState = new SignupViewState("SignupView", new SignupState());
         signupView = new SignupView(signupViewState, app.getViewManager());
         app.addPanel(signupView);
         return this;
@@ -104,8 +115,6 @@ public class AppBuilder {
     public AppBuilder addLoginView() {
         ensureState(BuildState.VIEW);
         loginViewState = new LoginViewState("LoginView", new LoginState());
-        loginViewState.setState(new LoginState());
-
         loginView = new LoginView(loginViewState);
         app.addPanel(loginView);
         return this;
@@ -116,23 +125,33 @@ public class AppBuilder {
         calculatorViewState = new CalculatorViewState("CalculatorView", new CalculatorState());
         calculatorView = new CalculatorView(calculatorViewState, app.getViewManager());
         app.addPanel(calculatorView);
-
         return this;
     }
 
     public AppBuilder addPuzzleRushView() {
         ensureState(BuildState.VIEW);
-        //TODO - do this
+        puzzleRushViewState = new PuzzleRushViewState("PuzzleRushView", new PuzzleRushState(app.getHandStateFactory().createHandState("1p1p2p2p3p3p9p 4p4p4p4p 5p5p5p 9p 9m  ww ew 1")));
+        puzzleRushView = new PuzzleRushView(puzzleRushViewState, app.getViewManager(), app);
+        app.addPanel(puzzleRushView);
         return this;
     }
 
     public AppBuilder addLeaderboardView() {
         ensureState(BuildState.VIEW);
         leaderboardViewState = new LeaderboardViewState("LeaderboardView", new LeaderboardState());
-        leaderboardViewState.setState(new LeaderboardState());
-
         leaderboardView = new LeaderboardView(leaderboardViewState, app.getViewManager());
         app.addPanel(leaderboardView);
+        return this;
+    }
+
+    public AppBuilder addSignupUseCase() {
+        ensureState(BuildState.USE_CASE);
+        SignupOutputBoundary signupOutputBoundary = new SignupPresenter(app.getViewManager(), app.getUserManager(), calculatorViewState, loginViewState);
+        SignupInteractor signupInteractor = new SignupInteractor(signupOutputBoundary, app.getDataAccessor());
+
+        SignupController signupController = new SignupController(signupInteractor);
+        signupView.setSignupController(signupController);
+
         return this;
     }
 
@@ -163,6 +182,26 @@ public class AppBuilder {
         LoginInteractor loginInteractor = new LoginInteractor(app, loginOutputBoundary);
         LoginController loginController = new LoginController(loginInteractor);
         loginView.setLoginController(loginController);
+        return this;
+    }
+
+    public AppBuilder addPuzzleRushUseCase() {
+        ensureState(BuildState.USE_CASE);
+        PuzzleRushOutputBoundary puzzleRushHandOutputBoundary = new PuzzleRushPresenter(puzzleRushViewState);
+        PuzzleRushInteractor puzzleRushInteractor = new PuzzleRushInteractor(puzzleRushHandOutputBoundary);
+
+        PuzzleRushController controller = new PuzzleRushController(puzzleRushInteractor);
+        puzzleRushView.setPuzzleRushController(controller);
+        return this;
+    }
+
+    public AppBuilder addPuzzleRushHandUseCase() {
+        ensureState(BuildState.USE_CASE);
+        PuzzleRushHandOutputBoundary puzzleRushHandOutputBoundary = new PuzzleRushHandPresenter(puzzleRushViewState);
+        PuzzleRushHandInteractor puzzleRushInteractor = new PuzzleRushHandInteractor(puzzleRushHandOutputBoundary, app.getHandStateFactory());
+
+        PuzzleRushHandController controller = new PuzzleRushHandController(puzzleRushInteractor);
+        puzzleRushView.setPuzzleRushHandController(controller);
         return this;
     }
 

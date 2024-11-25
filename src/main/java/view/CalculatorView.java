@@ -5,10 +5,7 @@ import interface_adapter.ViewManager;
 import interface_adapter.addTile.AddTileController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
-import view.component.DisplayHandComponent;
-import view.component.ITileSelectorComponentState;
-import view.component.MahjongTileInputButton;
-import view.component.TileSelectorComponent;
+import view.component.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +23,8 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(new TabSwitcherComponent(viewManager));
 
         // Initialize and add DisplayHandComponent at top
         displayHandComponent = new DisplayHandComponent(true);

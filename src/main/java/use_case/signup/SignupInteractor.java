@@ -1,6 +1,8 @@
 package use_case.signup;
 
+import data_access.IDataAccessor;
 import entity.user.IUserFactory;
+import entity.user.IUserManager;
 import entity.user.UserCreationDataAccessor;
 import entity.user.user_type.IUser;
 
@@ -8,33 +10,31 @@ import entity.user.user_type.IUser;
  * The Signup Interactor.
  */
 public class SignupInteractor implements SignupInputBoundary {
-    private final UserCreationDataAccessor userDataAccessObject;
+    private final IDataAccessor userDataAccessObject;
     private final SignupOutputBoundary userPresenter;
-    private final IUserFactory userFactory;
 
-    public SignupInteractor(UserCreationDataAccessor signupDataAccessInterface,
-                            SignupOutputBoundary signupOutputBoundary,
-                            IUserFactory userFactory) {
+    public SignupInteractor(
+            SignupOutputBoundary signupOutputBoundary,
+            IDataAccessor signupDataAccessInterface
+    ) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;
-        this.userFactory = userFactory;
     }
 
     @Override
     public void execute(SignupInputData signupInputData) {
-//        if (userDataAccessObject.existsByName(signupInputData.getUsername())) {
-//            userPresenter.prepareFailView("User already exists.");
-//        }
-//        else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
-//            userPresenter.prepareFailView("Passwords don't match.");
-//        }
-//        else {
-//            final IUser user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
-//            userDataAccessObject.save(user);
-//
-//            final SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(), false);
-//            userPresenter.prepareSuccessView(signupOutputData);
-//        }
+        if (signupInputData.isGuest()) {
+            userPresenter.prepareGuestView();
+        } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
+            userPresenter.prepareFailView("Password does not match");
+        } else {
+            boolean success = userDataAccessObject.signUp(signupInputData.getUsername(), signupInputData.getPassword());
+            if (success) {
+                userPresenter.prepareSuccessView(new SignupOutputData(signupInputData.getUsername(), false));
+            } else {
+                userPresenter.prepareFailView("Error");
+            }
+        }
     }
 
     @Override

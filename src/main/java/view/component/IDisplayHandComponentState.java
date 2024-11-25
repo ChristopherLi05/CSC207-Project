@@ -13,4 +13,6 @@ public interface IDisplayHandComponentState {
     List<MahjongGroup> getOpenGroups();
 
     MahjongTile getWinningTile();
+
+    boolean changedState();
 }
