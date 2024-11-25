@@ -118,7 +118,8 @@ public class AppBuilder {
     public AppBuilder addCalculatorView() {
         ensureState(BuildState.VIEW);
         calculatorViewState = new CalculatorViewState("CalculatorView", new CalculatorState());
-        calculatorView = new CalculatorView(calculatorViewState, app.getViewManager());
+        HandStateFactory handStateFactory = new HandStateFactory();
+        calculatorView = new CalculatorView(calculatorViewState, app.getViewManager(), handStateFactory);
         app.addPanel(calculatorView);
 
         return this;
