@@ -35,5 +35,6 @@ public class Calculator {
         yakuList.add(new WestWindTestCase());
         yakuList.add(new NorthWindTestCase());
         yakuList.add(new SeatWindTestCase());
+        yakuList.add(new ChinnitsuTestCase());
     }
 }
