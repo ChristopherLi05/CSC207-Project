@@ -30,5 +30,10 @@ public class Calculator {
         yakuList.add(new GreenDragonTestCase());
         yakuList.add(new WhiteDragonTestCase());
         yakuList.add(new RedDragonTestCase());
+        yakuList.add(new NorthWindTestCase());
+        yakuList.add(new SouthWindTestCase());
+        yakuList.add(new WestWindTestCase());
+        yakuList.add(new NorthWindTestCase());
+        yakuList.add(new SeatWindTestCase());
     }
 }
