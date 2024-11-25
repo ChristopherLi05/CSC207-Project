@@ -35,6 +35,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareCalculatorView(LoginOutputData loginOutputData) {
         this.calculatorViewState.setState(new CalculatorState());
         this.calculatorViewState.firePropertyChanged();
+        this.app.getUserManager().setUserLoggedIn(loginOutputData.getUser().getSessionId(), loginOutputData.getUser().getUsername(), loginOutputData.getUser().getBestScore());
 
         this.app.getViewManager().setView(calculatorViewState.getViewName());
     }
