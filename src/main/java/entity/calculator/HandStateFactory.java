@@ -99,6 +99,15 @@ public class HandStateFactory implements IHandStateFactory {
         return createHandState(strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7], Integer.parseInt(strings[8]));
     }
 
+    public HandState createHandState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups,
+                                     MahjongTile winningTile,
+                                     List<MahjongTile> doraList, List<MahjongTile> uraList, MahjongTile seatWindTile, MahjongTile roundWindTile,
+                                     boolean ron, boolean tsumo, boolean riichi, boolean doubleRiichi, boolean ippatsu,
+                                     boolean chankan, boolean rinshanKaihou, boolean haitei, boolean houtei) {
+        return new HandState(closedTiles, closedGroups, openGroups, winningTile, doraList, uraList, seatWindTile, roundWindTile,
+                ron, tsumo, riichi, doubleRiichi, ippatsu, chankan, rinshanKaihou, haitei, houtei);
+    }
+
     private static void validateHandStrings(String closed, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
         if (closed.length() % 2 != 0) {
             throw new IllegalArgumentException("Invalid closed state: " + closed);
