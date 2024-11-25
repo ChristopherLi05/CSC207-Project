@@ -2,6 +2,7 @@ package interface_adapter.calculator;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
+import interface_adapter.login.LoginState;
 import view.component.ITileModifierState;
 
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ public class CalculatorState implements ITileModifierState {
     private final List<MahjongGroup> closedGroups;
     private final List<MahjongGroup> openGroups;
     private MahjongTile winningTile;
-
     private boolean isAka = false;
     private SelectorType selectorType = SelectorType.NONE;
+    private static String messageState = null;
 
     public CalculatorState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
         this.closedTiles = closedTiles;
@@ -94,6 +95,14 @@ public class CalculatorState implements ITileModifierState {
     @Override
     public String toString() {
         return "CalculatorState(closedTiles=" + closedTiles + ", closedGroups=" + closedGroups + ", openGroups=" + openGroups + ", winningTile=" + winningTile + ")";
+    }
+
+    public void setMessageState(String message) {
+        this.messageState = message;
+    }
+
+    private String getMessageState() {
+        return messageState;
     }
 }
 
