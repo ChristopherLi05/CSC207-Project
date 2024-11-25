@@ -14,10 +14,9 @@ public class CalculatorController {
         this.calculatorUseCaseInteractor = calculatorUseCaseInteractor;
     }
 
+//TODO
+    public void execute() {
 
-    public void execute(List<MahjongTile> selectedtiles) {
-        final CalculatorInputData calculatorInputData = new CalculatorInputData(selectedtiles);
-
-        calculatorUseCaseInteractor.execute(calculatorInputData);
+        calculatorUseCaseInteractor.execute();
     }
 }
