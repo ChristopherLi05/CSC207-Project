@@ -3,7 +3,7 @@ package entity.calculator;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongSuit;
 import entity.calculator.mahjong.MahjongTile;
-import entity.calculator.yaku.IYakuTestCase;
+import entity.calculator.yaku.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,5 +26,9 @@ public class Calculator {
 
     static {
         // Initialize all of the yaku test cases here
+        yakuList.add(new TanyaoTestCase());
+        yakuList.add(new GreenDragonTestCase());
+        yakuList.add(new WhiteDragonTestCase());
+        yakuList.add(new RedDragonTestCase());
     }
 }
