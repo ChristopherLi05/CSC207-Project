@@ -26,17 +26,20 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
         super(viewState);
-        setLayout(new BorderLayout());
-
-        viewState.addPropertyChangeListener(this);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Initialize and add DisplayHandComponent at top
-        displayHandComponent = new DisplayHandComponent();
-        add(displayHandComponent, BorderLayout.NORTH);
+        displayHandComponent = new DisplayHandComponent(true);
+        add(displayHandComponent);
+        viewState.addPropertyChangeListener(displayHandComponent);
 
         // Initialize and add TileSelectorComponent at center
         tileSelectorComponent = new TileSelectorComponent(viewState, this);
-        add(tileSelectorComponent, BorderLayout.CENTER);
+        JPanel dontStretch = new JPanel(new FlowLayout());
+        dontStretch.add(tileSelectorComponent);
+        add(dontStretch);
+
+        add(Box.createVerticalGlue());
 
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
@@ -45,6 +48,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         calculate.addActionListener(evt -> calculatorController.execute());
 
         this.add(buttons, BorderLayout.SOUTH);
+
     }
 
     public DisplayHandComponent getDisplayHandComponent() {

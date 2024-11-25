@@ -1,60 +1,82 @@
 package view.component;
 
+import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
+
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 
-public class DisplayHandComponent extends JPanel {
-    private final List<MahjongTile> selectedTiles = new ArrayList<>();
-    private final JPanel tileDisplayPanel;
+public class DisplayHandComponent extends JPanel implements PropertyChangeListener {
+    private final boolean modifyTiles;
 
-    public DisplayHandComponent() {
-        setLayout(new BorderLayout());
+    private final TileShower closedTiles;
+    private final GroupShower closedGroups;
+    private final GroupShower openGroups;
 
-        // Panel that displays selected tiles
-        tileDisplayPanel = new JPanel(new FlowLayout());
-        add(tileDisplayPanel, BorderLayout.CENTER);
+    public DisplayHandComponent(boolean modifyTiles) {
+        this.modifyTiles = modifyTiles;
 
-        // Clear button that removes all cards from display panel
-        JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clearSelectedTiles();
-            }
-        });
-        add(clearButton, BorderLayout.SOUTH);
+        this.closedTiles = new TileShower();
+        this.closedGroups = new GroupShower();
+        this.openGroups = new GroupShower();
+
+        this.add(this.closedTiles);
+        this.add(this.closedGroups);
+        this.add(this.openGroups);
+        this.add(new JPanel());
     }
 
-    // Method that adds tile to selectedTiles and updates display when user selects tile.
-    public void addTile(MahjongTile tile) {
-        selectedTiles.add(tile);
-        updateTileDisplay();
-    }
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (!(evt.getNewValue() instanceof ITileModifierState)) return;
+        ITileModifierState state = (ITileModifierState) evt.getNewValue();
 
-    // Refreshes display panel to show current selected tiles.
-    private void updateTileDisplay() {
-        tileDisplayPanel.removeAll();
-        for (MahjongTile tile : selectedTiles) {
-            JLabel tileLabel = new JLabel(new ImageIcon(tile.getFilePath()));
-            tileDisplayPanel.add(tileLabel);
+        this.closedTiles.removeAll();
+        List<MahjongTile> tiles = new ArrayList<>(state.getClosedTiles());
+
+        if (state.getWinningTile() != null) {
+            tiles.add(state.getWinningTile());
         }
-        tileDisplayPanel.revalidate();
-        tileDisplayPanel.repaint();
+        this.closedTiles.displayTiles(tiles);
+
+        this.closedGroups.removeAll();
+        this.closedGroups.displayGroups(state.getClosedGroup());
+
+        this.openGroups.removeAll();
+        this.openGroups.displayGroups(state.getOpenGroups());
+
+        this.validate();
+        this.revalidate();
+        this.repaint();
     }
 
-    // Resets display panel.
-    public void clearSelectedTiles() {
-        selectedTiles.clear();
-        updateTileDisplay();
+    private static class TileShower extends JPanel {
+        public void displayTiles(List<MahjongTile> tiles) {
+            for (MahjongTile tile : tiles) {
+                this.add(new MahjongTileInputButton(tile));
+            }
+
+            this.validate();
+            this.revalidate();
+            this.repaint();
+        }
     }
 
-    public List<MahjongTile> getSelectedTiles() {
-        return selectedTiles;
+    private static class GroupShower extends JPanel {
+        public void displayGroups(List<MahjongGroup> tiles) {
+            for (MahjongGroup group : tiles) {
+                TileShower tileShower = new TileShower();
+                tileShower.displayTiles(Arrays.asList(group.getTiles()));
+                this.add(tileShower);
+            }
+
+            this.validate();
+            this.revalidate();
+            this.repaint();
+        }
     }
 }
