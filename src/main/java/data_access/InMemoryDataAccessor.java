@@ -4,10 +4,17 @@ import entity.leaderboard.LeaderboardEntry;
 
 import java.util.*;
 
+/**
+ * In-memory implementation of the DAO for storing data. This implementation does
+ * NOT persist data between runs of the program.
+ */
 public class InMemoryDataAccessor implements IDataAccessor {
     private final List<LeaderboardEntry> leaderboard = new ArrayList<>();
     private final Map<String, String> users = new HashMap<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUp(String username, String password) {
         if (users.containsKey(username)) {
@@ -18,6 +25,9 @@ public class InMemoryDataAccessor implements IDataAccessor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String logIn(String username, String password) {
         if (users.containsKey(username) && users.get(username).equals(password)) {
@@ -27,11 +37,17 @@ public class InMemoryDataAccessor implements IDataAccessor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LeaderboardEntry> getTopTenLeaderboard() {
         return leaderboard;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateScore(String sessionId, int score) {
         LeaderboardEntry entry = findScore(sessionId);
@@ -47,6 +63,9 @@ public class InMemoryDataAccessor implements IDataAccessor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getBestScore(String sessionId) {
         LeaderboardEntry entry = findScore(sessionId);
@@ -57,6 +76,9 @@ public class InMemoryDataAccessor implements IDataAccessor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     private LeaderboardEntry findScore(String name) {
         for (LeaderboardEntry entry : leaderboard) {
             if (entry.username().equals(name)) {
