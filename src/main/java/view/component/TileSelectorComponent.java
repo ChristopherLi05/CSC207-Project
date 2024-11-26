@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Tile Selector Component ; Class that handles the tile selector
+ */
 public class TileSelectorComponent extends JPanel {
     private final Color UNTOGGLE_COLOR = new Color(0xFFFFFF);
     private final Color TOGGLE_COLOR = new Color(0x89CFF0);
@@ -74,6 +77,10 @@ public class TileSelectorComponent extends JPanel {
         setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 
+    /**
+     * Toggles the selector type and updates the button colors
+     * @param newSelectorType .
+     */
     public void toggleSelectorType(ITileSelectorComponentState.SelectorType newSelectorType) {
         ITileSelectorComponentState.SelectorType oldSelectorType = calculatorViewState.getState().getSelectorType();
         calculatorViewState.getState().setSelectorType(oldSelectorType == newSelectorType ? ITileSelectorComponentState.SelectorType.NONE : newSelectorType);

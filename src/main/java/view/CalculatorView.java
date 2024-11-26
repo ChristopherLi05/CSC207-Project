@@ -23,6 +23,9 @@ import java.util.List;
 
 import static entity.calculator.mahjong.MahjongTile.EAST_WIND;
 
+/**
+ * Calculator View
+ */
 public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;

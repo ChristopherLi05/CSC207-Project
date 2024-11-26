@@ -24,6 +24,11 @@ public class HandStateFactory implements IHandStateFactory {
     // Third group represents tile that won the hand
 
     // seatWind/roundWind is also just represented as a mahjong tile
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public HandState createHandState(String closed, String closedGroup, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
         // Basic input checking
         validateHandStrings(closed, open, winning, dora, ura, seatWind, roundWind, flags);
@@ -89,6 +94,10 @@ public class HandStateFactory implements IHandStateFactory {
                 ron, tsumo, riichi, doubleRiichi, ippatsu, chankan, rinshanKaihou, haitei, houtei);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public HandState createHandState(String serialization) {
         String[] strings = serialization.split(" ");
 
@@ -99,6 +108,10 @@ public class HandStateFactory implements IHandStateFactory {
         return createHandState(strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7], Integer.parseInt(strings[8]));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public HandState createHandState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups,
                                      MahjongTile winningTile,
                                      List<MahjongTile> doraList, List<MahjongTile> uraList, MahjongTile seatWindTile, MahjongTile roundWindTile,
@@ -108,6 +121,18 @@ public class HandStateFactory implements IHandStateFactory {
                 ron, tsumo, riichi, doubleRiichi, ippatsu, chankan, rinshanKaihou, haitei, houtei);
     }
 
+    /**
+     * Validates that a given serialization is valid
+     *
+     * @param closed    .
+     * @param open      .
+     * @param winning   .
+     * @param dora      .
+     * @param ura       .
+     * @param seatWind  .
+     * @param roundWind .
+     * @param flags     .
+     */
     private static void validateHandStrings(String closed, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
         if (closed.length() % 2 != 0) {
             throw new IllegalArgumentException("Invalid closed state: " + closed);
@@ -120,6 +145,13 @@ public class HandStateFactory implements IHandStateFactory {
         }
     }
 
+    /**
+     * Helper method to get a mahjong tile given a string
+     *
+     * @param handString      string grouping
+     * @param tileStringIndex index of tile we want to extract
+     * @return tile if found
+     */
     private static MahjongTile getMahjongTile(String handString, int tileStringIndex) {
         String serialization = handString.substring(tileStringIndex, tileStringIndex + 2);
         MahjongTile tile = MahjongTile.getMahjongTile(serialization);

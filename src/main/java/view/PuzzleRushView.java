@@ -21,6 +21,9 @@ import java.text.NumberFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Puzzle Rush View
+ */
 public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private final CardLayout startRunningLayout = new CardLayout();
     private final JPanel startRunningPanel = new JPanel(startRunningLayout);
@@ -76,6 +79,9 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         gamePanel.setPuzzleRushController(puzzleRushController);
     }
 
+    /**
+     * Start Panel ; see this before the game has started
+     */
     private static class StartPanel extends JPanel {
         public StartPanel(ActionListener startListener) {
             JButton startButton = new JButton("Start");
@@ -84,6 +90,9 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         }
     }
 
+    /**
+     * Game Panel ; see this while game is running
+     */
     private static class GamePanel extends JPanel implements PropertyChangeListener {
         private final DisplayHandComponent displayHandComponent;
         private JLabel timerLabel;
@@ -176,6 +185,9 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             this.puzzleRushController = puzzleRushController;
         }
 
+        /**
+         * Starts the game
+         */
         public void start() {
             if (timerTask != null) {
                 timerTask.cancel();
@@ -201,6 +213,9 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             timer.scheduleAtFixedRate(timerTask, 0, 200);
         }
 
+        /**
+         * Stops the game
+         */
         public void stop() {
             if (timerTask != null) {
                 timerTask.cancel();
@@ -213,6 +228,9 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         }
     }
 
+    /**
+     * Shows the final results of the game
+     */
     private static class ResultPanel extends JPanel implements PropertyChangeListener {
         private JLabel finalScore;
         private IApp app;
