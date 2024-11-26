@@ -73,7 +73,7 @@ public class App extends JFrame implements IApp {
     }
 
     /**
-     * Sets the AbstractPanel instance used for gui.
+     * Adds the AbstractPanel instance used for gui.
      *
      * @param panel the AbstractPanel instance
      */
