@@ -36,6 +36,8 @@ A simple Mahjong Score Trainer that includes a score calculator, a training mode
 
 There are 3 main views this program will have: a **Point Calculator**, a **Puzzle Rush**, and the **Leaderboard**. In the Point Calculator mode, users are given a UI in which they will input a Mahjong Hand and the program will output the score that the hand is worth. In the Puzzle Rush mode, users are given a time limit and are tasked with inputting as many scores as they can. Once done, the number of hands they scored are tallied and they will be shown a leaderboard on how they compare to other users.
 
+This project was created for beginners to learn how to calculator points for a Mahjong hand using the Calculator, and for experienced players to train themselves using the Puzzle Rush mode
+
 ## Table of Contents
 
 * [Installation](#installation)
@@ -89,10 +91,10 @@ You are asked to input the correct amount of points of the Mahjong hand presente
 In the leaderboard, you are able to see the top scores and the username of the players who achieved those scores.
 
 ## Feedback
-
+Any feedback is welcomed! Please fill out [this Google Form](https://forms.gle/2dxpigfPianYNCdE8) to submit your feedback.
 
 ## Contributions
-
+Any contribution is welcomed too! To contribute, please make a fork of this repository and make your edits there. Next, create a merge request with clear comments on what changes were made.
 
 
 
