@@ -2,6 +2,7 @@ package view;
 
 import entity.calculator.HandState;
 import entity.calculator.HandStateFactory;
+import entity.calculator.IHandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import interface_adapter.ViewManager;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static entity.calculator.mahjong.MahjongTile.EAST_WIND;
-import static java.util.Collections.emptyList;
 
 public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
@@ -29,7 +29,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     private AddTileController addTileController;
     private CalculatorController calculatorController;
 
-    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager, HandStateFactory handStateFactory) {
+    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager, IHandStateFactory handStateFactory) {
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
