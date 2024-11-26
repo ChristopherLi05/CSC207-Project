@@ -6,6 +6,9 @@ import entity.user.IUserManager;
 import interface_adapter.ViewManager;
 import view.AbstractPanel;
 
+/**
+ * Interface for what an app should have (to set defaults)
+ */
 public interface IApp {
     /**
      * Adds the AbstractPanel instance used for gui.

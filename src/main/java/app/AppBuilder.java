@@ -47,6 +47,12 @@ import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
 import view.*;
 
+/**
+ * The AppBuilder class is responsible for putting together the pieces of
+ * our CA architecture; piece by piece.
+ * <p/>
+ * This is done by adding each View and then adding related Use Cases.
+ */
 public class AppBuilder {
     private final App app;
     private BuildState buildState = BuildState.START;

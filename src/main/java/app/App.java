@@ -13,13 +13,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The {@code App} class represents the main application window. It manages
+ * The App class represents the main application window. It manages
  * the user interface, user data, state transitions, and interactions between
  * various components of the application.
- *
- * <p>This class extends {@link JFrame} and implements the {@link IApp} interface.
- * It uses a {@link CardLayout} to manage different views, allowing seamless
- * transitions between panels.
  */
 public class App extends JFrame implements IApp {
     private final CardLayout cardLayout = new CardLayout();
