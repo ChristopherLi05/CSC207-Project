@@ -11,10 +11,11 @@ public class Main {
                 .addCalculatorView()
                 .addPuzzleRushView()
                 .addLeaderboardView()
-                .addSignupUseCase()
                 .addTileSelectorUseCase()
+                .addSignupUseCase()
                 .addLoginUseCase()
                 .addLeaderboardUseCase()
+                .addCalculatorUseCase()
                 .addPuzzleRushHandUseCase()
                 .addPuzzleRushUseCase()
                 .build();

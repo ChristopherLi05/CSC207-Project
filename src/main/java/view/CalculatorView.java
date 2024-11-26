@@ -1,8 +1,13 @@
 package view;
 
+import entity.calculator.HandState;
+import entity.calculator.HandStateFactory;
+import entity.calculator.IHandStateFactory;
+import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import interface_adapter.ViewManager;
 import interface_adapter.addTile.AddTileController;
+import interface_adapter.calculator.CalculatorController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import view.component.*;
@@ -13,18 +18,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import static entity.calculator.mahjong.MahjongTile.EAST_WIND;
 
 public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
-
     private AddTileController addTileController;
+    private CalculatorController calculatorController;
+    private JLabel scoreLabel;
 
-    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager) {
+    public CalculatorView(CalculatorViewState viewState, ViewManager viewManager, IHandStateFactory handStateFactory) {
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(new TabSwitcherComponent(viewManager));
+        viewState.addPropertyChangeListener(this);
 
         // Initialize and add DisplayHandComponent at top
         displayHandComponent = new DisplayHandComponent(true);
@@ -38,6 +49,26 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         add(dontStretch);
 
         add(Box.createVerticalGlue());
+
+        final JPanel buttons = new JPanel();
+        JButton calculate = new JButton("calculate");
+        scoreLabel = new JLabel("Score: ");
+        buttons.add(scoreLabel);
+        buttons.add(calculate);
+
+
+        calculate.addActionListener(evt -> {
+            List<MahjongTile> closedTiles = viewState.getState().getClosedTiles();
+            List<MahjongGroup> closedGroups = viewState.getState().getClosedGroup();
+            List<MahjongGroup> openGroups = viewState.getState().getOpenGroups();
+            MahjongTile winningTile = viewState.getState().getWinningTile();
+
+            HandState handstate =
+                    handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+            calculatorController.execute(handstate);
+        });
+
+        this.add(buttons, BorderLayout.SOUTH);
     }
 
     public DisplayHandComponent getDisplayHandComponent() {
@@ -60,8 +91,12 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         this.addTileController = addTileController;
     }
 
+    public void setCalculatorController(CalculatorController calculatorController) {
+        this.calculatorController = calculatorController;
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println(getViewState().getState());
+        scoreLabel.setText("Output: " + getViewState().getState().getMessageState());
     }
 }
