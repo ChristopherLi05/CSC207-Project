@@ -5,12 +5,36 @@ import entity.calculator.mahjong.MahjongGroup;
 
 import java.util.List;
 
+/**
+ * Hand state representation in memory
+ * @param closedTiles .
+ * @param closedGroup .
+ * @param openGroups .
+ * @param winningTile .
+ * @param dora .
+ * @param ura .
+ * @param seatWind .
+ * @param roundWind .
+ * @param ron .
+ * @param tsumo .
+ * @param riichi .
+ * @param doubleRiichi .
+ * @param ippatsu .
+ * @param chankan .
+ * @param rinshanKaihou .
+ * @param haitei .
+ * @param houtei .
+ */
 public record HandState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroup, List<MahjongGroup> openGroups,
                         MahjongTile winningTile,
                         List<MahjongTile> dora, List<MahjongTile> ura, MahjongTile seatWind, MahjongTile roundWind,
                         boolean ron, boolean tsumo, boolean riichi, boolean doubleRiichi, boolean ippatsu,
                         boolean chankan, boolean rinshanKaihou, boolean haitei, boolean houtei) {
 
+    /**
+     * Serializes the hand state that's compatible with handstatefactory
+     * @return serialized hand
+     */
     public String serializeHand() {
         StringBuilder builder = new StringBuilder();
 
@@ -79,6 +103,10 @@ public record HandState(List<MahjongTile> closedTiles, List<MahjongGroup> closed
         return builder.toString();
     }
 
+    /**
+     * toString new implementation
+     * @return serialized hand
+     */
     @Override
     public String toString() {
         return this.serializeHand();
