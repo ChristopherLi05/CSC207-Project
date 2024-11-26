@@ -33,6 +33,7 @@ public class HandGrouping {
 
     /**
      * Adds a group to the grouping
+     *
      * @param group group
      */
     public void addGroup(MahjongGroup group) {
@@ -45,6 +46,7 @@ public class HandGrouping {
 
     /**
      * Gets the first ungrouped tile for matching
+     *
      * @return first ungrouped tile
      */
     public MahjongTile getFirstTile() {
@@ -57,8 +59,9 @@ public class HandGrouping {
 
     /**
      * Extracts a tile from ungrouped tiles. Returns the extracted tile
+     *
      * @param value value we're looking for
-     * @param suit suit we're looking for
+     * @param suit  suit we're looking for
      * @return tile that's extracted
      */
     public MahjongTile extractTile(int value, MahjongSuit suit) {
@@ -75,6 +78,7 @@ public class HandGrouping {
 
     /**
      * Deep copy of this class
+     *
      * @return handgrouping
      */
     public HandGrouping copy() {

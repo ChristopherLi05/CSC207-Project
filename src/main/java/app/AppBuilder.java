@@ -81,6 +81,7 @@ public class AppBuilder {
 
     /**
      * Sets default user manager
+     *
      * @return app
      */
     public AppBuilder setDefaultUserManager() {
@@ -91,6 +92,7 @@ public class AppBuilder {
 
     /**
      * Sets dummy data accessor (for testing only)
+     *
      * @return app
      */
     public AppBuilder setDummyDataAccessor() {
@@ -101,6 +103,7 @@ public class AppBuilder {
 
     /**
      * Sets in memory data accessor (default)
+     *
      * @return app
      */
     public AppBuilder setInMemoryDataAccessor() {
@@ -112,6 +115,7 @@ public class AppBuilder {
 
     /**
      * Sets api data accessor for api usage
+     *
      * @return app
      */
     public AppBuilder setAPIDataAccessor() {
@@ -123,6 +127,7 @@ public class AppBuilder {
 
     /**
      * Sets default hand state factory (default)
+     *
      * @return app
      */
     public AppBuilder setDefaultHandStateFactory() {
@@ -133,6 +138,7 @@ public class AppBuilder {
 
     /**
      * Adds signup view
+     *
      * @return app
      */
     public AppBuilder addSignupView() {
@@ -145,6 +151,7 @@ public class AppBuilder {
 
     /**
      * Adds login view
+     *
      * @return app
      */
     public AppBuilder addLoginView() {
@@ -157,6 +164,7 @@ public class AppBuilder {
 
     /**
      * Adds calculator view
+     *
      * @return app
      */
     public AppBuilder addCalculatorView() {
@@ -169,6 +177,7 @@ public class AppBuilder {
 
     /**
      * Adds puzzle rush view
+     *
      * @return app
      */
     public AppBuilder addPuzzleRushView() {
@@ -181,6 +190,7 @@ public class AppBuilder {
 
     /**
      * Adds leaderboard view
+     *
      * @return app
      */
     public AppBuilder addLeaderboardView() {
@@ -193,6 +203,7 @@ public class AppBuilder {
 
     /**
      * Adds signup use case
+     *
      * @return app
      */
     public AppBuilder addSignupUseCase() {
@@ -208,6 +219,7 @@ public class AppBuilder {
 
     /**
      * Adds tile selector use case
+     *
      * @return app
      */
     public AppBuilder addTileSelectorUseCase() {
@@ -223,9 +235,10 @@ public class AppBuilder {
 
     /**
      * Adds calculator use case
+     *
      * @return app
      */
-    public AppBuilder addCalculatorUseCase(){
+    public AppBuilder addCalculatorUseCase() {
         ensureState(BuildState.USE_CASE);
         CalculatorOutputBoundary calculatorOutputBoundary = new CalculatorPresenter(calculatorViewState);
         CalculatorInteractor calculatorInteractor = new CalculatorInteractor(calculatorOutputBoundary);
@@ -237,6 +250,7 @@ public class AppBuilder {
 
     /**
      * Adds leaderboard use case
+     *
      * @return app
      */
     public AppBuilder addLeaderboardUseCase() {
@@ -251,6 +265,7 @@ public class AppBuilder {
 
     /**
      * Adds login use case
+     *
      * @return app
      */
     public AppBuilder addLoginUseCase() {
@@ -264,6 +279,7 @@ public class AppBuilder {
 
     /**
      * Adds puzzle rush use case
+     *
      * @return app
      */
     public AppBuilder addPuzzleRushUseCase() {
@@ -278,6 +294,7 @@ public class AppBuilder {
 
     /**
      * Adds puzzle rush hand use case
+     *
      * @return app
      */
     public AppBuilder addPuzzleRushHandUseCase() {
@@ -292,6 +309,7 @@ public class AppBuilder {
 
     /**
      * Builds the app
+     *
      * @return app
      */
     public IApp build() {

@@ -38,11 +38,11 @@ public class App extends JFrame implements IApp {
     /**
      * Constructs an {@code App} instance with specified dependencies.
      *
-     * @param title           the title of the application window
-     * @param userManager     the {@link IUserManager} instance for user management
-     * @param dataAccessor    the {@link IDataAccessor} instance for data access
+     * @param title            the title of the application window
+     * @param userManager      the {@link IUserManager} instance for user management
+     * @param dataAccessor     the {@link IDataAccessor} instance for data access
      * @param handStateFactory the {@link IHandStateFactory} instance for creating hand states
-     * @param viewManager     the {@link ViewManager} instance for managing views
+     * @param viewManager      the {@link ViewManager} instance for managing views
      */
     public App(String title, IUserManager userManager, IDataAccessor dataAccessor, IHandStateFactory handStateFactory, ViewManager viewManager) {
         super(title);

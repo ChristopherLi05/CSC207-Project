@@ -115,6 +115,7 @@ public class APIDataAccessor implements IDataAccessor {
 
     /**
      * Class used to store request data
+     *
      * @param success whether request was successful or not
      * @param message raw return message
      */
@@ -123,15 +124,17 @@ public class APIDataAccessor implements IDataAccessor {
 
     /**
      * Class used to store parsed request data
-     * @param success whether request was successful or not
+     *
+     * @param success      whether request was successful or not
      * @param errorMessage error message (if present)
-     * @param obj json object (if successful request)
+     * @param obj          json object (if successful request)
      */
     private record ParsedResult(boolean success, String errorMessage, JsonObject obj) {
     }
 
     /**
      * Performs a get request
+     *
      * @param url endpoint
      * @return raw result
      */
@@ -154,7 +157,8 @@ public class APIDataAccessor implements IDataAccessor {
 
     /**
      * Performs a post request
-     * @param url endpoint
+     *
+     * @param url  endpoint
      * @param body json body
      * @return raw result
      */
@@ -164,7 +168,8 @@ public class APIDataAccessor implements IDataAccessor {
 
     /**
      * Performs a post request
-     * @param url endpoint
+     *
+     * @param url  endpoint
      * @param body json body
      * @return raw result
      */
@@ -194,6 +199,7 @@ public class APIDataAccessor implements IDataAccessor {
 
     /**
      * Parses a request
+     *
      * @param result result from getRequest or postRequest
      * @return parsed result
      */

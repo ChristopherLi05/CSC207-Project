@@ -7,23 +7,24 @@ import java.util.List;
 
 /**
  * Hand state representation in memory
- * @param closedTiles .
- * @param closedGroup .
- * @param openGroups .
- * @param winningTile .
- * @param dora .
- * @param ura .
- * @param seatWind .
- * @param roundWind .
- * @param ron .
- * @param tsumo .
- * @param riichi .
- * @param doubleRiichi .
- * @param ippatsu .
- * @param chankan .
+ *
+ * @param closedTiles   .
+ * @param closedGroup   .
+ * @param openGroups    .
+ * @param winningTile   .
+ * @param dora          .
+ * @param ura           .
+ * @param seatWind      .
+ * @param roundWind     .
+ * @param ron           .
+ * @param tsumo         .
+ * @param riichi        .
+ * @param doubleRiichi  .
+ * @param ippatsu       .
+ * @param chankan       .
  * @param rinshanKaihou .
- * @param haitei .
- * @param houtei .
+ * @param haitei        .
+ * @param houtei        .
  */
 public record HandState(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroup, List<MahjongGroup> openGroups,
                         MahjongTile winningTile,
@@ -33,6 +34,7 @@ public record HandState(List<MahjongTile> closedTiles, List<MahjongGroup> closed
 
     /**
      * Serializes the hand state that's compatible with handstatefactory
+     *
      * @return serialized hand
      */
     public String serializeHand() {
@@ -105,6 +107,7 @@ public record HandState(List<MahjongTile> closedTiles, List<MahjongGroup> closed
 
     /**
      * toString new implementation
+     *
      * @return serialized hand
      */
     @Override

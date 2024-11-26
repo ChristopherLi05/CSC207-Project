@@ -123,14 +123,15 @@ public class HandStateFactory implements IHandStateFactory {
 
     /**
      * Validates that a given serialization is valid
-     * @param closed .
-     * @param open .
-     * @param winning .
-     * @param dora .
-     * @param ura .
-     * @param seatWind .
+     *
+     * @param closed    .
+     * @param open      .
+     * @param winning   .
+     * @param dora      .
+     * @param ura       .
+     * @param seatWind  .
      * @param roundWind .
-     * @param flags .
+     * @param flags     .
      */
     private static void validateHandStrings(String closed, String open, String winning, String dora, String ura, String seatWind, String roundWind, int flags) {
         if (closed.length() % 2 != 0) {
@@ -146,7 +147,8 @@ public class HandStateFactory implements IHandStateFactory {
 
     /**
      * Helper method to get a mahjong tile given a string
-     * @param handString string grouping
+     *
+     * @param handString      string grouping
      * @param tileStringIndex index of tile we want to extract
      * @return tile if found
      */
