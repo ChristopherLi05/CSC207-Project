@@ -14,9 +14,7 @@ public class CalculatorController {
         this.calculatorUseCaseInteractor = calculatorUseCaseInteractor;
     }
 
-//TODO
     public void execute(HandState hand) {
-
         calculatorUseCaseInteractor.execute(hand);
     }
 }

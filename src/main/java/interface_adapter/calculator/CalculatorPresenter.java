@@ -11,14 +11,14 @@ public class CalculatorPresenter implements CalculatorOutputBoundary {
     public CalculatorPresenter(CalculatorViewState calculatorViewState) {
         this.calculatorViewState = calculatorViewState;
     }
-//TODO make it present the message and score
+
     @Override
     public void prepareSuccessView(String successMessage, CalculatorOutputData outputData) {
         final CalculatorState calculatorState = calculatorViewState.getState();
         calculatorState.setMessageState(successMessage);
         calculatorViewState.firePropertyChanged();
     }
-//TODO
+
     @Override
     public void prepareFailView(String errorMessage) {
         final CalculatorState calculatorState = calculatorViewState.getState();

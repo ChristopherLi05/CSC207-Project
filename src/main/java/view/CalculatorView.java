@@ -28,12 +28,14 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     private final DisplayHandComponent displayHandComponent;
     private AddTileController addTileController;
     private CalculatorController calculatorController;
+    private JLabel scoreLabel;
 
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager, IHandStateFactory handStateFactory) {
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(new TabSwitcherComponent(viewManager));
+        viewState.addPropertyChangeListener(this);
 
         // Initialize and add DisplayHandComponent at top
         displayHandComponent = new DisplayHandComponent(true);
@@ -50,6 +52,8 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
+        scoreLabel = new JLabel("Score: ");
+        buttons.add(scoreLabel);
         buttons.add(calculate);
 
 
@@ -61,7 +65,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
             HandState handstate =
                     handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
-
+            calculatorController.execute(handstate);
         });
 
         this.add(buttons, BorderLayout.SOUTH);
@@ -93,6 +97,6 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println(getViewState().getState());
+        scoreLabel.setText("Output: " + getViewState().getState().getMessageState());
     }
 }

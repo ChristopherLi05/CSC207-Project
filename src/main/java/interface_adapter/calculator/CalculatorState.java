@@ -106,7 +106,7 @@ public class CalculatorState implements ITileModifierState {
         this.messageState = message;
     }
 
-    private String getMessageState() {
+    public String getMessageState() {
         return messageState;
     }
 }
