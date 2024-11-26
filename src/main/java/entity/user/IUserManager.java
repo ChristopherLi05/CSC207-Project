@@ -8,14 +8,16 @@ import entity.user.user_type.IUser;
 public interface IUserManager {
     /**
      * Gets the currently logged-in user
+     *
      * @return user
      */
     IUser getCurrentUser();
 
     /**
      * Sets the current logged-in user to an online account
+     *
      * @param sessionId .
-     * @param name .
+     * @param name      .
      * @param bestScore .
      */
     void setUserLoggedIn(String sessionId, String name, int bestScore);
@@ -27,12 +29,14 @@ public interface IUserManager {
 
     /**
      * Sets the user factory needed for logging in
+     *
      * @param factory .
      */
     void setUserFactory(IUserFactory factory);
 
     /**
      * Gets the user factory
+     *
      * @return factory
      */
     IUserFactory getUserFactory();
