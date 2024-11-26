@@ -4,6 +4,6 @@ import interface_adapter.ViewState;
 
 public class LoginViewState extends ViewState<LoginState> {
     public LoginViewState(String viewName, LoginState state) {
-        super(viewName, state);
+        super(viewName, state, false);
     }
 }

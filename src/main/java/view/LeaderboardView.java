@@ -6,6 +6,7 @@ import interface_adapter.leaderboard.LeaderboardController;
 import interface_adapter.leaderboard.LeaderboardState;
 import interface_adapter.leaderboard.LeaderboardViewState;
 import view.component.LeaderboardComponent;
+import view.component.TabSwitcherComponent;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
@@ -17,6 +18,8 @@ public class LeaderboardView extends AbstractPanel<LeaderboardState> implements 
     public LeaderboardView(LeaderboardViewState viewState, ViewManager viewManager) {
         super(viewState);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(new TabSwitcherComponent(viewManager));
 
         LeaderboardComponent leaderboard = new LeaderboardComponent(viewState);
         getViewState().addPropertyChangeListener(leaderboard);

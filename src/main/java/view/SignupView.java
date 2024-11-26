@@ -1,13 +1,11 @@
 package view;
 
 import java.awt.Component;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,7 +16,7 @@ import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
 import view.component.LabelTextPanel;
 
-public class SignupView extends AbstractPanel<SignupState> implements PropertyChangeListener {
+public class SignupView extends AbstractPanel<SignupState> {
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
@@ -30,7 +28,6 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
 
     public SignupView(SignupViewState viewState, ViewManager viewManager) {
         super(viewState);
-//        viewManager.addPropertyChangeListener(this);
 
         final JLabel title = new JLabel(viewState.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -50,36 +47,20 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
         guest = new JButton(viewState.GUEST_BUTTON_LABEL);
         buttons.add(guest);
 
-//        signUp.addActionListener(
-//                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        if (evt.getSource().equals(signUp)) {
-//                            final SignupState currentState = viewState.getState();
-//
-//                            signupController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword(),
-//                                    currentState.getRepeatPassword()
-//                            );
-//                        }
-//                    }
-//                }
-//        );
-//
-//        toLogin.addActionListener(
-//                new ActionListener() {
-//                    public void actionPerformed(ActionEvent evt) {
-//                        signupController.switchToLoginView();
-//                    }
-//                }
-//        );
-//
-//        cancel.addActionListener(this);
+        toLogin.addActionListener(e -> signupController.switchToLoginView());
+        signUp.addActionListener(e -> {
+            char[] pwd = passwordInputField.getPassword();
+            char[] rpwd = repeatPasswordInputField.getPassword();
 
-        addUsernameListener();
-        addPasswordListener();
-        addRepeatPasswordListener();
+            signupController.signUp(usernameInputField.getText(), String.valueOf(pwd), String.valueOf(rpwd));
+
+            passwordInputField.setText("");
+            repeatPasswordInputField.setText("");
+
+            Arrays.fill(pwd, (char) 0);
+            Arrays.fill(rpwd, (char) 0);
+        });
+        guest.addActionListener(e -> signupController.guest());
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -88,92 +69,6 @@ public class SignupView extends AbstractPanel<SignupState> implements PropertyCh
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
         this.add(buttons);
-    }
-
-    private void addUsernameListener() {
-//        usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
-//
-//            private void documentListenerHelper() {
-//                final SignupState currentState = signupViewState.getState();
-//                currentState.setUsername(usernameInputField.getText());
-//                signupViewState.setState(currentState);
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-    }
-
-    private void addPasswordListener() {
-//        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
-//
-//            private void documentListenerHelper() {
-//                final SignupState currentState = signupViewState.getState();
-//                currentState.setPassword(new String(passwordInputField.getPassword()));
-//                signupViewState.setState(currentState);
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-    }
-
-    private void addRepeatPasswordListener() {
-//        repeatPasswordInputField.getDocument().addDocumentListener(new DocumentListener() {
-//
-//            private void documentListenerHelper() {
-//                final SignupState currentState = signupViewState.getState();
-//                currentState.setRepeatPassword(new String(repeatPasswordInputField.getPassword()));
-//                signupViewState.setState(currentState);
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final SignupState state = (SignupState) evt.getNewValue();
-        if (state.getUsernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getUsernameError());
-        }
     }
 
     public void setSignupController(SignupController controller) {
