@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 /**
  * State notifier class, was originally viewmodel but changed to this
+ *
  * @param <T>
  */
 public class StateNotifier<T> {
@@ -33,6 +34,7 @@ public class StateNotifier<T> {
 
     /**
      * Notifies listeners that property was changed
+     *
      * @param propertyName custom name
      */
     public void firePropertyChanged(String propertyName) {
@@ -41,6 +43,7 @@ public class StateNotifier<T> {
 
     /**
      * Adds property change listener to observers
+     *
      * @param listener listener
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
