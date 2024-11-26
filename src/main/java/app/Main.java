@@ -12,9 +12,12 @@ public class Main {
                 .addPuzzleRushView()
                 .addLeaderboardView()
                 .addTileSelectorUseCase()
+                .addSignupUseCase()
                 .addLoginUseCase()
                 .addLeaderboardUseCase()
                 .addCalculatorUseCase()
+                .addPuzzleRushHandUseCase()
+                .addPuzzleRushUseCase()
                 .build();
     }
 }

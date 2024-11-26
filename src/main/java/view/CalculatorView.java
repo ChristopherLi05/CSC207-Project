@@ -52,15 +52,17 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         JButton calculate = new JButton("calculate");
         buttons.add(calculate);
 
-        List<MahjongTile> closedTiles = viewState.getState().getClosedTiles();
-        List<MahjongGroup> closedGroups = viewState.getState().getClosedGroup();
-        List<MahjongGroup> openGroups = viewState.getState().getOpenGroups();
-        MahjongTile winningTile = viewState.getState().getWinningTile();
 
-        HandState handstate =
-                handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+        calculate.addActionListener(evt -> {
+            List<MahjongTile> closedTiles = viewState.getState().getClosedTiles();
+            List<MahjongGroup> closedGroups = viewState.getState().getClosedGroup();
+            List<MahjongGroup> openGroups = viewState.getState().getOpenGroups();
+            MahjongTile winningTile = viewState.getState().getWinningTile();
 
-        calculate.addActionListener(evt -> calculatorController.execute(handstate));
+            HandState handstate =
+                    handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+
+        });
 
         this.add(buttons, BorderLayout.SOUTH);
     }
@@ -78,9 +80,6 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
             ITileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
 
             addTileController.execute(clickedTile, isAka, selectorType);
-        }
-        if (e.getSource() instanceof JButton) {
-
         }
     }
 
