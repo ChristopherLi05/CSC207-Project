@@ -2,6 +2,9 @@ package use_case.login;
 
 import entity.user.user_type.IUser;
 
+/**
+ * Output Data for the Login Use Case
+ */
 public class LoginOutputData {
     private final IUser user;
     private final boolean useCaseFailed;
