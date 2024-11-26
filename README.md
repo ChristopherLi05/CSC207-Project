@@ -2,10 +2,6 @@
 
 A simple Mahjong Score Trainer that includes a score calculator, a training mode, and a puzzle rush mode.
 
-## Overview
-
-There are 3 main views this program will have: a **Point Calculator**, a **Puzzle Rush**, and the **Leaderboard**. In the Point Calculator mode, users are given a UI in which they will input a Mahjong Hand and the program will output the score that the hand is worth. In the Puzzle Rush mode, users are given a time limit and are tasked with inputting as many scores as they can. Once done, the number of hands they scored are tallied and they will be shown a leaderboard on how they compare to other users.
-
 ## Group Members
 
 | Name           | Github Username | Git Usernames (if different) |
@@ -36,7 +32,31 @@ There are 3 main views this program will have: a **Point Calculator**, a **Puzzl
 #### Max User Story
 - As a user, I want to be able to login to my account, so I can keep track of my progress
 
-## Features
+## Overview
+
+There are 3 main views this program will have: a **Point Calculator**, a **Puzzle Rush**, and the **Leaderboard**. In the Point Calculator mode, users are given a UI in which they will input a Mahjong Hand and the program will output the score that the hand is worth. In the Puzzle Rush mode, users are given a time limit and are tasked with inputting as many scores as they can. Once done, the number of hands they scored are tallied and they will be shown a leaderboard on how they compare to other users.
+
+## Table of Contents
+
+* [Installation](#installation)
+
+* [License](#license)
+
+* [Features and Usages](#features-and-usage)
+
+* [Feedback](#feedback)
+
+* [Contributions](#contributions)
+
+
+## Installation
+- Build the project with the provided `pox.xml` file
+- [Java Development Kit 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) is recommended, however anything 11+ will be sufficient.
+
+## License
+See the MIT License attached.
+
+## Features and Usage
 
 ### Signing Up
 ![image of signup screen](images/signup.png)
@@ -58,7 +78,7 @@ Here you are able to input any hand by clicking on the tiles, and click the "cal
 There is also a tab switcher on top to take you to other modes, puzzle rush and the leaderboard.
 
 ### Puzzle Rush
-![gif of puzzlerush]()
+![gif of puzzlerush](gifs/puzzlerush.gif)
 
 After clicking "start" in the puzzle rush mode, a timer goes off.
 You are asked to input the correct amount of points of the Mahjong hand presented to you, if your answer is correct, you will be given another hand.
@@ -68,7 +88,11 @@ You are asked to input the correct amount of points of the Mahjong hand presente
 
 In the leaderboard, you are able to see the top scores and the username of the players who achieved those scores.
 
-## Suggestions and Feedback
+## Feedback
+
+
+## Contributions
+
 
 
 
