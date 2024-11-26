@@ -5,6 +5,9 @@ import entity.leaderboard.LeaderboardEntry;
 import java.util.List;
 
 public class DummyDataAccessor implements IDataAccessor {
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LeaderboardEntry> getTopTenLeaderboard() {
         return List.of(new LeaderboardEntry("Bob", 10),
@@ -20,20 +23,32 @@ public class DummyDataAccessor implements IDataAccessor {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateScore(String sessionId, int score) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getBestScore(String sessionId) {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUp(String username, String password) {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String logIn(String username, String password) {
         return username;
