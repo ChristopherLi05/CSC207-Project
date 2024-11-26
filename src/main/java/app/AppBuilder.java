@@ -9,6 +9,8 @@ import entity.user.RemoteUserFactory;
 import entity.user.UserManager;
 import interface_adapter.addTile.AddTileController;
 import interface_adapter.addTile.AddTilePresenter;
+import interface_adapter.calculator.CalculatorController;
+import interface_adapter.calculator.CalculatorPresenter;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
 import interface_adapter.login.LoginController;
@@ -31,6 +33,8 @@ import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
 import use_case.addTile.AddTileInteractor;
 import use_case.addTile.AddTileOutputBoundary;
+import use_case.calculator.CalculatorInteractor;
+import use_case.calculator.CalculatorOutputBoundary;
 import use_case.leaderboard.LeaderboardInteractor;
 import use_case.leaderboard.LeaderboardOutputBoundary;
 import use_case.login.LoginInteractor;
@@ -123,7 +127,7 @@ public class AppBuilder {
     public AppBuilder addCalculatorView() {
         ensureState(BuildState.VIEW);
         calculatorViewState = new CalculatorViewState("CalculatorView", new CalculatorState());
-        calculatorView = new CalculatorView(calculatorViewState, app.getViewManager());
+        calculatorView = new CalculatorView(calculatorViewState, app.getViewManager(), app.getHandStateFactory());
         app.addPanel(calculatorView);
         return this;
     }
@@ -163,6 +167,16 @@ public class AppBuilder {
         AddTileController addTileController = new AddTileController(addTileInteractor);
         calculatorView.setAddTileController(addTileController);
 
+        return this;
+    }
+
+    public AppBuilder addCalculatorUseCase(){
+        ensureState(BuildState.USE_CASE);
+        CalculatorOutputBoundary calculatorOutputBoundary = new CalculatorPresenter(calculatorViewState);
+        CalculatorInteractor calculatorInteractor = new CalculatorInteractor(calculatorOutputBoundary);
+
+        CalculatorController calculatorController = new CalculatorController(calculatorInteractor);
+        calculatorView.setCalculatorController(calculatorController);
         return this;
     }
 
