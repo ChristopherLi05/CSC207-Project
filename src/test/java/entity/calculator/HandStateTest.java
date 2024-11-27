@@ -1,7 +1,5 @@
-package entity.mahjong;
+package entity.calculator;
 
-import entity.calculator.HandState;
-import entity.calculator.HandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import org.junit.jupiter.api.Test;
