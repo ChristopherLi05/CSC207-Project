@@ -25,7 +25,6 @@ public class ChinnitsuTestCase implements IYakuTestCase {
         return true;
     }
 
-
     /**
      * {@inheritDoc}
      */

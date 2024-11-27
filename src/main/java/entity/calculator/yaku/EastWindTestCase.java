@@ -34,7 +34,6 @@ public class EastWindTestCase implements IYakuTestCase {
         return false;
     }
 
-
     /**
      * {@inheritDoc}
      */
