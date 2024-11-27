@@ -65,6 +65,16 @@ class SignupInteractorTest {
     }
 
     @Test
+    void testIsUseCaseFailedWhenFailed() {
+        String testUsername = "testUser";
+        SignupOutputData outputData = new SignupOutputData(testUsername, true);
+
+        boolean result = outputData.isUseCaseFailed();
+
+        assertTrue(result, "The use case failed flag should be true when the use case fails.");
+    }
+
+    @Test
     void testSwitchToLoginView() {
         TestSignupOutputBoundary presenter = new TestSignupOutputBoundary();
         TestDataAccessor dataAccessor = new TestDataAccessor();
