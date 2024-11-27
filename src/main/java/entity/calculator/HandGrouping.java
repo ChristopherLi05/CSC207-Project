@@ -82,7 +82,7 @@ public class HandGrouping {
      * @return handgrouping
      */
     public HandGrouping copy() {
-        HandGrouping grouping = new HandGrouping(ungroupedTiles);
+        HandGrouping grouping = new HandGrouping(new ArrayList<>(ungroupedTiles));
         grouping.setPair(pair[0], pair[1]);
         for (MahjongGroup group : groups) {
             grouping.addGroup(group);
