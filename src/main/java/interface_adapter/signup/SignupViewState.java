@@ -16,12 +16,31 @@ public class SignupViewState extends ViewState<SignupState> {
 
     public String TO_LOGIN_BUTTON_LABEL;
 
+    /**
+     * Constructor for the SignupViewState with default label values.
+     *
+     * @param viewName the name of the view.
+     * @param signupState the state of the signup form.
+     */
     public SignupViewState(String viewName, SignupState signupState) {
         this(viewName, signupState, "Sign Up View", "Choose username",
                 "Choose password", "Enter password again", "Sign up",
                 "Guest", "Go to Login");
     }
 
+    /**
+     * Constructor for the SignupViewState with custom label values.
+     *
+     * @param viewName the name of the view.
+     * @param state the state of the signup form.
+     * @param TITLE_LABEL label for the title of the signup view.
+     * @param USERNAME_LABEL label for the username input field.
+     * @param PASSWORD_LABEL label for the password input field.
+     * @param REPEAT_PASSWORD_LABEL label for the repeat password input field.
+     * @param SIGNUP_BUTTON_LABEL label for the signup button.
+     * @param GUEST_BUTTON_LABEL label for the guest button.
+     * @param TO_LOGIN_BUTTON_LABEL label for the button to navigate to the login view.
+     */
     public SignupViewState(String viewName, SignupState state, String TITLE_LABEL, String USERNAME_LABEL, String PASSWORD_LABEL, String REPEAT_PASSWORD_LABEL, String SIGNUP_BUTTON_LABEL, String GUEST_BUTTON_LABEL, String TO_LOGIN_BUTTON_LABEL) {
         super(viewName, state, false);
 
