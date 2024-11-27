@@ -17,15 +17,6 @@ public class Calculator {
      * @return han value
      */
     public static int calculateHan(HandState hand) {
-        return 30;
-    }
-
-    /**
-     * Calculates fu value of hand
-     * @param hand hand
-     * @return fu value
-     */
-    public static int calculateFu(HandState hand) {
         int result = 0;
         if (hand.openGroups().isEmpty()) {
             for (IYakuTestCase testCase : yakuList) {
@@ -40,12 +31,19 @@ public class Calculator {
     }
 
     /**
+     * Calculates fu value of hand
+     * @param hand hand
+     * @return fu value
+     */
+    public static int calculateFu(HandState hand) { return 30; }
+
+    /**
      * Calculates score of hand
      * @param hand hand
      * @return score value
      */
     public static int calculateScore(HandState hand) {
-        int fu = calculateFu(hand);
+        int fu = calculateHan(hand);
         int basescore;
         if (fu==1) {
             basescore = 1000;
