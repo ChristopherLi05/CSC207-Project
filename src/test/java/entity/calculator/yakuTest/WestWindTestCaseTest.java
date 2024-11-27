@@ -5,7 +5,7 @@ import entity.calculator.HandState;
 import entity.calculator.HandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import entity.calculator.yaku.EastWindTestCase;
+import entity.calculator.yaku.WestWindTestCase;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -15,81 +15,81 @@ import static org.junit.jupiter.api.Assertions.*;
 class WestWindTestCaseTest {
 
     private final HandStateFactory handStateFactory = new HandStateFactory();
-    private final EastWindTestCase eastWindTestCase = new EastWindTestCase();
+    private final WestWindTestCase westWindTestCase = new WestWindTestCase();
 
     @Test
-    void testIsYaku_EastWindPresentInGroupAndRoundWind() {
+    void testIsYaku_WestWindPresentInGroupAndRoundWind() {
         HandState handState = handStateFactory.createHandState(
-                "", "", "", "2s", "", "", "ew", "ew", 0
+                "", "", "", "2s", "", "", "ww", "ww", 0
         );
         HandGrouping handGrouping = new HandGrouping(List.of(new MahjongTile[]{MahjongTile.ONE_SOU, MahjongTile.THREE_SOU}));
-        handGrouping.addGroup(new MahjongGroup(new MahjongTile[]{MahjongTile.EAST_WIND, MahjongTile.EAST_WIND, MahjongTile.EAST_WIND}));
-        boolean result = eastWindTestCase.isYaku(handState, handGrouping);
+        handGrouping.addGroup(new MahjongGroup(new MahjongTile[]{MahjongTile.WEST_WIND, MahjongTile.WEST_WIND, MahjongTile.WEST_WIND}));
+        boolean result = westWindTestCase.isYaku(handState, handGrouping);
 
-        assertTrue(result, "Expected East Wind Yaku to be true when EAST_WIND group exists and round wind is EAST_WIND.");
+        assertTrue(result, "Expected West Wind Yaku to be true when WEST_WIND group exists and round wind is WEST_WIND.");
     }
 
     @Test
-    void testIsYaku_EastWindPresentInGroupButNotRoundWind() {
+    void testIsYaku_WestWindPresentInGroupButNotRoundWind() {
         // Arrange
         HandState handState = handStateFactory.createHandState(
                 "", "", "", "2s", "", "", "ew", "sw", 0
         );
         HandGrouping handGrouping = new HandGrouping(List.of(new MahjongTile[]{MahjongTile.ONE_SOU, MahjongTile.THREE_SOU}));
-        handGrouping.addGroup(new MahjongGroup(new MahjongTile[]{MahjongTile.EAST_WIND, MahjongTile.EAST_WIND, MahjongTile.EAST_WIND}));
+        handGrouping.addGroup(new MahjongGroup(new MahjongTile[]{MahjongTile.WEST_WIND, MahjongTile.WEST_WIND, MahjongTile.WEST_WIND}));
 
-        boolean result = eastWindTestCase.isYaku(handState, handGrouping);
+        boolean result = westWindTestCase.isYaku(handState, handGrouping);
 
         // Assert
-        assertFalse(result, "Expected East Wind Yaku to be false when round wind is not EAST_WIND.");
+        assertFalse(result, "Expected West Wind Yaku to be false when round wind is not WEST_WIND.");
     }
 
     @Test
-    void testIsYaku_NoEastWindInGroups() {
+    void testIsYaku_NoWestWindInGroups() {
         // Arrange
         HandState handState = handStateFactory.createHandState(
-                "", "", "", "2s", "", "", "ew", "ew", 0
+                "", "", "", "2s", "", "", "ww", "ww", 0
         );
         HandGrouping handGrouping = new HandGrouping(List.of(new MahjongTile[]{MahjongTile.ONE_SOU, MahjongTile.THREE_SOU}));
         handGrouping.addGroup(new MahjongGroup(new MahjongTile[]{MahjongTile.SOUTH_WIND, MahjongTile.SOUTH_WIND, MahjongTile.SOUTH_WIND}));
 
         // Act
-        boolean result = eastWindTestCase.isYaku(handState, handGrouping);
+        boolean result = westWindTestCase.isYaku(handState, handGrouping);
 
         // Assert
-        assertFalse(result, "Expected East Wind Yaku to be false when no group contains EAST_WIND.");
+        assertFalse(result, "Expected West Wind Yaku to be false when no group contains WEST_WIND.");
     }
 
     @Test
     void testIsYaku_EmptyGroups() {
         // Arrange
         HandState handState = handStateFactory.createHandState(
-                "", "", "", "2s", "", "", "ew", "ew", 0
+                "", "", "", "2s", "", "", "ww", "ww", 0
         );
         HandGrouping handGrouping = new HandGrouping(List.of());
 
         // Act
-        boolean result = eastWindTestCase.isYaku(handState, handGrouping);
+        boolean result = westWindTestCase.isYaku(handState, handGrouping);
 
         // Assert
-        assertFalse(result, "Expected East Wind Yaku to be false when there are no groups.");
+        assertFalse(result, "Expected West Wind Yaku to be false when there are no groups.");
     }
 
     @Test
     void testGetClosedHanValue() {
         // Act
-        int closedHanValue = eastWindTestCase.getClosedHanValue();
+        int closedHanValue = westWindTestCase.getClosedHanValue();
 
         // Assert
-        assertEquals(1, closedHanValue, "Expected closed Han value to be 1 for East Wind Yaku.");
+        assertEquals(1, closedHanValue, "Expected closed Han value to be 1 for West Wind Yaku.");
     }
 
     @Test
     void testGetOpenHanValue() {
         // Act
-        int openHanValue = eastWindTestCase.getOpenHanValue();
+        int openHanValue = westWindTestCase.getOpenHanValue();
 
         // Assert
-        assertEquals(1, openHanValue, "Expected open Han value to be 1 for East Wind Yaku.");
+        assertEquals(1, openHanValue, "Expected open Han value to be 1 for West Wind Yaku.");
     }
 }
