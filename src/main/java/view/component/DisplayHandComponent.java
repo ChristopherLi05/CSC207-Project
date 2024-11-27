@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Display Hand Component
+ */
 public class DisplayHandComponent extends JPanel implements PropertyChangeListener {
     private final boolean modifyTiles;
 
@@ -17,6 +20,10 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
     private final GroupShower closedGroups;
     private final GroupShower openGroups;
 
+    /**
+     * Constructs DisplayHandComponent object with specified modification setting
+     * @param modifyTiles whether the tiles in the hand can be modified
+     */
     public DisplayHandComponent(boolean modifyTiles) {
         this.modifyTiles = modifyTiles;
 
@@ -30,6 +37,10 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
         this.add(new JPanel());
     }
 
+    /**
+     * Handles property changes in calculator state.
+     * @param evt the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (!(evt.getNewValue() instanceof IDisplayHandComponentState)) return;
@@ -55,7 +66,14 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
         this.repaint();
     }
 
+    /**
+     * Shows a group of tiles
+     */
     private static class TileShower extends JPanel {
+        /**
+         * Displays given list of tiles in component.
+         * @param tiles the list of Mahjong tiles to display
+         */
         public void displayTiles(List<MahjongTile> tiles) {
             for (MahjongTile tile : tiles) {
                 this.add(new MahjongTileInputButton(tile));
@@ -67,7 +85,14 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
         }
     }
 
+    /**
+     * Shows a list of a group of tiles
+     */
     private static class GroupShower extends JPanel {
+        /**
+         * Displays the given list of Mahjong groups in component.
+         * @param tiles the list of Mahjong groups to display
+         */
         public void displayGroups(List<MahjongGroup> tiles) {
             for (MahjongGroup group : tiles) {
                 TileShower tileShower = new TileShower();

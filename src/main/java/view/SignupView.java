@@ -16,6 +16,9 @@ import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewState;
 import view.component.LabelTextPanel;
 
+/**
+ * Signup View
+ */
 public class SignupView extends AbstractPanel<SignupState> {
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);

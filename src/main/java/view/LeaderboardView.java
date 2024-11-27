@@ -12,6 +12,9 @@ import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Leaderboard View
+ */
 public class LeaderboardView extends AbstractPanel<LeaderboardState> implements PropertyChangeListener {
     private LeaderboardController leaderboardController = null;
 

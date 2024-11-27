@@ -7,6 +7,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Basic Button that is just an image and stores its mahjong tile
+ */
 public class MahjongTileInputButton extends JButton {
     private final MahjongTile mahjongTile;
 

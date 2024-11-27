@@ -23,6 +23,9 @@ import java.util.List;
 
 import static entity.calculator.mahjong.MahjongTile.EAST_WIND;
 
+/**
+ * Calculator View
+ */
 public class CalculatorView extends AbstractPanel<CalculatorState> implements ActionListener, PropertyChangeListener {
     private final TileSelectorComponent tileSelectorComponent;
     private final DisplayHandComponent displayHandComponent;
@@ -30,6 +33,11 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     private CalculatorController calculatorController;
     private JLabel scoreLabel;
 
+    /**
+     * Constructs CalculatorView with specified view state and view manager.
+     * @param viewState the concrete observer that observes calculatorState
+     * @param viewManager the manager that handles view transitions
+     */
     public CalculatorView(CalculatorViewState viewState, ViewManager viewManager, IHandStateFactory handStateFactory) {
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -71,10 +79,17 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         this.add(buttons, BorderLayout.SOUTH);
     }
 
+    /**
+     * @return the DisplayHandComponent that displays the selected tiles and groups
+     */
     public DisplayHandComponent getDisplayHandComponent() {
         return displayHandComponent;
     }
 
+    /**
+     * Handles actions performed within view.
+     * @param e the action event that was triggered
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         // Execute controller.
@@ -87,10 +102,18 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         }
     }
 
+    /**
+     * Sets controller for addTile use case
+     * @param addTileController the controller for the addTile use case
+     */
     public void setAddTileController(AddTileController addTileController) {
         this.addTileController = addTileController;
     }
 
+    /**
+     * Handles property changes in state.
+     * @param evt the property change event that was triggered
+     */
     public void setCalculatorController(CalculatorController calculatorController) {
         this.calculatorController = calculatorController;
     }

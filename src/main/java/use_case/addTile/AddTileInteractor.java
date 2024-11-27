@@ -7,16 +7,29 @@ import view.component.ITileSelectorComponentState;
 public class AddTileInteractor implements AddTileInputBoundary {
     AddTileOutputBoundary addTileOutputBoundary;
 
+    /**
+     * Constructs AddTileInteractor with specified output boundary.
+     * @param addTileOutputBoundary the output boundary for presenting data to the view
+     */
     public AddTileInteractor(AddTileOutputBoundary addTileOutputBoundary) {
         this.addTileOutputBoundary = addTileOutputBoundary;
     }
 
+    /**
+     * Executes add tile operation with provided input data and pass output data to output boundary.
+     * @param inputData the data required to add the tile
+     */
     @Override
     public void execute(AddTileInputData inputData) {
         AddTileOutputData data = addTiles(inputData);
         addTileOutputBoundary.present(data);
     }
 
+    /**
+     * Processes input data to and creates output data.
+     * @param inputData the received input data
+     * @return output data containing the added tiles or groups
+     */
     private AddTileOutputData addTiles(AddTileInputData inputData) {
         AddTileOutputData data = new AddTileOutputData();
 
@@ -38,10 +51,21 @@ public class AddTileInteractor implements AddTileInputBoundary {
         return data;
     }
 
+    /**
+     * Adds closed tile based on input data.
+     * @param inputData the data needed to create the closed tile
+     * @return the closed tile
+     */
     private MahjongTile addClosedTile(MahjongTile inputData) {
         return inputData;
     }
 
+    /**
+     * Creates Chii group given a tile and whether or not it is an aka.
+     * @param tile  the given tile
+     * @param isAka whether the given tile is aka (red)
+     * @return the Chii group, or null if the group cannot be formed
+     */
     private MahjongGroup addChii(MahjongTile tile, boolean isAka) {
         if (tile.getValue() < 1 || tile.getValue() > 7) {
             return null;
@@ -61,6 +85,12 @@ public class AddTileInteractor implements AddTileInputBoundary {
         return new MahjongGroup(tiles);
     }
 
+    /**
+     * Creates Pon group given a tile and whether or not it is an aka.
+     * @param tile  the given tile
+     * @param isAka whether the given tile is aka (red)
+     * @return the Pon group
+     */
     private MahjongGroup addPon(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
@@ -77,6 +107,12 @@ public class AddTileInteractor implements AddTileInputBoundary {
         return group;
     }
 
+    /**
+     * Creates Kan group given a tile and whether or not it is an aka.
+     * @param tile  the given tile
+     * @param isAka whether the given tile is aka (red)
+     * @return the Kan group
+     */
     private MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 

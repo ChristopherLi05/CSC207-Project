@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The DAO for all data implemented using api
+ */
 public class APIDataAccessor implements IDataAccessor {
     private final String baseUrl;
 
@@ -22,6 +25,9 @@ public class APIDataAccessor implements IDataAccessor {
         this.baseUrl = baseUrl;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean signUp(String username, String password) {
         JsonObject object = new JsonObject();
@@ -36,6 +42,9 @@ public class APIDataAccessor implements IDataAccessor {
         return result.success();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String logIn(String username, String password) {
         JsonObject object = new JsonObject();
@@ -51,6 +60,9 @@ public class APIDataAccessor implements IDataAccessor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<LeaderboardEntry> getTopTenLeaderboard() {
         List<LeaderboardEntry> topTen = new ArrayList<>();
@@ -68,6 +80,9 @@ public class APIDataAccessor implements IDataAccessor {
         return topTen;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateScore(String sessionId, int score) {
         JsonObject object = new JsonObject();
@@ -80,6 +95,9 @@ public class APIDataAccessor implements IDataAccessor {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getBestScore(String sessionId) {
         JsonObject object = new JsonObject();
@@ -95,12 +113,31 @@ public class APIDataAccessor implements IDataAccessor {
 
     }
 
+    /**
+     * Class used to store request data
+     *
+     * @param success whether request was successful or not
+     * @param message raw return message
+     */
     private record Result(boolean success, String message) {
     }
 
+    /**
+     * Class used to store parsed request data
+     *
+     * @param success      whether request was successful or not
+     * @param errorMessage error message (if present)
+     * @param obj          json object (if successful request)
+     */
     private record ParsedResult(boolean success, String errorMessage, JsonObject obj) {
     }
 
+    /**
+     * Performs a get request
+     *
+     * @param url endpoint
+     * @return raw result
+     */
     private Result getRequest(String url) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(baseUrl + "/" + url).openConnection();
@@ -118,10 +155,24 @@ public class APIDataAccessor implements IDataAccessor {
         return new Result(false, "");
     }
 
+    /**
+     * Performs a post request
+     *
+     * @param url  endpoint
+     * @param body json body
+     * @return raw result
+     */
     private Result postRequest(String url, JsonObject body) {
         return postRequest(url, body.toString());
     }
 
+    /**
+     * Performs a post request
+     *
+     * @param url  endpoint
+     * @param body json body
+     * @return raw result
+     */
     private Result postRequest(String url, String body) {
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(baseUrl + "/" + url).openConnection();
@@ -146,6 +197,12 @@ public class APIDataAccessor implements IDataAccessor {
         return new Result(false, "");
     }
 
+    /**
+     * Parses a request
+     *
+     * @param result result from getRequest or postRequest
+     * @return parsed result
+     */
     private ParsedResult parseRequest(Result result) {
         JsonElement element = JsonParser.parseString(result.message());
         if (!element.isJsonObject()) {
