@@ -11,6 +11,9 @@ public class AddTileOutputData {
     private final List<MahjongGroup> addedClosedGroup = new ArrayList<>();
     private final List<MahjongGroup> addedOpenGroup = new ArrayList<>();
 
+    /**
+     * Constructs an AddTileOutputData object.
+     */
     public AddTileOutputData() {
     }
 
