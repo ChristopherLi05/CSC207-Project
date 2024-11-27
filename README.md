@@ -1,6 +1,6 @@
 # CSC207 - Mahjong Score Trainer
 
-A simple Mahjong Score Trainer that includes a score calculator, a training mode, and a puzzle rush mode.
+A simple Mahjong Score Trainer that includes a score calculator, a puzzle rush mode, and a leaderboard.
 
 ## Group Members
 
@@ -73,10 +73,11 @@ You are also able to go back to the signup screen to create another account.
 Guest login is also possible but your scores will not be stored.
 
 ### Mahjong Point Calculator
-![gif of calculator]()
+![gif of calculator](gifs/calculator.gif)
 
 Upon logging in, you will be taken to the calculator.
-Here you are able to input any hand by clicking on the tiles, and click the "calculate" button to get your score.
+Here you are able to input any hand by clicking on the tiles, and click the "calculate" button to get your score. 
+If the hand is invalid or the score is 0, it will return "Invalid Hand".
 There is also a tab switcher on top to take you to other modes, puzzle rush and the leaderboard.
 
 ### Puzzle Rush
