@@ -1,10 +1,8 @@
 package interface_adapter.login;
 
 import app.IApp;
-import interface_adapter.ViewManager;
 import interface_adapter.signup.SignupViewState;
 import interface_adapter.signup.SignupState;
-import interface_adapter.calculator.CalculatorViewState;
 import interface_adapter.calculator.CalculatorState;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
@@ -13,12 +11,12 @@ public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewState loginViewState;
     private final IApp app;
     private final SignupViewState signupViewState;
-    private final CalculatorViewState calculatorViewState;
+    private final interface_adapter.calculator.CalculatorViewState calculatorViewState;
 
     public LoginPresenter(IApp app,
                           LoginViewState loginViewState,
                           SignupViewState signupViewState,
-                          CalculatorViewState calculatorViewState) {
+                          interface_adapter.calculator.CalculatorViewState calculatorViewState) {
         this.loginViewState = loginViewState;
         this.signupViewState = signupViewState;
         this.calculatorViewState = calculatorViewState;
@@ -37,6 +35,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     public void prepareCalculatorView(LoginOutputData loginOutputData) {
         this.calculatorViewState.setState(new CalculatorState());
         this.calculatorViewState.firePropertyChanged();
+        this.app.getUserManager().setUserLoggedIn(loginOutputData.getUser().getSessionId(), loginOutputData.getUser().getUsername(), loginOutputData.getUser().getBestScore());
 
         this.app.getViewManager().setView(calculatorViewState.getViewName());
     }

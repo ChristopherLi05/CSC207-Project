@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+/**
+ * Login View
+ */
 public class LoginView extends AbstractPanel<LoginState> {
     private final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
@@ -39,12 +42,12 @@ public class LoginView extends AbstractPanel<LoginState> {
         passwordInfo.add(passwordInputField);
 
         final JPanel buttons = new JPanel();
-        logIn = new JButton("log in");
+        logIn = new JButton("Log In");
+        signup = new JButton("Go to Sign Up");
+        guest = new JButton("Guest");
         buttons.add(logIn);
-        guest = new JButton("guest");
-        buttons.add(guest);
-        signup = new JButton("sign up");
         buttons.add(signup);
+        buttons.add(guest);
 
         logIn.addActionListener(
                 evt -> {
@@ -54,6 +57,8 @@ public class LoginView extends AbstractPanel<LoginState> {
                             usernameInputField.getText(),
                             String.valueOf(password)
                     );
+
+                    passwordInputField.setText("");
 
                     Arrays.fill(password, (char) 0);
                 }

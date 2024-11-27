@@ -10,6 +10,9 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Async Leaderboard Component
+ */
 public class LeaderboardComponent extends JPanel implements PropertyChangeListener {
     private final CardLayout loadingShowLayout = new CardLayout();
     private final JPanel loadingShowPanel = new JPanel(loadingShowLayout);
@@ -49,6 +52,9 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
         }
     }
 
+    /**
+     * Loading Panel (while still querying API)
+     */
     private static class LoadingPanel extends JPanel {
         public LoadingPanel() {
             // To be replaced with a spinning gif
@@ -58,6 +64,9 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
         }
     }
 
+    /**
+     * Panel for when leaderboard is shown
+     */
     private static class ShowPanel extends JPanel {
         private final String name;
         private final String score;
@@ -69,6 +78,11 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
             this.score = score;
         }
 
+        /**
+         * Update the view with updated state
+         *
+         * @param state .
+         */
         public void update(LeaderboardState state) {
             this.removeAll();
 

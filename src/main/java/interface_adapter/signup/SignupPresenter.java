@@ -1,8 +1,9 @@
-
 package interface_adapter.signup;
 
-//import interface_adapter.login.LoginState;
-//import interface_adapter.login.LoginViewModel;
+import entity.user.IUserManager;
+import interface_adapter.ViewManager;
+import interface_adapter.calculator.CalculatorViewState;
+import interface_adapter.login.LoginViewState;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
 
@@ -10,55 +11,46 @@ import use_case.signup.SignupOutputData;
  * The Presenter for the Signup Use Case.
  */
 public class SignupPresenter implements SignupOutputBoundary {
+    private final ViewManager viewManager;
+
+    private final IUserManager userManager;
+
+    private final CalculatorViewState calculatorViewState;
+    private final LoginViewState loginViewState;
+
+    public SignupPresenter(ViewManager viewManager,
+                           IUserManager userManager,
+                           CalculatorViewState calculatorViewState,
+                           LoginViewState loginViewState) {
+        this.viewManager = viewManager;
+        this.userManager = userManager;
+
+        this.loginViewState = loginViewState;
+        this.calculatorViewState = calculatorViewState;
+    }
+
     @Override
     public void prepareSuccessView(SignupOutputData outputData) {
-
+        if (outputData.isUseCaseFailed()) {
+            prepareFailView("Error");
+        } else {
+            viewManager.setView(loginViewState.getViewName());
+        }
     }
 
     @Override
     public void prepareFailView(String errorMessage) {
+        System.out.println(errorMessage);
+    }
 
+    @Override
+    public void prepareGuestView() {
+        userManager.setUserGuest();
+        viewManager.setView(calculatorViewState.getViewName());
     }
 
     @Override
     public void switchToLoginView() {
-
+        viewManager.setView(loginViewState.getViewName());
     }
-//
-//    private final SignupViewState signupViewState;
-//    private final LoginViewModel loginViewModel;
-//    private final ViewManagerModel viewManagerModel;
-//
-//    public SignupPresenter(ViewManagerModel viewManagerModel,
-//                           SignupViewState signupViewState,
-//                           LoginViewModel loginViewModel) {
-//        this.viewManagerModel = viewManagerModel;
-//        this.signupViewState = signupViewState;
-//        this.loginViewModel = loginViewModel;
-//    }
-//
-//    @Override
-//    public void prepareSuccessView(SignupOutputData response) {
-//        // On success, switch to the login view.
-//        final LoginState loginState = loginViewModel.getState();
-//        loginState.setUsername(response.getUsername());
-//        this.loginViewModel.setState(loginState);
-//        loginViewModel.firePropertyChanged();
-//
-//        viewManagerModel.setState(loginViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
-//
-//    @Override
-//    public void prepareFailView(String error) {
-//        final SignupState signupState = signupViewState.getState();
-//        signupState.setUsernameError(error);
-//        signupViewState.firePropertyChanged();
-//    }
-//
-//    @Override
-//    public void switchToLoginView() {
-//        viewManagerModel.setState(loginViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
 }

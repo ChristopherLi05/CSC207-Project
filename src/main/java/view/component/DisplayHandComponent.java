@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Display Hand Component
+ */
 public class DisplayHandComponent extends JPanel implements PropertyChangeListener {
     private final boolean modifyTiles;
 
@@ -40,8 +43,9 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!(evt.getNewValue() instanceof ITileModifierState)) return;
-        ITileModifierState state = (ITileModifierState) evt.getNewValue();
+        if (!(evt.getNewValue() instanceof IDisplayHandComponentState)) return;
+        IDisplayHandComponentState state = (IDisplayHandComponentState) evt.getNewValue();
+        if (!state.changedState()) return;
 
         this.closedTiles.removeAll();
         List<MahjongTile> tiles = new ArrayList<>(state.getClosedTiles());
@@ -62,6 +66,9 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
         this.repaint();
     }
 
+    /**
+     * Shows a group of tiles
+     */
     private static class TileShower extends JPanel {
         /**
          * Displays given list of tiles in component.
@@ -78,6 +85,9 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
         }
     }
 
+    /**
+     * Shows a list of a group of tiles
+     */
     private static class GroupShower extends JPanel {
         /**
          * Displays the given list of Mahjong groups in component.

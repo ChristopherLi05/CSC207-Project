@@ -23,7 +23,7 @@ public class SignupViewState extends ViewState<SignupState> {
     }
 
     public SignupViewState(String viewName, SignupState state, String TITLE_LABEL, String USERNAME_LABEL, String PASSWORD_LABEL, String REPEAT_PASSWORD_LABEL, String SIGNUP_BUTTON_LABEL, String GUEST_BUTTON_LABEL, String TO_LOGIN_BUTTON_LABEL) {
-        super(viewName, state);
+        super(viewName, state, false);
 
         this.TITLE_LABEL = TITLE_LABEL;
         this.USERNAME_LABEL = USERNAME_LABEL;
