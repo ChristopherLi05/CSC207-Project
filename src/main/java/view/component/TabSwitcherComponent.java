@@ -4,6 +4,7 @@ import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
 
 import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class TabSwitcherComponent extends JPanel implements PropertyChangeListen
      */
     public JButton createJButton(String viewName) {
         JButton button = new JButton(viewName);
+        button.setFont(new Font("Arial", Font.PLAIN, 30));
         button.addActionListener(e -> viewManager.setView(viewName));
         return button;
     }

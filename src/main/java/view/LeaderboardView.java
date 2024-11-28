@@ -9,6 +9,7 @@ import view.component.LeaderboardComponent;
 import view.component.TabSwitcherComponent;
 
 import javax.swing.*;
+import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -21,6 +22,12 @@ public class LeaderboardView extends AbstractPanel<LeaderboardState> implements 
     public LeaderboardView(LeaderboardViewState viewState, ViewManager viewManager) {
         super(viewState);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Leader Board");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
 
         this.add(new TabSwitcherComponent(viewManager));
 

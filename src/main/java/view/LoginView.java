@@ -31,20 +31,26 @@ public class LoginView extends AbstractPanel<LoginState> {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         final JLabel title = new JLabel("Login Screen");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel usernameInfo = new JPanel();
         usernameInfo.add(new JLabel("Username"));
+        usernameInfo.setFont(new Font("Arial", Font.PLAIN, 30));
         usernameInfo.add(usernameInputField);
 
         final JPanel passwordInfo = new JPanel();
         passwordInfo.add(new JLabel("Password"));
+        passwordInfo.setFont(new Font("Arial", Font.PLAIN, 30));
         passwordInfo.add(passwordInputField);
 
         final JPanel buttons = new JPanel();
         logIn = new JButton("Log In");
+        logIn.setFont(new Font("Arial", Font.PLAIN, 30));
         signup = new JButton("Go to Sign Up");
+        signup.setFont(new Font("Arial", Font.PLAIN, 30));
         guest = new JButton("Guest");
+        guest.setFont(new Font("Arial", Font.PLAIN, 30));
         buttons.add(logIn);
         buttons.add(signup);
         buttons.add(guest);

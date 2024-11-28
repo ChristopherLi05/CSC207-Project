@@ -37,6 +37,12 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Calculator");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+
         this.add(new TabSwitcherComponent(viewManager));
         viewState.addPropertyChangeListener(this);
 
@@ -55,7 +61,10 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
+        calculate.setFont(new Font("Arial", Font.PLAIN, 30));
         scoreLabel = new JLabel("Score: ");
+        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+
         buttons.add(scoreLabel);
         buttons.add(calculate);
 
@@ -101,5 +110,6 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         scoreLabel.setText("Output: " + getViewState().getState().getMessageState());
+        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
     }
 }

@@ -1,6 +1,6 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.util.Arrays;
 
 import javax.swing.BoxLayout;
@@ -32,7 +32,8 @@ public class SignupView extends AbstractPanel<SignupState> {
     public SignupView(SignupViewState viewState, ViewManager viewManager) {
         super(viewState);
 
-        final JLabel title = new JLabel(viewState.TITLE_LABEL);
+        final JLabel title = new JLabel("Sign Up Screen");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final LabelTextPanel usernameInfo = new LabelTextPanel(
@@ -44,10 +45,13 @@ public class SignupView extends AbstractPanel<SignupState> {
 
         final JPanel buttons = new JPanel();
         toLogin = new JButton(viewState.TO_LOGIN_BUTTON_LABEL);
+        toLogin.setFont(new Font("Arial", Font.PLAIN, 30));
         buttons.add(toLogin);
         signUp = new JButton(viewState.SIGNUP_BUTTON_LABEL);
+        signUp.setFont(new Font("Arial", Font.PLAIN, 30));
         buttons.add(signUp);
         guest = new JButton(viewState.GUEST_BUTTON_LABEL);
+        guest.setFont(new Font("Arial", Font.PLAIN, 30));
         buttons.add(guest);
 
         toLogin.addActionListener(e -> signupController.switchToLoginView());
