@@ -23,6 +23,9 @@ public class MahjongTileInputButton extends JButton {
         setSize(new Dimension(61, 88));
         setBackground(new Color(255, 255, 255));
         setFocusPainted(false);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));// Remove border
+        setBackground(Color.WHITE); // Reset background to white
+        setOpaque(true);
 
         setMargin(new Insets(3, 3, 3, 3));
     }

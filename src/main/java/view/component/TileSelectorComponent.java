@@ -84,14 +84,16 @@ public class TileSelectorComponent extends JPanel {
                 public void mouseEntered(MouseEvent e) {
 
                     button.setBorder(BorderFactory.createLineBorder(Color.BLUE, 4));// Highlight with a blue border
-                    button.setBackground(Color.WHITE); // Light lavender for hover
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    button.setBorder(BorderFactory.createEmptyBorder());// Remove border
+                    button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));// Remove border
                     button.setBackground(Color.WHITE); // Reset background to white
                     button.setOpaque(true);
+                    button.setPreferredSize(new Dimension(61, 88));
+                    button.setSize(new Dimension(61, 88));
+                    button.setMargin(new Insets(3, 3, 3, 3));
                 }
             });
             tilePanel.add(button);
