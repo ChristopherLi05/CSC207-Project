@@ -22,6 +22,12 @@ public class TileSelectorComponent extends JPanel {
     private final JButton closedKanButton;
     private final JButton openKanButton;
 
+    /**
+     * Constructs TileSelectorComponent object with specified view state and action listener.
+     *
+     * @param calculatorViewState the concrete observer that observes the calculator state
+     * @param tileListener the action listener that handles tile selection events
+     */
     public TileSelectorComponent(CalculatorViewState calculatorViewState, ActionListener tileListener) {
         this.calculatorViewState = calculatorViewState;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -83,8 +89,8 @@ public class TileSelectorComponent extends JPanel {
     }
 
     /**
-     * Toggles the selector type and updates the button colors
-     * @param newSelectorType .
+     * Toggles selector type for tile selection.
+     * @param newSelectorType the new selector type to be set
      */
     public void toggleSelectorType(ITileSelectorComponentState.SelectorType newSelectorType) {
         ITileSelectorComponentState.SelectorType oldSelectorType = calculatorViewState.getState().getSelectorType();

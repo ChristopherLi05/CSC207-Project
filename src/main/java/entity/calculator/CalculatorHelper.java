@@ -118,9 +118,9 @@ public class CalculatorHelper {
     public static HandGrouping extractChiiGroup(HandGrouping grouping) {
         HandGrouping copy = grouping.copy();
 
-        MahjongTile tile1 = grouping.getUngroupedTiles().remove(0);
-        MahjongTile tile2 = grouping.extractTile(tile1.getValue() + 1, tile1.getSuit());
-        MahjongTile tile3 = grouping.extractTile(tile1.getValue() + 2, tile1.getSuit());
+        MahjongTile tile1 = copy.getUngroupedTiles().remove(0);
+        MahjongTile tile2 = copy.extractTile(tile1.getValue() + 1, tile1.getSuit());
+        MahjongTile tile3 = copy.extractTile(tile1.getValue() + 2, tile1.getSuit());
 
         copy.addGroup(new MahjongGroup(tile1, tile2, tile3));
         return copy;
@@ -145,9 +145,9 @@ public class CalculatorHelper {
     public static HandGrouping extractPonGroup(HandGrouping grouping) {
         HandGrouping copy = grouping.copy();
 
-        MahjongTile tile1 = grouping.getUngroupedTiles().remove(0);
-        MahjongTile tile2 = grouping.extractTile(tile1.getValue(), tile1.getSuit());
-        MahjongTile tile3 = grouping.extractTile(tile1.getValue(), tile1.getSuit());
+        MahjongTile tile1 = copy.getUngroupedTiles().remove(0);
+        MahjongTile tile2 = copy.extractTile(tile1.getValue(), tile1.getSuit());
+        MahjongTile tile3 = copy.extractTile(tile1.getValue(), tile1.getSuit());
 
         copy.addGroup(new MahjongGroup(tile1, tile2, tile3));
         return copy;

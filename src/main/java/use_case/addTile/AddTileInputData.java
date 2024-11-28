@@ -3,20 +3,16 @@ package use_case.addTile;
 import entity.calculator.mahjong.MahjongTile;
 import view.component.ITileSelectorComponentState;
 
-/**
- * Represents the input data required to add a tile to a player's hand.
- */
 public class AddTileInputData {
     private final MahjongTile tile;
     private final boolean isAka;
     private final ITileSelectorComponentState.SelectorType selectorType;
 
     /**
-     * Constructs a new `AddTileInputData` instance.
-     *
-     * @param tile        the Mahjong tile to be added
-     * @param isAka        a boolean indicating if the tile is an aka (special red tile)
-     * @param selectorType the type of selector used to choose the tile
+     * Constructs AddTileInputData object with given a tile and other attributes.
+     * @param tile the tile to be added
+     * @param isAka whether the tile is red (aka)
+     * @param selectorType the type of tile selection being performed
      */
     public AddTileInputData(MahjongTile tile, boolean isAka, ITileSelectorComponentState.SelectorType selectorType) {
         this.tile = tile;
@@ -25,27 +21,24 @@ public class AddTileInputData {
     }
 
     /**
-     * Gets the selector type used to choose the tile.
-     *
-     * @return the selector type
+     * Gets selector type for the tile operation.
+     * @return the selector type for the tile operation
      */
     public ITileSelectorComponentState.SelectorType getSelectorType() {
         return selectorType;
     }
 
     /**
-     * Gets the Mahjong tile to be added.
-     *
-     * @return the tile
+     * Retrieves tile associated with input data.
+     * @return the tile in the input data.
      */
     public MahjongTile getTile() {
         return tile;
     }
 
     /**
-     * Checks if the tile is an aka (special red tile).
-     *
-     * @return true if the tile is an aka, false otherwise
+     * Checks whether the tile is an aka (red) tile.
+     * @return True if and only if the tile is aka (red)
      */
     public boolean isAka() {
         return isAka;

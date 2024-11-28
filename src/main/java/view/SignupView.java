@@ -29,6 +29,16 @@ public class SignupView extends AbstractPanel<SignupState> {
     private final JButton guest;
     private final JButton toLogin;
 
+    /**
+     * Constructs the SignupView with the provided view state and view manager.
+     *
+     * The constructor initializes the components for the signup form, including
+     * labels, input fields, and buttons. Action listeners are added to the buttons
+     * to handle user interactions.
+     *
+     * @param viewState the current state of the signup view, used for labels and text.
+     * @param viewManager the manager that controls the switching of views.
+     */
     public SignupView(SignupViewState viewState, ViewManager viewManager) {
         super(viewState);
 
@@ -78,6 +88,11 @@ public class SignupView extends AbstractPanel<SignupState> {
         this.add(buttons);
     }
 
+    /**
+     * Sets the SignupController for this view to execute user actions.
+     *
+     * @param controller the controller responsible for the signup process.
+     */
     public void setSignupController(SignupController controller) {
         this.signupController = controller;
     }

@@ -1,8 +1,7 @@
-package entity.mahjong;
+package entity.calculator;
 
-import entity.calculator.HandState;
-import entity.calculator.HandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongSuit;
 import entity.calculator.mahjong.MahjongTile;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +45,44 @@ class HandStateTest {
             File image = new File("src/main/resources", tile.getFilePath());
             Assertions.assertTrue(image.exists(), "File " + tile.getFilePath() + " does not exist.");
         }
+    }
+
+    @Test
+    void testMahjongGroup() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new MahjongGroup(new MahjongTile[]{MahjongTile.EAST_WIND, MahjongTile.EAST_WIND}));
+
+        MahjongGroup group = new MahjongGroup(new MahjongTile[]{MahjongTile.EAST_WIND, MahjongTile.EAST_WIND, MahjongTile.EAST_WIND});
+        Assertions.assertEquals(3, group.getTiles().length);
+
+        group = new MahjongGroup(MahjongTile.EAST_WIND, MahjongTile.EAST_WIND, MahjongTile.EAST_WIND);
+        Assertions.assertEquals(3, group.getTiles().length);
+
+        group = new MahjongGroup(MahjongTile.EAST_WIND, MahjongTile.EAST_WIND, MahjongTile.EAST_WIND, MahjongTile.EAST_WIND);
+        Assertions.assertEquals(4, group.getTiles().length);
+        Assertions.assertEquals("ewewewew", group.getSerialization());
+        Assertions.assertEquals("MahjongGroup(ewewewew)", group.toString());
+
+        Assertions.assertEquals(MahjongTile.EAST_WIND, group.getTile(0));
+        group.setTile(0, MahjongTile.WEST_WIND);
+        Assertions.assertEquals(MahjongTile.WEST_WIND, group.getTile(0));
+    }
+
+    @Test
+    void testMahjongSuit() {
+        Assertions.assertTrue(MahjongSuit.WIND.isHonor());
+        Assertions.assertEquals(4, MahjongSuit.WIND.getSort());
+    }
+
+    @Test
+    void testMahjongTile() {
+        Assertions.assertEquals(1, MahjongTile.ONE_MAN.getValue());
+        Assertions.assertEquals(MahjongSuit.MAN, MahjongTile.ONE_MAN.getSuit());
+        Assertions.assertTrue(MahjongTile.ONE_MAN.isTerminal());
+        Assertions.assertFalse(MahjongTile.ONE_MAN.isAka());
+
+        Assertions.assertNull(MahjongTile.getMahjongTile(0, MahjongSuit.MAN, false));
+        Assertions.assertEquals(MahjongTile.RED_FIVE_MAN, MahjongTile.getMahjongTile(5, MahjongSuit.MAN, true));
+
+        Assertions.assertNull(MahjongTile.getMahjongTile("11"));
     }
 }

@@ -4,30 +4,20 @@ import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import view.component.ITileSelectorComponentState;
 
-/**
- * The {@code AddTileInteractor} class handles the logic for adding a Mahjong tile to the player's hand.
- * It coordinates the tile addition based on the type of selector (e.g., Chii, Pon, Kan, etc.) and delegates
- * the presentation of the results to the {@link AddTileOutputBoundary}.
- */
 public class AddTileInteractor implements AddTileInputBoundary {
-    private final AddTileOutputBoundary addTileOutputBoundary;
+    AddTileOutputBoundary addTileOutputBoundary;
 
     /**
-     * Constructs an {@code AddTileInteractor} with the given {@link AddTileOutputBoundary} for
-     * presenting the result of the tile addition.
-     *
-     * @param addTileOutputBoundary the output boundary that handles presenting the results
+     * Constructs AddTileInteractor with specified output boundary.
+     * @param addTileOutputBoundary the output boundary for presenting data to the view
      */
     public AddTileInteractor(AddTileOutputBoundary addTileOutputBoundary) {
         this.addTileOutputBoundary = addTileOutputBoundary;
     }
 
     /**
-     * Executes the tile addition process based on the provided {@code AddTileInputData}.
-     * It determines the type of tile addition (closed, open, Chii, Pon, or Kan)
-     * and delegates the presentation of the result to the output boundary.
-     *
-     * @param inputData the input data containing the tile to add and the selector type
+     * Executes add tile operation with provided input data and pass output data to output boundary.
+     * @param inputData the data required to add the tile
      */
     @Override
     public void execute(AddTileInputData inputData) {
@@ -36,56 +26,47 @@ public class AddTileInteractor implements AddTileInputBoundary {
     }
 
     /**
-     * Determines the appropriate action for adding the tile based on the selector type
-     * and returns the corresponding output data.
-     *
-     * @param inputData the input data containing the tile and selector type
-     * @return the {@link AddTileOutputData} that contains the result of the tile addition
+     * Processes input data to and creates output data.
+     * @param inputData the received input data
+     * @return output data containing the added tiles or groups
      */
-    private AddTileOutputData addTiles(AddTileInputData inputData) {
+    AddTileOutputData addTiles(AddTileInputData inputData) {
         AddTileOutputData data = new AddTileOutputData();
 
-        switch (inputData.getSelectorType()) {
-            case NONE:
-                data.addTile(addClosedTile(inputData.getTile()));
-                break;
-            case CHII:
-                MahjongGroup chiiGroup = addChii(inputData.getTile(), inputData.isAka());
-                if (chiiGroup != null) {
-                    data.addOpenGroup(chiiGroup);
-                }
-                break;
-            case PON:
-                data.addOpenGroup(addPon(inputData.getTile(), inputData.isAka()));
-                break;
-            case CLOSED_KAN:
-            case OPEN_KAN:
-                data.addClosedGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
-                break;
+        if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.NONE) {
+            data.addTile(addClosedTile(inputData.getTile()));
+        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.CHII) {
+            MahjongGroup group = addChii(inputData.getTile(), inputData.isAka());
+            if (group != null) {
+                data.addOpenGroup(group);
+            }
+        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.PON) {
+            data.addOpenGroup(addPon(inputData.getTile(), inputData.isAka()));
+        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.CLOSED_KAN) {
+            data.addClosedGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
+        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.OPEN_KAN) {
+            data.addOpenGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
         }
 
         return data;
     }
 
     /**
-     * Adds a closed tile to the player's hand.
-     *
-     * @param tile the Mahjong tile to add
-     * @return the added tile
+     * Adds closed tile based on input data.
+     * @param inputData the data needed to create the closed tile
+     * @return the closed tile
      */
-    private MahjongTile addClosedTile(MahjongTile tile) {
-        return tile;
+    private MahjongTile addClosedTile(MahjongTile inputData) {
+        return inputData;
     }
 
     /**
-     * Creates and returns a Chii group (a sequence of 3 tiles) for the given tile.
-     * A Chii group consists of tiles with consecutive values of the same suit.
-     *
-     * @param tile the tile to form a Chii group
-     * @param isAka whether the group can include an aka (red) tile
-     * @return the MahjongGroup representing the Chii group, or {@code null} if the tile value is invalid
+     * Creates Chii group given a tile and whether or not it is an aka.
+     * @param tile  the given tile
+     * @param isAka whether the given tile is aka (red)
+     * @return the Chii group, or null if the group cannot be formed
      */
-    private MahjongGroup addChii(MahjongTile tile, boolean isAka) {
+    MahjongGroup addChii(MahjongTile tile, boolean isAka) {
         if (tile.getValue() < 1 || tile.getValue() > 7) {
             return null;
         }
@@ -105,14 +86,12 @@ public class AddTileInteractor implements AddTileInputBoundary {
     }
 
     /**
-     * Creates and returns a Pon group (a triplet of 3 identical tiles) for the given tile.
-     * If the tile is an aka (red tile), a normal tile is used in the group.
-     *
-     * @param tile the tile to form a Pon group
-     * @param isAka whether the group should include an aka (red) tile
-     * @return the MahjongGroup representing the Pon group
+     * Creates Pon group given a tile and whether or not it is an aka.
+     * @param tile  the given tile
+     * @param isAka whether the given tile is aka (red)
+     * @return the Pon group
      */
-    private MahjongGroup addPon(MahjongTile tile, boolean isAka) {
+    MahjongGroup addPon(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
@@ -129,14 +108,12 @@ public class AddTileInteractor implements AddTileInputBoundary {
     }
 
     /**
-     * Creates and returns a Kan group (a quadruple of 4 identical tiles) for the given tile.
-     * If the tile is an aka (red tile), a normal tile is used in the group.
-     *
-     * @param tile the tile to form a Kan group
-     * @param isAka whether the group should include an aka (red) tile
-     * @return the MahjongGroup representing the Kan group
+     * Creates Kan group given a tile and whether or not it is an aka.
+     * @param tile  the given tile
+     * @param isAka whether the given tile is aka (red)
+     * @return the Kan group
      */
-    private MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
+    MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
