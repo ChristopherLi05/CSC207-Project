@@ -215,4 +215,14 @@ public class CalculatorState implements ITileModifierState {
     public String getMessageState() {
         return messageState;
     }
+
+    /**
+     * reset the current data
+     */
+    public void resetState() {
+        this.closedTiles.clear();
+        this.closedGroups.clear();
+        this.openGroups.clear();
+        this.winningTile = null;
+    }
 }
