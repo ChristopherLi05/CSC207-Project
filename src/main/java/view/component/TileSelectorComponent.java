@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Tile Selector Component ; Class that handles the tile selector
@@ -77,6 +79,21 @@ public class TileSelectorComponent extends JPanel {
         for (MahjongTile tile : MahjongTile.values()) {
             MahjongTileInputButton button = new MahjongTileInputButton(tile);
             button.addActionListener(tileListener);
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                    button.setBorder(BorderFactory.createLineBorder(Color.BLUE, 4));// Highlight with a blue border
+                    button.setBackground(Color.WHITE); // Light lavender for hover
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button.setBorder(BorderFactory.createEmptyBorder());// Remove border
+                    button.setBackground(Color.WHITE); // Reset background to white
+                    button.setOpaque(true);
+                }
+            });
             tilePanel.add(button);
         }
 
