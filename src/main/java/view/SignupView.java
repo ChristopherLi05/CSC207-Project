@@ -46,12 +46,24 @@ public class SignupView extends AbstractPanel<SignupState> {
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        usernameInputField.setFont(new Font("Arial", Font.PLAIN, 30));
+        passwordInputField.setFont(new Font("Arial", Font.PLAIN, 30));
+        repeatPasswordInputField.setFont(new Font("Arial", Font.PLAIN, 30));
+
+        JLabel usernameLabel = new JLabel(viewState.USERNAME_LABEL);
+        usernameLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         final LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(viewState.USERNAME_LABEL), usernameInputField);
+                usernameLabel, usernameInputField);
+
+        JLabel passwordLabel = new JLabel(viewState.PASSWORD_LABEL);
+        passwordLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel(viewState.PASSWORD_LABEL), passwordInputField);
+                passwordLabel, passwordInputField);
+
+        JLabel repeatPasswordLabel = new JLabel(viewState.REPEAT_PASSWORD_LABEL);
+        repeatPasswordLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         final LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-                new JLabel(viewState.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+                repeatPasswordLabel, repeatPasswordInputField);
 
         final JPanel buttons = new JPanel();
         toLogin = new JButton(viewState.TO_LOGIN_BUTTON_LABEL);
