@@ -24,7 +24,7 @@ A simple Mahjong Score Trainer that includes a score calculator, a puzzle rush m
 - As a user, I want to be able to create an account to keep track of my progress, so I can keep track of my progress
 
 #### David User Story
-- As a user, I want to be able to click on tiles to add to the calculator
+- As a user, I want to be able to interact with the tiles directly to add them to the calculator, making the process of calculating my Mahjong hand quick and intuitive.
 
 #### Hiro User Story
 - As a user, I want to be able to calculate how much my mahjong hand is worth, so I can receive a correct amount of points
