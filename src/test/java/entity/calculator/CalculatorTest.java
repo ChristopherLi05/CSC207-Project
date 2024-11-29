@@ -9,13 +9,6 @@ import java.util.List;
 
 public class CalculatorTest {
     @Test
-    void dummyTests() {
-        Assertions.assertEquals(0, Calculator.calculateHan(null));
-        Assertions.assertEquals(0, Calculator.calculateFu(null));
-        Assertions.assertEquals(0, Calculator.calculateScore(null));
-    }
-
-    @Test
     void testExtractPairsPairs() {
         List<MahjongTile> closedTiles = new ArrayList<>();
         closedTiles.add(MahjongTile.ONE_SOU);
