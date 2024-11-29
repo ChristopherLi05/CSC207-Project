@@ -36,13 +36,13 @@ A simple Mahjong Score Trainer that includes a score calculator, a puzzle rush m
 
 There are 3 main views this program will have: a **Point Calculator**, a **Puzzle Rush**, and the **Leaderboard**. In the Point Calculator mode, users are given a UI in which they will input a Mahjong Hand and the program will output the score that the hand is worth. In the Puzzle Rush mode, users are given a time limit and are tasked with inputting as many scores as they can. Once done, the number of hands they scored are tallied and they will be shown a leaderboard on how they compare to other users.
 
-This project was created for beginners to learn how to calculator points for a Mahjong hand using the Calculator, and for experienced players to train themselves using the Puzzle Rush mode
+This project was created for beginners to learn how to calculator points for a Mahjong hand using the Calculator, and for experienced players to train their own score calculations using the Puzzle Rush mode. 
+
+The API used is something that Christopher custom created for this project. You can see how it's implemented [here](https://github.com/ChristopherLi05/CSC207-Project-Server).
 
 ## Table of Contents
 
 * [Installation](#installation)
-
-* [License](#license)
 
 * [Features and Usages](#features-and-usage)
 
@@ -50,13 +50,11 @@ This project was created for beginners to learn how to calculator points for a M
 
 * [Contributions](#contributions)
 
+* [License](#license)
 
 ## Installation
 - Build the project with the provided `pox.xml` file
 - [Java Development Kit 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) is recommended, however anything 11+ will be sufficient.
-
-## License
-See the MIT License attached.
 
 ## Features and Usage
 
@@ -97,5 +95,6 @@ Any feedback is welcomed! Please fill out [this Google Form](https://forms.gle/2
 ## Contributions
 Any contribution is welcomed too! To contribute, please make a fork of this repository and make your edits there. Next, create a merge request with clear comments on what changes were made.
 
-
+## License
+See the MIT License attached.
 
