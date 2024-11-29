@@ -33,7 +33,7 @@ public class CalculatorPresenter implements CalculatorOutputBoundary {
     @Override
     public void prepareSuccessView(String successMessage, CalculatorOutputData outputData) {
         final CalculatorState calculatorState = calculatorViewState.getState();
-        calculatorState.setMessageState(successMessage);
+        calculatorState.setMessageState(successMessage + outputData.getScore());
         calculatorViewState.firePropertyChanged();
     }
 

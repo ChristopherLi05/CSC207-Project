@@ -32,14 +32,8 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
     @Override
     public void execute(HandState hand) {
         // Calculate the score for the given hand
-        int score = Calculator.calculateScore(hand);
-
-        // If the score is zero, the hand is invalid
-        if (score == 0) {
-            calculatorPresenter.prepareFailView("Invalid hand");
-        } else {
+        Integer score = Calculator.calculateScore(hand);
             // Otherwise, present the calculated score
-            calculatorPresenter.prepareSuccessView("Score is", new CalculatorOutputData(score));
+            calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(score));
         }
     }
-}

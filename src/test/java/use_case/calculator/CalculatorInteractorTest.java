@@ -26,7 +26,7 @@ public class CalculatorInteractorTest {
         List<MahjongGroup> openGroups = new ArrayList<>();
         MahjongTile winningTile = ONE_MAN;
         HandState handState = handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false); // Create a valid hand state mock or object
-        int validScore = 0;
+        int validScore = 48000;
 
         CalculatorOutputBoundary presenter = new CalculatorOutputBoundary() {
             @Override
@@ -34,39 +34,12 @@ public class CalculatorInteractorTest {
 
             @Override
             public void prepareSuccessView(String message, CalculatorOutputData outputData) {
-                assertEquals("Score is", message);
+                assertEquals("Score is ", message);
                 assertEquals(validScore, outputData.getScore());
             }
         };
 
         // Simulating Calculator.calculateScore to return a valid score
-        CalculatorInteractor interactor = new CalculatorInteractor(presenter) {
-        };
-
-        // Act
-        interactor.execute(handState);
-    }
-
-    @Test
-    void testExecute_WithInvalidScore() {
-        // Arrange
-        IHandStateFactory handStateFactory = new HandStateFactory();
-        HandState handState = handStateFactory.createHandState("1s1s2s2s3s3s6s 4s4s4s4s 5s5s5s 6s 9m  ww ew 1"); // Create a hand state mock or object
-        int invalidScore = 0;
-
-        CalculatorOutputBoundary presenter = new CalculatorOutputBoundary() {
-            @Override
-            public void prepareFailView(String error) {
-                assertEquals("Invalid hand", error);
-            }
-
-            @Override
-            public void prepareSuccessView(String message, CalculatorOutputData outputData) {
-                fail("Success view is unexpected.");
-            }
-        };
-
-        // Simulating Calculator.calculateScore to return an invalid score (0)
         CalculatorInteractor interactor = new CalculatorInteractor(presenter) {
         };
 
