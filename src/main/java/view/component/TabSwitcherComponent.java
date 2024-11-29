@@ -2,6 +2,7 @@ package view.component;
 
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
+import interface_adapter.signup.SignupViewState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +15,6 @@ import java.util.Map;
  */
 public class TabSwitcherComponent extends JPanel implements PropertyChangeListener {
     private final ViewManager viewManager;
-
-//    private JButton calculator;
-//    private JButton puzzleRush;
-//    private JButton leaderboard;
-//    private JButton logOut;
 
     public TabSwitcherComponent(ViewManager viewManager) {
         this.viewManager = viewManager;
@@ -33,24 +29,13 @@ public class TabSwitcherComponent extends JPanel implements PropertyChangeListen
             if (pair.getValue().isTabswitcher()) {
                 this.add(createJButton(pair.getKey()));
             }
+            else if (pair.getValue() instanceof SignupViewState) {
+                JButton button = new JButton("Log Out");
+                button.setFont(new Font("arial", Font.PLAIN, 30));
+                button.addActionListener(e -> viewManager.setView(pair.getKey()));
+                this.add(button);
+            }
         }
-
-//        calculator = new JButton("Calculator");
-//        puzzleRush = new JButton("Puzzle Rush");
-//        leaderboard = new JButton("Leaderboard");
-//        logOut = new JButton("Log Out");
-//
-//        this.add(calculator);
-//        this.add(puzzleRush);
-//        this.add(leaderboard);
-//        this.add(logOut);
-//
-//        calculator.addActionListener(e -> viewManager.setView("CalculatorView"));
-//        puzzleRush.addActionListener(e -> viewManager.setView("PuzzleRushView"));
-//        leaderboard.addActionListener(e -> viewManager.setView("LeaderboardView"));
-//        logOut.addActionListener(e -> {
-//            viewManager.setView("SignupView");
-//        });
 
         this.validate();
         this.revalidate();
