@@ -19,10 +19,6 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
     private final ShowPanel showPanel;
 
     public LeaderboardComponent(LeaderboardViewState viewState) {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JLabel title = new JLabel(viewState.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(title);
 
         showPanel = new ShowPanel(viewState.NAME_LABEL, viewState.SCORE_LABEL);
         showPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -59,6 +55,7 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
         public LoadingPanel() {
             // To be replaced with a spinning gif
             JLabel title = new JLabel("Loading ◌");
+            title.setFont(new Font("Arial", Font.PLAIN, 30));
             title.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.add(title);
         }
@@ -87,18 +84,22 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
             this.removeAll();
 
             JLabel nameLabel = new JLabel(name);
+            nameLabel.setFont(new Font("Arial", Font.PLAIN, 30));
             nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(nameLabel);
 
             JLabel scoreLabel = new JLabel(score);
+            scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
             scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(scoreLabel);
 
             int i = 1;
             for (LeaderboardEntry entry : state.getLeaderboardEntries()) {
                 JLabel username = new JLabel(i++ + ". " + entry.username());
+                username.setFont(new Font("Arial", Font.PLAIN, 30));
                 username.setHorizontalAlignment(SwingConstants.CENTER);
                 JLabel score = new JLabel(String.valueOf(entry.score()));
+                score.setFont(new Font("Arial", Font.PLAIN, 30));
                 score.setHorizontalAlignment(SwingConstants.CENTER);
 
                 this.add(username);
@@ -107,6 +108,7 @@ public class LeaderboardComponent extends JPanel implements PropertyChangeListen
 
             while (i < 11) {
                 JLabel username = new JLabel(i++ + ". ");
+                username.setFont(new Font("Arial", Font.PLAIN, 30));
                 username.setHorizontalAlignment(SwingConstants.CENTER);
 
                 this.add(username);

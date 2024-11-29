@@ -5,7 +5,17 @@ import use_case.addTile.AddTileInputBoundary;
 import use_case.addTile.AddTileInputData;
 import view.component.ITileSelectorComponentState;
 
+/**
+ * Controller class for handling the addition of a Mahjong tile.
+ * It acts as a mediator between the view and the use case layer,
+ * passing input data from the user interaction to the interactor.
+ */
 public class AddTileController {
+
+    /**
+     * The input boundary interface for adding a tile, used to decouple the controller
+     * from the implementation details of the use case.
+     */
     private final AddTileInputBoundary addTileInputBoundary;
 
     /**
