@@ -25,7 +25,7 @@ public abstract class ViewState<T> extends StateNotifier<T> {
         return viewName;
     }
 
-//    public boolean isTabswitcher() {
-//        return tabswitcher;
-//    }
+    public boolean isTabswitcher() {
+        return tabswitcher;
+    }
 }
