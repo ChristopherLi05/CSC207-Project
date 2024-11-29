@@ -15,6 +15,11 @@ public class UserTest {
         Assertions.assertEquals(user.getUsername(), "test");
         Assertions.assertEquals(user.getSessionId(), "test");
         Assertions.assertEquals(user.getBestScore(), 1);
+
+        Assertions.assertTrue(user.isLoggedIn());
+
+        user.setBestScore(2);
+        Assertions.assertEquals(user.getBestScore(), 2);
     }
 
     @Test
@@ -24,6 +29,11 @@ public class UserTest {
         Assertions.assertEquals(user.getUsername(), "Guest");
         Assertions.assertEquals(user.getSessionId(), "Guest");
         Assertions.assertEquals(user.getBestScore(), 0);
+
+        Assertions.assertFalse(user.isLoggedIn());
+
+        user.setBestScore(2);
+        Assertions.assertEquals(user.getBestScore(), 2);
     }
 
     @Test
@@ -33,6 +43,11 @@ public class UserTest {
         Assertions.assertEquals(user.getUsername(), "test1");
         Assertions.assertEquals(user.getSessionId(), "test");
         Assertions.assertEquals(user.getBestScore(), 1);
+
+        Assertions.assertTrue(user.isLoggedIn());
+
+        user.setBestScore(2);
+        Assertions.assertEquals(user.getBestScore(), 2);
     }
 
     @Test
@@ -85,5 +100,7 @@ public class UserTest {
         Assertions.assertEquals(manager.getCurrentUser().getSessionId(), "test");
         Assertions.assertEquals(manager.getCurrentUser().getUsername(), "test1");
         Assertions.assertEquals(manager.getCurrentUser().getBestScore(), 1);
+
+        Assertions.assertInstanceOf(RemoteUserFactory.class, manager.getUserFactory());
     }
 }

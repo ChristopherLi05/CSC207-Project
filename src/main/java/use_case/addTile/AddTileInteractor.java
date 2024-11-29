@@ -30,7 +30,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param inputData the received input data
      * @return output data containing the added tiles or groups
      */
-    private AddTileOutputData addTiles(AddTileInputData inputData) {
+    AddTileOutputData addTiles(AddTileInputData inputData) {
         AddTileOutputData data = new AddTileOutputData();
 
         if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.NONE) {
@@ -66,7 +66,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param isAka whether the given tile is aka (red)
      * @return the Chii group, or null if the group cannot be formed
      */
-    private MahjongGroup addChii(MahjongTile tile, boolean isAka) {
+    MahjongGroup addChii(MahjongTile tile, boolean isAka) {
         if (tile.getValue() < 1 || tile.getValue() > 7) {
             return null;
         }
@@ -91,7 +91,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param isAka whether the given tile is aka (red)
      * @return the Pon group
      */
-    private MahjongGroup addPon(MahjongTile tile, boolean isAka) {
+    MahjongGroup addPon(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
@@ -113,7 +113,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param isAka whether the given tile is aka (red)
      * @return the Kan group
      */
-    private MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
+    MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
