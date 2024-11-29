@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Tile Selector Component ; Class that handles the tile selector
@@ -36,26 +38,31 @@ public class TileSelectorComponent extends JPanel {
         JPanel controlPanel = new JPanel(new FlowLayout());
 
         JCheckBox containsAkaCheckbox = new JCheckBox("Contains Aka");
+        containsAkaCheckbox.setFont(new Font("Arial", Font.PLAIN, 30));
         containsAkaCheckbox.addActionListener(e -> calculatorViewState.getState().setAka(containsAkaCheckbox.isSelected()));
         controlPanel.add(containsAkaCheckbox);
 
         // Action type buttons
         chiiButton = new JButton("Chii");
+        chiiButton.setFont(new Font("Arial", Font.PLAIN, 30));
         chiiButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.CHII));
         chiiButton.setFocusPainted(false);
         controlPanel.add(chiiButton);
 
         ponButton = new JButton("Pon");
+        ponButton.setFont(new Font("Arial", Font.PLAIN, 30));
         ponButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.PON));
         ponButton.setFocusPainted(false);
         controlPanel.add(ponButton);
 
         closedKanButton = new JButton("Closed Kan");
+        closedKanButton.setFont(new Font("Arial", Font.PLAIN, 30));
         closedKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.CLOSED_KAN));
         closedKanButton.setFocusPainted(false);
         controlPanel.add(closedKanButton);
 
         openKanButton = new JButton("Open Kan");
+        openKanButton.setFont(new Font("Arial", Font.PLAIN, 30));
         openKanButton.addActionListener(e -> toggleSelectorType(ITileSelectorComponentState.SelectorType.OPEN_KAN));
         openKanButton.setFocusPainted(false);
         controlPanel.add(openKanButton);
@@ -72,6 +79,23 @@ public class TileSelectorComponent extends JPanel {
         for (MahjongTile tile : MahjongTile.values()) {
             MahjongTileInputButton button = new MahjongTileInputButton(tile);
             button.addActionListener(tileListener);
+            button.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                    button.setBorder(BorderFactory.createLineBorder(Color.BLUE, 4));// Highlight with a blue border
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));// Remove border
+                    button.setBackground(Color.WHITE); // Reset background to white
+                    button.setOpaque(true);
+                    button.setPreferredSize(new Dimension(61, 88));
+                    button.setSize(new Dimension(61, 88));
+                    button.setMargin(new Insets(3, 3, 3, 3));
+                }
+            });
             tilePanel.add(button);
         }
 
