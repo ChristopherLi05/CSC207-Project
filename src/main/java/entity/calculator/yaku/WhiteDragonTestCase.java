@@ -12,7 +12,7 @@ import entity.calculator.mahjong.MahjongTile;
  * the White Dragon tile (WHITE_DRAGON). This class implements the logic to check for
  * this Yaku and provides the Han values for both closed and open hands.
  */
-public class WhiteDragonTestCase implements IYakuTestCase {
+public class WhiteDragonTestCase implements YakuTestCase {
     /**
      * Checks if the given hand satisfies the White Dragon Yaku.
      *

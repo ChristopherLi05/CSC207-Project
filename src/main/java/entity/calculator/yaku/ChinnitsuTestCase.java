@@ -12,7 +12,7 @@ import entity.calculator.mahjong.MahjongTile;
  * including the winning tile. This class implements the logic to verify the Chinnitsu
  * condition and provides its Han values for closed and open hands.
  */
-public class ChinnitsuTestCase implements IYakuTestCase {
+public class ChinnitsuTestCase implements YakuTestCase {
     @Override
     public boolean isYaku(HandState hand, HandGrouping handGrouping) {
         for (MahjongGroup group : handGrouping.getGroups()) {

@@ -4,7 +4,7 @@ import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view.component.ITileSelectorComponentState;
+import view.component.TileSelectorComponentState;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddSingleTileCase() {
         MahjongTile tile = MahjongTile.ONE_MAN;
-        AddTileInputData inputData = new AddTileInputData(tile, false, ITileSelectorComponentState.SelectorType.NONE);
+        AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.NONE);
 
         addTileInteractor.execute(inputData);
 
@@ -36,7 +36,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddChiiGroupWithTileValueSevenCase() {
         MahjongTile tile = MahjongTile.SEVEN_MAN;
-        AddTileInputData inputData = new AddTileInputData(tile, false, ITileSelectorComponentState.SelectorType.CHII);
+        AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.CHII);
 
         addTileInteractor.execute(inputData);
 
@@ -48,7 +48,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddChiiGroupWithAkaTileCase() {
         MahjongTile tile = MahjongTile.FIVE_PIN;
-        AddTileInputData inputData = new AddTileInputData(tile, true, ITileSelectorComponentState.SelectorType.CHII);
+        AddTileInputData inputData = new AddTileInputData(tile, true, TileSelectorComponentState.SelectorType.CHII);
 
         addTileInteractor.execute(inputData);
 
@@ -61,7 +61,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddPonGroupWithAkaTileCase() {
         MahjongTile tile = MahjongTile.RED_FIVE_PIN;
-        AddTileInputData inputData = new AddTileInputData(tile, true, ITileSelectorComponentState.SelectorType.PON);
+        AddTileInputData inputData = new AddTileInputData(tile, true, TileSelectorComponentState.SelectorType.PON);
 
         addTileInteractor.execute(inputData);
 
@@ -74,7 +74,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddPonGroupWitNonAkaTileCase() {
         MahjongTile tile = MahjongTile.FOUR_SOU;
-        AddTileInputData inputData = new AddTileInputData(tile, false, ITileSelectorComponentState.SelectorType.PON);
+        AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.PON);
 
         addTileInteractor.execute(inputData);
 
@@ -87,7 +87,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddClosedKanGroupWithAkaTileCase() {
         MahjongTile tile = MahjongTile.RED_FIVE_MAN;
-        AddTileInputData inputData = new AddTileInputData(tile, true, ITileSelectorComponentState.SelectorType.CLOSED_KAN);
+        AddTileInputData inputData = new AddTileInputData(tile, true, TileSelectorComponentState.SelectorType.CLOSED_KAN);
 
         addTileInteractor.execute(inputData);
 
@@ -99,7 +99,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddOpenKanGroupWithNonAkaTilCasee() {
         MahjongTile tile = MahjongTile.FOUR_SOU;
-        AddTileInputData inputData = new AddTileInputData(tile, false, ITileSelectorComponentState.SelectorType.OPEN_KAN);
+        AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.OPEN_KAN);
 
         AddTileOutputData data = addTileInteractor.addTiles(inputData);
 
@@ -111,7 +111,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddOpenKanGroupWithAkaTileCase() {
         MahjongTile tile = MahjongTile.FIVE_SOU;
-        AddTileInputData inputData = new AddTileInputData(tile, false, ITileSelectorComponentState.SelectorType.OPEN_KAN);
+        AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.OPEN_KAN);
 
         AddTileOutputData data = addTileInteractor.addTiles(inputData);
 
@@ -123,7 +123,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddChiiGroup() {
         MahjongTile tile = MahjongTile.THREE_MAN;
-        AddTileInputData inputData = new AddTileInputData(tile, false, ITileSelectorComponentState.SelectorType.CHII);
+        AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.CHII);
 
         addTileInteractor.execute(inputData);
 

@@ -8,13 +8,13 @@ import entity.user.user_type.IUser;
 public class UserManager implements IUserManager {
     // Defaults to guest login
     private IUser currentUser;
-    private IUserFactory userFactory;
+    private UserFactory userFactory;
 
     public UserManager() {
         this(new LocalUserFactory());
     }
 
-    public UserManager(IUserFactory userFactory) {
+    public UserManager(UserFactory userFactory) {
         this.userFactory = userFactory;
         this.currentUser = userFactory.createGuest();
     }
@@ -47,7 +47,7 @@ public class UserManager implements IUserManager {
      * {@inheritDoc}
      */
     @Override
-    public void setUserFactory(IUserFactory factory) {
+    public void setUserFactory(UserFactory factory) {
         this.userFactory = factory;
     }
 
@@ -55,7 +55,7 @@ public class UserManager implements IUserManager {
      * {@inheritDoc}
      */
     @Override
-    public IUserFactory getUserFactory() {
+    public UserFactory getUserFactory() {
         return userFactory;
     }
 }

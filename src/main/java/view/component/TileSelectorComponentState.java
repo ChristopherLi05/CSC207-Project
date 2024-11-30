@@ -6,7 +6,7 @@ import entity.calculator.mahjong.MahjongTile;
 /**
  * Tile Selector Component Interface (if multiple states want to use tile selector)
  */
-public interface ITileSelectorComponentState {
+public interface TileSelectorComponentState {
     /**
      * Adds a closed tile
      * @param mahjongTile .

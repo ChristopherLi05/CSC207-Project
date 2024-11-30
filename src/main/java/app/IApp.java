@@ -1,6 +1,6 @@
 package app;
 
-import data_access.IDataAccessor;
+import data_access.DataAccessor;
 import entity.calculator.IHandStateFactory;
 import entity.user.IUserManager;
 import interface_adapter.ViewManager;
@@ -25,7 +25,7 @@ public interface IApp {
     /**
      * Gets the IDataAccessor instance used for data access.
      */
-    IDataAccessor getDataAccessor();
+    DataAccessor getDataAccessor();
 
     /**
      * Gets the IHandStateFactory instance used for hand states.

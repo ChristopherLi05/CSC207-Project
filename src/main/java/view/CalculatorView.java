@@ -1,7 +1,6 @@
 package view;
 
 import entity.calculator.HandState;
-import entity.calculator.HandStateFactory;
 import entity.calculator.IHandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
@@ -128,7 +127,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         if (e.getSource() instanceof MahjongTileInputButton) {
             MahjongTile clickedTile = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
             boolean isAka = getViewState().getState().isAka();
-            ITileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
+            TileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
 
             addTileController.execute(clickedTile, isAka, selectorType);
         }

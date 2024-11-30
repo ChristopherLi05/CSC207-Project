@@ -14,7 +14,7 @@ import entity.calculator.mahjong.MahjongTile;
  * implements the logic to check for this Yaku and provides the Han values for
  * both closed and open hands.
  */
-public class TanyaoTestCase implements IYakuTestCase {
+public class TanyaoTestCase implements YakuTestCase {
     /**
      * Checks if the given hand satisfies the Tanyao Yaku.
      *

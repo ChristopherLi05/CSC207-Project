@@ -1,12 +1,12 @@
 package use_case.addTile;
 
 import entity.calculator.mahjong.MahjongTile;
-import view.component.ITileSelectorComponentState;
+import view.component.TileSelectorComponentState;
 
 public class AddTileInputData {
     private final MahjongTile tile;
     private final boolean isAka;
-    private final ITileSelectorComponentState.SelectorType selectorType;
+    private final TileSelectorComponentState.SelectorType selectorType;
 
     /**
      * Constructs AddTileInputData object with given a tile and other attributes.
@@ -14,7 +14,7 @@ public class AddTileInputData {
      * @param isAka whether the tile is red (aka)
      * @param selectorType the type of tile selection being performed
      */
-    public AddTileInputData(MahjongTile tile, boolean isAka, ITileSelectorComponentState.SelectorType selectorType) {
+    public AddTileInputData(MahjongTile tile, boolean isAka, TileSelectorComponentState.SelectorType selectorType) {
         this.tile = tile;
         this.isAka = isAka;
         this.selectorType = selectorType;
@@ -24,7 +24,7 @@ public class AddTileInputData {
      * Gets selector type for the tile operation.
      * @return the selector type for the tile operation
      */
-    public ITileSelectorComponentState.SelectorType getSelectorType() {
+    public TileSelectorComponentState.SelectorType getSelectorType() {
         return selectorType;
     }
 

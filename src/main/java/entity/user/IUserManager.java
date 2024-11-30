@@ -32,12 +32,12 @@ public interface IUserManager {
      *
      * @param factory .
      */
-    void setUserFactory(IUserFactory factory);
+    void setUserFactory(UserFactory factory);
 
     /**
      * Gets the user factory
      *
      * @return factory
      */
-    IUserFactory getUserFactory();
+    UserFactory getUserFactory();
 }

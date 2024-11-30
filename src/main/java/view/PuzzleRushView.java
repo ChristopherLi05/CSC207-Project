@@ -1,7 +1,6 @@
 package view;
 
 import app.IApp;
-import data_access.IDataAccessor;
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
 import interface_adapter.puzzleRush.PuzzleRushController;

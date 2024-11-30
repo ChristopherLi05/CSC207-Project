@@ -1,6 +1,6 @@
 package app;
 
-import data_access.IDataAccessor;
+import data_access.DataAccessor;
 import data_access.InMemoryDataAccessor;
 import entity.calculator.HandStateFactory;
 import entity.calculator.IHandStateFactory;
@@ -22,7 +22,7 @@ public class App extends JFrame implements IApp {
     private final JPanel cardPanel = new JPanel(cardLayout);
 
     private IUserManager userManager;
-    private IDataAccessor dataAccessor;
+    private DataAccessor dataAccessor;
     private IHandStateFactory handStateFactory;
     private ViewManager viewManager;
 
@@ -40,11 +40,11 @@ public class App extends JFrame implements IApp {
      *
      * @param title            the title of the application window
      * @param userManager      the {@link IUserManager} instance for user management
-     * @param dataAccessor     the {@link IDataAccessor} instance for data access
+     * @param dataAccessor     the {@link DataAccessor} instance for data access
      * @param handStateFactory the {@link IHandStateFactory} instance for creating hand states
      * @param viewManager      the {@link ViewManager} instance for managing views
      */
-    public App(String title, IUserManager userManager, IDataAccessor dataAccessor, IHandStateFactory handStateFactory, ViewManager viewManager) {
+    public App(String title, IUserManager userManager, DataAccessor dataAccessor, IHandStateFactory handStateFactory, ViewManager viewManager) {
         super(title);
         this.userManager = userManager;
         this.dataAccessor = dataAccessor;
@@ -92,7 +92,7 @@ public class App extends JFrame implements IApp {
      *
      * @param dataAccessor the IDataAccessor instance
      */
-    public void setDataAccessor(IDataAccessor dataAccessor) {
+    public void setDataAccessor(DataAccessor dataAccessor) {
         this.dataAccessor = dataAccessor;
     }
 
@@ -100,7 +100,7 @@ public class App extends JFrame implements IApp {
      * Gets the IDataAccessor instance used for data access.
      */
     @Override
-    public IDataAccessor getDataAccessor() {
+    public DataAccessor getDataAccessor() {
         return dataAccessor;
     }
 

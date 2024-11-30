@@ -1,6 +1,5 @@
 package use_case.leaderboard;
 
-import data_access.IDataAccessor;
 import entity.leaderboard.LeaderboardEntry;
 
 import java.util.List;

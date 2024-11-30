@@ -9,7 +9,7 @@ import java.util.List;
  * Static class to calculate hand values
  */
 public class Calculator {
-    private static final List<IYakuTestCase> yakuList = new ArrayList<>();
+    private static final List<YakuTestCase> yakuList = new ArrayList<>();
 
     /**
      * Calculates han value of hand
@@ -19,11 +19,11 @@ public class Calculator {
     public static int calculateHan(HandState hand) {
         int result = 0;
         if (hand.openGroups().isEmpty()) {
-            for (IYakuTestCase testCase : yakuList) {
+            for (YakuTestCase testCase : yakuList) {
                 result += testCase.getClosedHanValue();
             }
         } else {
-            for (IYakuTestCase testCase : yakuList) {
+            for (YakuTestCase testCase : yakuList) {
                 result += testCase.getOpenHanValue();
             }
         }

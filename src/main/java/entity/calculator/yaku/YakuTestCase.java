@@ -10,7 +10,7 @@ import entity.calculator.HandState;
  * a specific Yaku (a scoring pattern in Mahjong) and for providing the corresponding
  * Han values for both closed and open hands.
  */
-public interface IYakuTestCase {
+public interface YakuTestCase {
     /**
      * Determines whether the given hand satisfies the specific Yaku.
      *

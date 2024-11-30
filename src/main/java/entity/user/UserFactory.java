@@ -5,7 +5,7 @@ import entity.user.user_type.IUser;
 /**
  * Generic User Factory
  */
-public interface IUserFactory {
+public interface UserFactory {
     /**
      * Creates a logged in user
      *

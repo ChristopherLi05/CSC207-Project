@@ -1,6 +1,6 @@
 package use_case.signup;
 
-import data_access.IDataAccessor;
+import data_access.DataAccessor;
 import entity.leaderboard.LeaderboardEntry;
 import org.junit.jupiter.api.Test;
 
@@ -109,7 +109,7 @@ class SignupUseCaseTest {
         }
     }
 
-    static class TestDataAccessor implements IDataAccessor {
+    static class TestDataAccessor implements DataAccessor {
         private boolean signupSuccess;
 
         void setSignupSuccess(boolean signupSuccess) {
