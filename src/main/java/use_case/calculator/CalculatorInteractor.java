@@ -32,7 +32,7 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
     @Override
     public void execute(HandState hand) {
         // Calculate the score for the given hand
-        Integer score = Calculator.calculateScore(hand);
+        int score = Calculator.calculateScore(hand);
             // Otherwise, present the calculated score
             calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(score));
         }
