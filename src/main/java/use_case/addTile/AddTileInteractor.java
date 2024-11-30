@@ -1,7 +1,6 @@
 package use_case.addTile;
 
 import entity.calculator.mahjong.MahjongGroup;
-import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.mahjong.TileGroupFactory;
 import view.component.TileSelectorComponentState;
 
