@@ -97,7 +97,7 @@ class AddTileUseCaseTest {
     }
 
     @Test
-    void testAddOpenKanGroupWithNonAkaTilCasee() {
+    void testAddOpenKanGroupWithNonAkaTileCase() {
         MahjongTile tile = MahjongTile.FOUR_SOU;
         AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.OPEN_KAN);
 
