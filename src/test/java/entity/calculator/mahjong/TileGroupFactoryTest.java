@@ -8,9 +8,9 @@ class TileGroupFactoryTest {
 
 
     @Test
-    void testAddChiiWithValidInput() {
+    void testCreateChiiGroupWithValidInput() {
         MahjongTile tile = MahjongTile.THREE_MAN;
-        MahjongGroup group = factory.addChii(tile, false);
+        MahjongGroup group = factory.createChiiGroup(tile, false);
 
         assertNotNull(group);
         assertEquals(3, group.getTiles().length);
@@ -18,9 +18,9 @@ class TileGroupFactoryTest {
     }
 
     @Test
-    void testAddChiiWithAka() {
+    void testCreateChiiGroupWithAka() {
         MahjongTile tile = MahjongTile.THREE_MAN;
-        MahjongGroup group = factory.addChii(tile, true);
+        MahjongGroup group = factory.createChiiGroup(tile, true);
 
         assertNotNull(group);
         assertEquals(3, group.getTiles().length);
@@ -28,15 +28,15 @@ class TileGroupFactoryTest {
     }
 
     @Test
-    void testAddChiiWithInvalidCase() {
+    void testCreateChiiGroupWithInvalidCase() {
         MahjongTile tile = MahjongTile.EIGHT_MAN;
-        assertNull(factory.addChii(tile, false));
+        assertNull(factory.createChiiGroup(tile, false));
     }
 
     @Test
-    void testAddPonWithAka() {
+    void testCreatePonGroupWithAka() {
         MahjongTile tile = MahjongTile.RED_FIVE_PIN;
-        MahjongGroup group = factory.addPon(tile, false);
+        MahjongGroup group = factory.createPonGroup(tile, false);
 
         assertNotNull(group);
         assertEquals(3, group.getTiles().length);
@@ -44,9 +44,9 @@ class TileGroupFactoryTest {
     }
 
     @Test
-    void testAddPonWithAkaRequested() {
+    void testCreatePonGroupWithAkaRequested() {
         MahjongTile tile = MahjongTile.FIVE_PIN;
-        MahjongGroup group = factory.addPon(tile, true);
+        MahjongGroup group = factory.createPonGroup(tile, true);
 
         assertNotNull(group);
         assertEquals(3, group.getTiles().length);
@@ -54,9 +54,9 @@ class TileGroupFactoryTest {
     }
 
     @Test
-    void testAddPon() {
+    void testCreatePonGroup() {
         MahjongTile tile = MahjongTile.THREE_MAN;
-        MahjongGroup group = factory.addPon(tile, false);
+        MahjongGroup group = factory.createPonGroup(tile, false);
 
         assertNotNull(group);
         for (MahjongTile t : group.getTiles()) {

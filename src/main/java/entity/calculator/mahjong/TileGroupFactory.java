@@ -7,7 +7,7 @@ public class TileGroupFactory {
      * @param isAka whether the given tile is aka (red)
      * @return the Chii group, or null if the group cannot be formed
      */
-    public MahjongGroup addChii(MahjongTile tile, boolean isAka) {
+    public MahjongGroup createChiiGroup(MahjongTile tile, boolean isAka) {
         if (tile.getValue() < 1 || tile.getValue() > 7) {
             return null;
         }
@@ -32,7 +32,7 @@ public class TileGroupFactory {
      * @param isAka whether the given tile is aka (red)
      * @return the Pon group
      */
-    public MahjongGroup addPon(MahjongTile tile, boolean isAka) {
+    public MahjongGroup createPonGroup(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {

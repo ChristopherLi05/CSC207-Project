@@ -38,12 +38,12 @@ public class AddTileInteractor implements AddTileInputBoundary {
         if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.NONE) {
             data.addTile(inputData.getTile());
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CHII) {
-            MahjongGroup group = tileGroupFactory.addChii(inputData.getTile(), inputData.isAka());
+            MahjongGroup group = tileGroupFactory.createChiiGroup(inputData.getTile(), inputData.isAka());
             if (group != null) {
                 data.addOpenGroup(group);
             }
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.PON) {
-            data.addOpenGroup(tileGroupFactory.addPon(inputData.getTile(), inputData.isAka()));
+            data.addOpenGroup(tileGroupFactory.createPonGroup(inputData.getTile(), inputData.isAka()));
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CLOSED_KAN) {
             data.addClosedGroup(tileGroupFactory.createKanGroup(inputData.getTile(), inputData.isAka()));
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.OPEN_KAN) {
