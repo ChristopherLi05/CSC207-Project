@@ -97,7 +97,7 @@ class AddTileUseCaseTest {
     }
 
     @Test
-    void testAddOpenKanGroupWithNonAkaTilCasee() {
+    void testAddOpenKanGroupWithNonAkaTileCase() {
         MahjongTile tile = MahjongTile.FOUR_SOU;
         AddTileInputData inputData = new AddTileInputData(tile, false, TileSelectorComponentState.SelectorType.OPEN_KAN);
 
@@ -137,7 +137,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddChiiGroupWithInvalidInput() {
         MahjongTile tile = MahjongTile.EIGHT_MAN;
-        MahjongGroup result = addTileInteractor.addChii(tile, false);
+        MahjongGroup result = addTileInteractor.tileGroupFactory.createChiiGroup(tile, false);
 
         assertNull(result);
     }
@@ -145,7 +145,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddChiiGroupWithTileValueFourAndAka() {
         MahjongTile tile = MahjongTile.FOUR_MAN;
-        MahjongGroup result = addTileInteractor.addChii(tile, true);
+        MahjongGroup result = addTileInteractor.tileGroupFactory.createChiiGroup(tile, true);
 
         assertNotNull(result);
         MahjongTile[] tiles = result.getTiles();
@@ -158,7 +158,7 @@ class AddTileUseCaseTest {
     @Test
     void testAddPonGroupWithValueFiveAndAka() {
         MahjongTile tile = MahjongTile.FIVE_MAN;
-        MahjongGroup result = addTileInteractor.addPon(tile, true);
+        MahjongGroup result = addTileInteractor.tileGroupFactory.createPonGroup(tile, true);
 
         assertNotNull(result);
         MahjongTile[] tiles = result.getTiles();
@@ -171,7 +171,7 @@ class AddTileUseCaseTest {
     @Test
     void testCreateKanGroupWithValueFiveAndAka() {
         MahjongTile tile = MahjongTile.FIVE_PIN;
-        MahjongGroup result = addTileInteractor.createKanGroup(tile, true);
+        MahjongGroup result = addTileInteractor.tileGroupFactory.createKanGroup(tile, true);
 
         assertNotNull(result);
         MahjongTile[] tiles = result.getTiles();
