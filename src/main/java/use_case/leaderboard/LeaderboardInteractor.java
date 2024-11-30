@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class LeaderboardInteractor implements LeaderboardInputBoundary {
     private final LeaderboardOutputBoundary leaderboardPresenter;
-    private final IDataAccessor dataAccessor;
+    private final LeaderboardDataAccessInterface dataAccessor;
 
     /**
      * Constructs a new {@code LeaderboardInteractor} instance.
@@ -20,7 +20,7 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary {
      * @param leaderboardOutputBoundary the presenter to update the view with the leaderboard data
      * @param dataAccessor the data accessor used to fetch leaderboard entries from the data source
      */
-    public LeaderboardInteractor(LeaderboardOutputBoundary leaderboardOutputBoundary, IDataAccessor dataAccessor) {
+    public LeaderboardInteractor(LeaderboardOutputBoundary leaderboardOutputBoundary, LeaderboardDataAccessInterface dataAccessor) {
         this.leaderboardPresenter = leaderboardOutputBoundary;
         this.dataAccessor = dataAccessor;
     }
