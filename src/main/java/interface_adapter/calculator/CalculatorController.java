@@ -1,11 +1,7 @@
 package interface_adapter.calculator;
 
 import entity.calculator.HandState;
-import entity.calculator.mahjong.MahjongTile;
 import use_case.calculator.CalculatorInputBoundary;
-import use_case.calculator.CalculatorInputData;
-
-import java.util.List;
 
 /**
  * Controller class for handling the Calculator use case.

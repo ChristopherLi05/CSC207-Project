@@ -42,8 +42,7 @@ public class CalculatorInteractorTest {
         // Simulating Calculator.calculateScore to return a valid score
         CalculatorInteractor interactor = new CalculatorInteractor(presenter) {
         };
-        CalculatorInputData input = new CalculatorInputData(handState);
         // Act
-        interactor.execute(input.getHand());
+        interactor.execute(handState);
     }
 }
