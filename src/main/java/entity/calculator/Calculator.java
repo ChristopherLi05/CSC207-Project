@@ -5,6 +5,7 @@ import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.yaku.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 /**
  * Static class to calculate hand values
@@ -63,7 +64,9 @@ public class Calculator {
             HandGrouping validhandgrouping = new HandGrouping(new ArrayList<>());
             validhandgrouping.setPair(pair.get(0), pair.get(1));
 
-            List<HandGrouping> groups = CalculatorHelper.extractGroup(new HandGrouping(tiles));
+            HandGrouping hand = new HandGrouping(tiles);
+
+            List<HandGrouping> groups = CalculatorHelper.extractGroup(hand);
 
             if (groups.isEmpty()) {
                 result.remove(pairGrouping);
