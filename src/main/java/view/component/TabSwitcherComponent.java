@@ -29,13 +29,12 @@ public class TabSwitcherComponent extends JPanel implements PropertyChangeListen
             if (pair.getValue().isTabswitcher()) {
                 this.add(createJButton(pair.getKey()));
             }
-            else if (pair.getValue() instanceof SignupViewState) {
-                JButton button = new JButton("Log Out");
-                button.setFont(new Font("arial", Font.PLAIN, 30));
-                button.addActionListener(e -> viewManager.setView(pair.getKey()));
-                this.add(button);
-            }
         }
+
+        JButton logout = new JButton("Log Out");
+        logout.setFont(new Font("Arial", Font.PLAIN, 30));
+        logout.addActionListener(e -> viewManager.setView("LoginView"));
+        this.add(logout);
 
         this.validate();
         this.revalidate();
