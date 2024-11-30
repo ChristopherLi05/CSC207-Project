@@ -2,6 +2,7 @@ package view.component;
 
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
+import interface_adapter.signup.SignupViewState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +30,11 @@ public class TabSwitcherComponent extends JPanel implements PropertyChangeListen
                 this.add(createJButton(pair.getKey()));
             }
         }
+
+        JButton logout = new JButton("Log Out");
+        logout.setFont(new Font("Arial", Font.PLAIN, 30));
+        logout.addActionListener(e -> viewManager.setView("LoginView"));
+        this.add(logout);
 
         this.validate();
         this.revalidate();
