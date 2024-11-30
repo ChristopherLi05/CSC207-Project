@@ -2,15 +2,6 @@ package entity.calculator.mahjong;
 
 public class TileGroupFactory {
     /**
-     * Adds closed tile based on input data.
-     * @param inputData the data needed to create the closed tile
-     * @return the closed tile
-     */
-    public MahjongTile addClosedTile(MahjongTile inputData) {
-        return inputData;
-    }
-
-    /**
      * Creates Chii group given a tile and whether or not it is an aka.
      * @param tile  the given tile
      * @param isAka whether the given tile is aka (red)

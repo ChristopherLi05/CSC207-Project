@@ -36,7 +36,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
         AddTileOutputData data = new AddTileOutputData();
 
         if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.NONE) {
-            data.addTile(tileGroupFactory.addClosedTile(inputData.getTile()));
+            data.addTile(inputData.getTile());
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CHII) {
             MahjongGroup group = tileGroupFactory.addChii(inputData.getTile(), inputData.isAka());
             if (group != null) {
