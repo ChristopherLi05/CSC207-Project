@@ -79,7 +79,7 @@ public class UserTest {
 
     @Test
     void testUserManager() {
-        UserManager manager = new UserManager();
+        DefaultUserManager manager = new DefaultUserManager();
         Assertions.assertNotNull(manager.getCurrentUser());
 
         manager.setUserLoggedIn("test1", "test1", 1);

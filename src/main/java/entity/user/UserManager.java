@@ -3,59 +3,41 @@ package entity.user;
 import entity.user.user_type.IUser;
 
 /**
- * Implementation of User Manager
+ * Generic user manager to handle user management
  */
-public class UserManager implements IUserManager {
-    // Defaults to guest login
-    private IUser currentUser;
-    private UserFactory userFactory;
-
-    public UserManager() {
-        this(new LocalUserFactory());
-    }
-
-    public UserManager(UserFactory userFactory) {
-        this.userFactory = userFactory;
-        this.currentUser = userFactory.createGuest();
-    }
+public interface UserManager {
+    /**
+     * Gets the currently logged-in user
+     *
+     * @return user
+     */
+    IUser getCurrentUser();
 
     /**
-     * {@inheritDoc}
+     * Sets the current logged-in user to an online account
+     *
+     * @param sessionId .
+     * @param name      .
+     * @param bestScore .
      */
-    @Override
-    public IUser getCurrentUser() {
-        return currentUser;
-    }
+    void setUserLoggedIn(String sessionId, String name, int bestScore);
 
     /**
-     * {@inheritDoc}
+     * Sets the current logged-in user to an offline account
      */
-    @Override
-    public void setUserLoggedIn(String sessionId, String name, int bestScore) {
-        this.currentUser = userFactory.create(sessionId, name, bestScore);
-    }
+    void setUserGuest();
 
     /**
-     * {@inheritDoc}
+     * Sets the user factory needed for logging in
+     *
+     * @param factory .
      */
-    @Override
-    public void setUserGuest() {
-        this.currentUser = userFactory.createGuest();
-    }
+    void setUserFactory(UserFactory factory);
 
     /**
-     * {@inheritDoc}
+     * Gets the user factory
+     *
+     * @return factory
      */
-    @Override
-    public void setUserFactory(UserFactory factory) {
-        this.userFactory = factory;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public UserFactory getUserFactory() {
-        return userFactory;
-    }
+    UserFactory getUserFactory();
 }

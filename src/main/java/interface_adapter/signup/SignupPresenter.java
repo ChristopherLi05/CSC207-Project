@@ -1,6 +1,6 @@
 package interface_adapter.signup;
 
-import entity.user.IUserManager;
+import entity.user.UserManager;
 import interface_adapter.ViewManager;
 import interface_adapter.calculator.CalculatorViewState;
 import interface_adapter.login.LoginViewState;
@@ -13,7 +13,7 @@ import use_case.signup.SignupOutputData;
 public class SignupPresenter implements SignupOutputBoundary {
     private final ViewManager viewManager;
 
-    private final IUserManager userManager;
+    private final UserManager userManager;
 
     private final CalculatorViewState calculatorViewState;
     private final LoginViewState loginViewState;
@@ -27,7 +27,7 @@ public class SignupPresenter implements SignupOutputBoundary {
      * @param loginViewState the LoginViewState for the login view.
      */
     public SignupPresenter(ViewManager viewManager,
-                           IUserManager userManager,
+                           UserManager userManager,
                            CalculatorViewState calculatorViewState,
                            LoginViewState loginViewState) {
         this.viewManager = viewManager;

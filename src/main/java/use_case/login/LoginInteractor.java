@@ -1,15 +1,15 @@
 package use_case.login;
 
-import app.IApp;
+import app.App;
 
 /**
  * The Login Interactor.
  */
 public class LoginInteractor implements LoginInputBoundary {
-    private final IApp app;
+    private final App app;
     private final LoginOutputBoundary loginPresenter;
 
-    public LoginInteractor(IApp app, LoginOutputBoundary loginPresenter) {
+    public LoginInteractor(App app, LoginOutputBoundary loginPresenter) {
         this.loginPresenter = loginPresenter;
         this.app = app;
     }
