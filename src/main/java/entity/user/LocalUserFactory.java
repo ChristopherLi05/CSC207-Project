@@ -7,7 +7,7 @@ import entity.user.user_type.LocalUser;
 /**
  * Local User Factory; Creates local users
  */
-public class LocalUserFactory implements IUserFactory {
+public class LocalUserFactory implements UserFactory {
     /**
      * {@inheritDoc}
      */

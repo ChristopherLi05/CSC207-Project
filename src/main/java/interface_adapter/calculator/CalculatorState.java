@@ -2,8 +2,7 @@ package interface_adapter.calculator;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import interface_adapter.login.LoginState;
-import view.component.ITileModifierState;
+import view.component.TileModifierState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  * This class manages the tiles and groups, including open and closed groups,
  * and handles updates to the winning tile and other relevant states.
  */
-public class CalculatorState implements ITileModifierState {
+public class CalculatorState implements TileModifierState {
 
     private final List<MahjongTile> closedTiles;
     private final List<MahjongGroup> closedGroups;

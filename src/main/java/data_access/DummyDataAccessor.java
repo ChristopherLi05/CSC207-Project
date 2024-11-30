@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The DAO that does nothing except provide dummy data
  */
-public class DummyDataAccessor implements IDataAccessor {
+public class DummyDataAccessor implements DataAccessor {
     /**
      * {@inheritDoc}
      */

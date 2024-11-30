@@ -1,7 +1,6 @@
 package view;
 
-import app.IApp;
-import data_access.IDataAccessor;
+import app.App;
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
 import interface_adapter.puzzleRush.PuzzleRushController;
@@ -34,7 +33,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private ResultPanel resultPanel;
 
     // IApp is temporary
-    public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager, IApp app) {
+    public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager, App app) {
         super(viewState);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel title = new JLabel("PuzzleRush");
@@ -256,10 +255,10 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
      */
     private static class ResultPanel extends JPanel implements PropertyChangeListener {
         private JLabel finalScore;
-        private IApp app;
+        private App app;
 
         // app temp
-        public ResultPanel(IApp app) {
+        public ResultPanel(App app) {
             this.app = app;
 
             finalScore = new JLabel("Final Score: ");

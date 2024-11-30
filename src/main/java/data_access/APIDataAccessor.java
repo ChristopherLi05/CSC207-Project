@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * The DAO for all data implemented using api
  */
-public class APIDataAccessor implements IDataAccessor {
+public class APIDataAccessor implements DataAccessor {
     private final String baseUrl;
 
     public APIDataAccessor(String baseUrl) {

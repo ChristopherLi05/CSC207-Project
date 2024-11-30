@@ -3,7 +3,6 @@ package view.component;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import interface_adapter.calculator.CalculatorState;
-import interface_adapter.leaderboard.LeaderboardState;
 
 import javax.swing.*;
 import java.beans.PropertyChangeEvent;
@@ -45,8 +44,8 @@ public class DisplayHandComponent extends JPanel implements PropertyChangeListen
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (!(evt.getNewValue() instanceof IDisplayHandComponentState)) return;
-        IDisplayHandComponentState state = (IDisplayHandComponentState) evt.getNewValue();
+        if (!(evt.getNewValue() instanceof DisplayHandComponentState)) return;
+        DisplayHandComponentState state = (DisplayHandComponentState) evt.getNewValue();
         if (!state.changedState()) return;
 
         this.closedTiles.removeAll();

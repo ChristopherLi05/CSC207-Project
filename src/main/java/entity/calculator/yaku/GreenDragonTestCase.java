@@ -12,7 +12,7 @@ import entity.calculator.mahjong.MahjongTile;
  * the Green Dragon tile (GREEN_DRAGON). This class implements the logic to check for
  * this Yaku and provides the Han values for both closed and open hands.
  */
-public class GreenDragonTestCase implements IYakuTestCase {
+public class GreenDragonTestCase implements YakuTestCase {
     /**
      * Checks if the given hand satisfies the Green Dragon Yaku.
      *

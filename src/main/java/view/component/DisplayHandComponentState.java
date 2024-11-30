@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Display Hand Component Interface (if multiple states want to use display selector)
  */
-public interface IDisplayHandComponentState {
+public interface DisplayHandComponentState {
     /**
      * Gets the closed tiles
      * @return closed tile

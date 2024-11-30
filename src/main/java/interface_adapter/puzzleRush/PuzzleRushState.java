@@ -3,7 +3,7 @@ package interface_adapter.puzzleRush;
 import entity.calculator.HandState;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import view.component.IDisplayHandComponentState;
+import view.component.DisplayHandComponentState;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * about the current hand state, time left, current score, and any failure message.
  * This class is used to display the current state of the game in the view.
  */
-public class PuzzleRushState implements IDisplayHandComponentState {
+public class PuzzleRushState implements DisplayHandComponentState {
     private final HandState handState;
 
     private String failMessage = null;

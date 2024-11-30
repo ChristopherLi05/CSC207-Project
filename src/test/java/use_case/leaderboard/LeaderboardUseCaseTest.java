@@ -1,6 +1,6 @@
 package use_case.leaderboard;
 
-import data_access.IDataAccessor;
+import data_access.DataAccessor;
 import entity.leaderboard.LeaderboardEntry;
 import interface_adapter.leaderboard.*;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ public class LeaderboardUseCaseTest {
         LeaderboardViewState viewState = new LeaderboardViewState("", new LeaderboardState());
 
         LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(viewState);
-        IDataAccessor dataAccessor = new IDataAccessor() {
+        DataAccessor dataAccessor = new DataAccessor() {
             @Override
             public boolean signUp(String username, String password) {
                 return false;

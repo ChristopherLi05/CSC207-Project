@@ -6,5 +6,5 @@ import use_case.leaderboard.LeaderboardDataAccessInterface;
 /**
  * Compilation of all the data accessors into 1 main interface
  */
-public interface IDataAccessor extends LeaderboardDataAccessInterface, UserCreationDataAccessor {
+public interface DataAccessor extends LeaderboardDataAccessInterface, UserCreationDataAccessor {
 }
