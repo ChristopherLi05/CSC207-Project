@@ -75,6 +75,20 @@ class SignupUseCaseTest {
         assertEquals("Switched to login view", presenter.lastMessage);
     }
 
+    @Test
+    void testConstructorAndGetters_FailedSignup() {
+        // Arrange
+        String username = "failedUser";
+        boolean useCaseFailed = true;
+
+        // Act
+        SignupOutputData outputData = new SignupOutputData(username, useCaseFailed);
+
+        // Assert
+        assertEquals(username, outputData.getUsername(), "Expected username to match the provided value.");
+        assertTrue(outputData.isUseCaseFailed(), "Expected use case failed status to be true for a failed signup.");
+    }
+
     static class TestSignupOutputBoundary implements SignupOutputBoundary {
         String lastMessage;
 
