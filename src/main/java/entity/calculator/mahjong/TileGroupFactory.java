@@ -6,7 +6,7 @@ public class TileGroupFactory {
      * @param inputData the data needed to create the closed tile
      * @return the closed tile
      */
-    private MahjongTile addClosedTile(MahjongTile inputData) {
+    public MahjongTile addClosedTile(MahjongTile inputData) {
         return inputData;
     }
 
@@ -16,7 +16,7 @@ public class TileGroupFactory {
      * @param isAka whether the given tile is aka (red)
      * @return the Chii group, or null if the group cannot be formed
      */
-    MahjongGroup addChii(MahjongTile tile, boolean isAka) {
+    public MahjongGroup addChii(MahjongTile tile, boolean isAka) {
         if (tile.getValue() < 1 || tile.getValue() > 7) {
             return null;
         }
@@ -41,7 +41,7 @@ public class TileGroupFactory {
      * @param isAka whether the given tile is aka (red)
      * @return the Pon group
      */
-    MahjongGroup addPon(MahjongTile tile, boolean isAka) {
+    public MahjongGroup addPon(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
@@ -63,7 +63,7 @@ public class TileGroupFactory {
      * @param isAka whether the given tile is aka (red)
      * @return the Kan group
      */
-    MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
+    public MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
