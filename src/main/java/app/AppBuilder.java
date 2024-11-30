@@ -6,21 +6,18 @@ import data_access.InMemoryDataAccessor;
 import entity.calculator.HandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
-import entity.user.UserManager;
+import entity.user.DefaultUserManager;
 import interface_adapter.addTile.AddTileController;
 import interface_adapter.addTile.AddTilePresenter;
 import interface_adapter.calculator.CalculatorController;
 import interface_adapter.calculator.CalculatorPresenter;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
+import interface_adapter.leaderboard.*;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewState;
-import interface_adapter.leaderboard.LeaderboardController;
-import interface_adapter.leaderboard.LeaderboardPresenter;
-import interface_adapter.leaderboard.LeaderboardState;
-import interface_adapter.leaderboard.LeaderboardViewState;
 import interface_adapter.puzzleRush.PuzzleRushController;
 import interface_adapter.puzzleRush.PuzzleRushPresenter;
 import interface_adapter.puzzleRushHand.PuzzleRushHandController;
@@ -54,7 +51,7 @@ import view.*;
  * This is done by adding each View and then adding related Use Cases.
  */
 public class AppBuilder {
-    private final App app;
+    private final DefaultApp app;
     private BuildState buildState = BuildState.START;
 
     // Views
@@ -72,10 +69,10 @@ public class AppBuilder {
     private PuzzleRushViewState puzzleRushViewState;
 
     public AppBuilder() {
-        this(new App("Mahjong Point Calculator"));
+        this(new DefaultApp("Mahjong Point Calculator"));
     }
 
-    public AppBuilder(App app) {
+    public AppBuilder(DefaultApp app) {
         this.app = app;
     }
 
@@ -86,7 +83,7 @@ public class AppBuilder {
      */
     public AppBuilder setDefaultUserManager() {
         ensureState(BuildState.ATTR);
-        this.app.setUserManager(new UserManager(this.app.getUserManager().getUserFactory()));
+        this.app.setUserManager(new DefaultUserManager(this.app.getUserManager().getUserFactory()));
         return this;
     }
 
@@ -258,7 +255,7 @@ public class AppBuilder {
         LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewState);
         LeaderboardInteractor leaderboardInteractor = new LeaderboardInteractor(leaderboardOutputBoundary, app.getDataAccessor());
 
-        LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor, leaderboardViewState);
+        LeaderboardController leaderboardController = new LeaderboardController(new LeaderboardExecutor(), leaderboardInteractor);
         leaderboardView.setLeaderboardController(leaderboardController);
         return this;
     }
@@ -312,7 +309,7 @@ public class AppBuilder {
      *
      * @return app
      */
-    public IApp build() {
+    public App build() {
         ensureState(BuildState.BUILD);
 
         app.pack();

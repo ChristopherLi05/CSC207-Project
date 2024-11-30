@@ -1,7 +1,6 @@
 package view;
 
 import entity.calculator.HandState;
-import entity.calculator.HandStateFactory;
 import entity.calculator.IHandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
@@ -42,6 +41,12 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         super(viewState);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("Calculator");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+
         this.add(new TabSwitcherComponent(viewManager));
         viewState.addPropertyChangeListener(this);
 
@@ -60,10 +65,15 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
+        calculate.setFont(new Font("Arial", Font.PLAIN, 30));
         scoreLabel = new JLabel("Score: ");
+        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        JButton reset = new JButton("reset");
+        reset.setFont(new Font("Arial", Font.PLAIN, 30));
+
         buttons.add(scoreLabel);
         buttons.add(calculate);
-
+        buttons.add(reset);
 
         calculate.addActionListener(evt -> {
             List<MahjongTile> closedTiles = viewState.getState().getClosedTiles();
@@ -76,7 +86,28 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
             calculatorController.execute(handstate);
         });
 
+        reset.addActionListener(evt -> {
+            displayHandComponent.reset(viewState.getState());
+        });
+
         this.add(buttons, BorderLayout.SOUTH);
+
+        JFrame frame = new JFrame("Instruction");
+        frame.setSize(400, 300);
+        frame.setLayout(new BorderLayout()); // Use BorderLayout for alignment
+
+        // Create a multi-line label with HTML
+        JLabel multiLineLabel = new JLabel("<html>Instruction<br>1. Put in the hand you want to know the value of.<br>2. Press calculate<br>3. Press Reset to reset hand</html>");
+        multiLineLabel.setFont(new Font("Arial", Font.PLAIN, 25)); // Set font size
+        multiLineLabel.setHorizontalAlignment(SwingConstants.CENTER); // Align text inside the label
+
+        // Create a panel for the label
+        JPanel labelPanel = new JPanel(new BorderLayout());
+        labelPanel.add(multiLineLabel, BorderLayout.CENTER); // Align label to the right of the panel
+        labelPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Optional padding
+
+        // Add the panel to the right side of the frame
+        this.add(labelPanel, BorderLayout.SOUTH);
     }
 
     /**
@@ -96,7 +127,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         if (e.getSource() instanceof MahjongTileInputButton) {
             MahjongTile clickedTile = ((MahjongTileInputButton) e.getSource()).getMahjongTile();
             boolean isAka = getViewState().getState().isAka();
-            ITileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
+            TileSelectorComponentState.SelectorType selectorType = getViewState().getState().getSelectorType();
 
             addTileController.execute(clickedTile, isAka, selectorType);
         }
@@ -121,5 +152,6 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         scoreLabel.setText("Output: " + getViewState().getState().getMessageState());
+        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
     }
 }

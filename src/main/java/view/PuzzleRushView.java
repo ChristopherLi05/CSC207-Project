@@ -1,7 +1,6 @@
 package view;
 
-import app.IApp;
-import data_access.IDataAccessor;
+import app.App;
 import interface_adapter.ViewManager;
 import interface_adapter.ViewState;
 import interface_adapter.puzzleRush.PuzzleRushController;
@@ -34,9 +33,13 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private ResultPanel resultPanel;
 
     // IApp is temporary
-    public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager, IApp app) {
+    public PuzzleRushView(ViewState<PuzzleRushState> viewState, ViewManager viewManager, App app) {
         super(viewState);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel("PuzzleRush");
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
         viewManager.addPropertyChangeListener((evt) -> {
             if (evt.getPropertyName().equals("state")) {
                 if (evt.getNewValue().equals(getViewName())) {
@@ -69,6 +72,18 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
         startRunningPanel.add(resultPanel, "result");
 
         this.add(startRunningPanel);
+
+        JLabel multiLineLabel = new JLabel("<html>Instruction<br>1. Press Start to start the Puzzle Rush.<br>2. You have 60 seconds to solve as many puzzle as possible<br>3. Calculate the value of the hand shown and submit your answer<br>4. Get final score</html>");
+        multiLineLabel.setFont(new Font("Arial", Font.PLAIN, 25)); // Set font size
+        multiLineLabel.setHorizontalAlignment(SwingConstants.CENTER); // Align text inside the label
+
+        // Create a panel for the label
+        JPanel labelPanel = new JPanel(new BorderLayout());
+        labelPanel.add(multiLineLabel, BorderLayout.CENTER); // Align label to the right of the panel
+        labelPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Optional padding
+
+        // Add the panel to the right side of the frame
+        this.add(labelPanel, BorderLayout.SOUTH);
     }
 
     public void setPuzzleRushHandController(PuzzleRushHandController puzzleRushHandController) {
@@ -85,6 +100,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
     private static class StartPanel extends JPanel {
         public StartPanel(ActionListener startListener) {
             JButton startButton = new JButton("Start");
+            startButton.setFont(new Font("Arial", Font.PLAIN, 30));
             startButton.addActionListener(startListener);
             this.add(startButton);
         }
@@ -114,6 +130,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             this.viewState = viewState;
 
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
             viewState.addPropertyChangeListener(this);
 
             displayHandComponent = new DisplayHandComponent(false);
@@ -122,17 +139,21 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             add(GUIHelper.wrapJpanel(displayHandComponent));
 
             timerLabel = new JLabel("Time Left: 0");
+            timerLabel.setFont(new Font("Arial", Font.PLAIN, 30));
             add(GUIHelper.wrapJpanel(timerLabel));
 
             scoreLabel = new JLabel("Score: 0");
+            scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
             add(GUIHelper.wrapJpanel(scoreLabel));
 
             inputLabel = new JLabel("Points:");
+            inputLabel.setFont(new Font("Arial", Font.PLAIN, 30));
 
             NumberFormat format = NumberFormat.getInstance();
             format.setGroupingUsed(false);
 
             pointEntry = new JTextField(20);
+            pointEntry.setFont(new Font("Arial", Font.PLAIN, 30));
             ((AbstractDocument) pointEntry.getDocument()).setDocumentFilter(new DocumentFilter() {
                 @Override
                 public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
@@ -155,6 +176,7 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
             add(GUIHelper.wrapJpanel(errorField));
 
             inputButton = new JButton("Submit");
+            inputButton.setFont(new Font("Arial", Font.PLAIN, 30));
             inputButton.addActionListener(e -> {
                 if (pointEntry.getText() == null || pointEntry.getText().isEmpty()) return;
 
@@ -233,13 +255,14 @@ public class PuzzleRushView extends AbstractPanel<PuzzleRushState> {
      */
     private static class ResultPanel extends JPanel implements PropertyChangeListener {
         private JLabel finalScore;
-        private IApp app;
+        private App app;
 
         // app temp
-        public ResultPanel(IApp app) {
+        public ResultPanel(App app) {
             this.app = app;
 
             finalScore = new JLabel("Final Score: ");
+            finalScore.setFont(new Font("Arial", Font.PLAIN, 30));
             this.add(finalScore);
         }
 

@@ -1,6 +1,6 @@
 package use_case.signup;
 
-import data_access.IDataAccessor;
+import data_access.DataAccessor;
 import entity.leaderboard.LeaderboardEntry;
 import org.junit.jupiter.api.Test;
 
@@ -65,6 +65,16 @@ class SignupUseCaseTest {
     }
 
     @Test
+    void testIsUseCaseFailedWhenFailed() {
+        String testUsername = "testUser";
+        SignupOutputData outputData = new SignupOutputData(testUsername, true);
+
+        boolean result = outputData.isUseCaseFailed();
+
+        assertTrue(result, "The use case failed flag should be true when the use case fails.");
+    }
+
+    @Test
     void testSwitchToLoginView() {
         TestSignupOutputBoundary presenter = new TestSignupOutputBoundary();
         TestDataAccessor dataAccessor = new TestDataAccessor();
@@ -113,7 +123,7 @@ class SignupUseCaseTest {
         }
     }
 
-    static class TestDataAccessor implements IDataAccessor {
+    static class TestDataAccessor implements DataAccessor {
         private boolean signupSuccess;
 
         void setSignupSuccess(boolean signupSuccess) {

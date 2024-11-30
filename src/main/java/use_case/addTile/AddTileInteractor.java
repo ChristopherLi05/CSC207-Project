@@ -2,7 +2,7 @@ package use_case.addTile;
 
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import view.component.ITileSelectorComponentState;
+import view.component.TileSelectorComponentState;
 
 public class AddTileInteractor implements AddTileInputBoundary {
     AddTileOutputBoundary addTileOutputBoundary;
@@ -30,21 +30,21 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param inputData the received input data
      * @return output data containing the added tiles or groups
      */
-    private AddTileOutputData addTiles(AddTileInputData inputData) {
+    AddTileOutputData addTiles(AddTileInputData inputData) {
         AddTileOutputData data = new AddTileOutputData();
 
-        if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.NONE) {
+        if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.NONE) {
             data.addTile(addClosedTile(inputData.getTile()));
-        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.CHII) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CHII) {
             MahjongGroup group = addChii(inputData.getTile(), inputData.isAka());
             if (group != null) {
                 data.addOpenGroup(group);
             }
-        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.PON) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.PON) {
             data.addOpenGroup(addPon(inputData.getTile(), inputData.isAka()));
-        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.CLOSED_KAN) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CLOSED_KAN) {
             data.addClosedGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
-        } else if (inputData.getSelectorType() == ITileSelectorComponentState.SelectorType.OPEN_KAN) {
+        } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.OPEN_KAN) {
             data.addOpenGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
         }
 
@@ -66,7 +66,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param isAka whether the given tile is aka (red)
      * @return the Chii group, or null if the group cannot be formed
      */
-    private MahjongGroup addChii(MahjongTile tile, boolean isAka) {
+    MahjongGroup addChii(MahjongTile tile, boolean isAka) {
         if (tile.getValue() < 1 || tile.getValue() > 7) {
             return null;
         }
@@ -91,7 +91,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param isAka whether the given tile is aka (red)
      * @return the Pon group
      */
-    private MahjongGroup addPon(MahjongTile tile, boolean isAka) {
+    MahjongGroup addPon(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {
@@ -113,7 +113,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      * @param isAka whether the given tile is aka (red)
      * @return the Kan group
      */
-    private MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
+    MahjongGroup createKanGroup(MahjongTile tile, boolean isAka) {
         MahjongGroup group;
 
         if (tile.isAka()) {

@@ -12,7 +12,7 @@ import entity.calculator.mahjong.MahjongTile;
  * and the round wind is also West Wind. This class implements the logic to verify
  * the presence of this Yaku and provides its Han values for both closed and open hands.
  */
-public class WestWindTestCase implements IYakuTestCase {
+public class WestWindTestCase implements YakuTestCase {
     /**
      * Checks if the given hand satisfies the West Wind Yaku.
      *

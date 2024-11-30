@@ -8,7 +8,7 @@ import java.util.*;
  * In-memory implementation of the DAO for storing data. This implementation does
  * NOT persist data between runs of the program.
  */
-public class InMemoryDataAccessor implements IDataAccessor {
+public class InMemoryDataAccessor implements DataAccessor {
     private final List<LeaderboardEntry> leaderboard = new ArrayList<>();
     private final Map<String, String> users = new HashMap<>();
 

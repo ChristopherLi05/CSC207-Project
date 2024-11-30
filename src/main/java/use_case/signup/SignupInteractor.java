@@ -1,12 +1,12 @@
 package use_case.signup;
 
-import data_access.IDataAccessor;
+import data_access.DataAccessor;
 
 /**
  * The Signup Interactor.
  */
 public class SignupInteractor implements SignupInputBoundary {
-    private final IDataAccessor userDataAccessObject;
+    private final DataAccessor userDataAccessObject;
     private final SignupOutputBoundary userPresenter;
 
     /**
@@ -17,7 +17,7 @@ public class SignupInteractor implements SignupInputBoundary {
      */
     public SignupInteractor(
             SignupOutputBoundary signupOutputBoundary,
-            IDataAccessor signupDataAccessInterface
+            DataAccessor signupDataAccessInterface
     ) {
         this.userDataAccessObject = signupDataAccessInterface;
         this.userPresenter = signupOutputBoundary;

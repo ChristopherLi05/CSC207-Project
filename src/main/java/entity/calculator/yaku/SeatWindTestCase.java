@@ -3,7 +3,6 @@ package entity.calculator.yaku;
 import entity.calculator.HandGrouping;
 import entity.calculator.HandState;
 import entity.calculator.mahjong.MahjongGroup;
-import entity.calculator.mahjong.MahjongTile;
 
 /**
  * Represents the Seat Wind Yaku test case.
@@ -12,7 +11,7 @@ import entity.calculator.mahjong.MahjongTile;
  * the player's seat wind. This class implements the logic to verify the presence
  * of this Yaku and provides its Han values for both closed and open hands.
  */
-public class SeatWindTestCase implements IYakuTestCase {
+public class SeatWindTestCase implements YakuTestCase {
     /**
      * Checks if the given hand satisfies the Seat Wind Yaku.
      *

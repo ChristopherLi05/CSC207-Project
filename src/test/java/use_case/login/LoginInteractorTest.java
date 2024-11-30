@@ -1,7 +1,7 @@
 package use_case.login;
 
+import app.DefaultApp;
 import app.App;
-import app.IApp;
 import entity.user.user_type.IUser;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ public class LoginInteractorTest {
 
     @Test
     void guestLoginTest() {
-        IApp app = new App("Test");
+        App app = new DefaultApp("Test");
 
         LoginOutputBoundary presenter = new LoginOutputBoundary() {
             @Override
@@ -34,7 +34,7 @@ public class LoginInteractorTest {
     @Test
     void sucessLoginTest() {
         LoginInputData inputData = new LoginInputData("Max", "abc");
-        IApp app = new App("Test");
+        App app = new DefaultApp("Test");
 
         String username = inputData.getUsername();
         String password = inputData.getPassword();
@@ -67,7 +67,7 @@ public class LoginInteractorTest {
     @Test
     void sucessLoggedinTest() {
         LoginInputData inputData = new LoginInputData("Max", "abc");
-        IApp app = new App("Test");
+        App app = new DefaultApp("Test");
 
         String username = inputData.getUsername();
         String password = inputData.getPassword();
@@ -99,7 +99,7 @@ public class LoginInteractorTest {
     @Test
     void failureWrongPasswordTest() {
         LoginInputData inputData = new LoginInputData("Max", "123");
-        IApp app = new App("Test");
+        App app = new DefaultApp("Test");
 
         String username = "Max";
         String password = "abc";
@@ -125,7 +125,7 @@ public class LoginInteractorTest {
     @Test
     void failureUserDoesNotExistTest() {
         LoginInputData inputData = new LoginInputData("Max", "123");
-        IApp app = new App("Test");
+        App app = new DefaultApp("Test");
 
         LoginOutputBoundary presenter = new LoginOutputBoundary() {
             @Override
@@ -146,7 +146,7 @@ public class LoginInteractorTest {
 
     @Test
     void signUpTest() {
-        IApp app = new App("Test");
+        App app = new DefaultApp("Test");
 
         LoginOutputBoundary presenter = new LoginOutputBoundary() {
             @Override

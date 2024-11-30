@@ -7,7 +7,7 @@ import entity.user.user_type.RemoteUser;
 /**
  * Remote User Factory; Creates api users
  */
-public class RemoteUserFactory implements IUserFactory {
+public class RemoteUserFactory implements UserFactory {
     /**
      * {@inheritDoc}
      */
