@@ -1,11 +1,10 @@
-package entity.calculator.yakuTest;
+package entity.calculator.yaku;
 
 import entity.calculator.HandGrouping;
 import entity.calculator.HandState;
 import entity.calculator.HandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
-import entity.calculator.yaku.TanyaoTestCase;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
