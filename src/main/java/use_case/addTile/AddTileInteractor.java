@@ -15,6 +15,7 @@ public class AddTileInteractor implements AddTileInputBoundary {
      */
     public AddTileInteractor(AddTileOutputBoundary addTileOutputBoundary) {
         this.addTileOutputBoundary = addTileOutputBoundary;
+        this.tileGroupFactory = new TileGroupFactory();
     }
 
     /**
@@ -36,18 +37,18 @@ public class AddTileInteractor implements AddTileInputBoundary {
         AddTileOutputData data = new AddTileOutputData();
 
         if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.NONE) {
-            data.addTile(addClosedTile(inputData.getTile()));
+            data.addTile(tileGroupFactory.addClosedTile(inputData.getTile()));
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CHII) {
-            MahjongGroup group = addChii(inputData.getTile(), inputData.isAka());
+            MahjongGroup group = tileGroupFactory.addChii(inputData.getTile(), inputData.isAka());
             if (group != null) {
                 data.addOpenGroup(group);
             }
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.PON) {
-            data.addOpenGroup(addPon(inputData.getTile(), inputData.isAka()));
+            data.addOpenGroup(tileGroupFactory.addPon(inputData.getTile(), inputData.isAka()));
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.CLOSED_KAN) {
-            data.addClosedGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
+            data.addClosedGroup(tileGroupFactory.createKanGroup(inputData.getTile(), inputData.isAka()));
         } else if (inputData.getSelectorType() == TileSelectorComponentState.SelectorType.OPEN_KAN) {
-            data.addOpenGroup(createKanGroup(inputData.getTile(), inputData.isAka()));
+            data.addOpenGroup(tileGroupFactory.createKanGroup(inputData.getTile(), inputData.isAka()));
         }
 
         return data;
