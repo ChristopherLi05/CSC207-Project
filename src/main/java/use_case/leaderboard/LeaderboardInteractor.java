@@ -18,9 +18,10 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary {
      * Constructs a new LeaderboardInteractor instance.
      *
      * @param leaderboardOutputBoundary the presenter to update the view with the leaderboard data
-     * @param dataAccessor the data accessor used to fetch leaderboard entries from the data source
+     * @param dataAccessor              the data accessor used to fetch leaderboard entries from the data source
      */
-    public LeaderboardInteractor(LeaderboardOutputBoundary leaderboardOutputBoundary, LeaderboardDataAccessInterface dataAccessor) {
+    public LeaderboardInteractor(LeaderboardOutputBoundary leaderboardOutputBoundary,
+                                 LeaderboardDataAccessInterface dataAccessor) {
         this.leaderboardPresenter = leaderboardOutputBoundary;
         this.dataAccessor = dataAccessor;
     }
@@ -35,3 +36,4 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary {
         leaderboardPresenter.prepareSuccessView(new LeaderboardOutputData(entries, false));
     }
 }
+
