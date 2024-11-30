@@ -41,6 +41,9 @@ public class LeaderboardView extends AbstractPanel<LeaderboardState> implements 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (getViewName().equals(evt.getNewValue())) {
+            getViewState().setState(new LeaderboardState());
+            getViewState().firePropertyChanged();
+
             if (leaderboardController != null) {
                 leaderboardController.execute();
             }

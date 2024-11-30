@@ -13,14 +13,11 @@ import interface_adapter.calculator.CalculatorController;
 import interface_adapter.calculator.CalculatorPresenter;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
+import interface_adapter.leaderboard.*;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewState;
-import interface_adapter.leaderboard.LeaderboardController;
-import interface_adapter.leaderboard.LeaderboardPresenter;
-import interface_adapter.leaderboard.LeaderboardState;
-import interface_adapter.leaderboard.LeaderboardViewState;
 import interface_adapter.puzzleRush.PuzzleRushController;
 import interface_adapter.puzzleRush.PuzzleRushPresenter;
 import interface_adapter.puzzleRushHand.PuzzleRushHandController;
@@ -258,7 +255,7 @@ public class AppBuilder {
         LeaderboardOutputBoundary leaderboardOutputBoundary = new LeaderboardPresenter(leaderboardViewState);
         LeaderboardInteractor leaderboardInteractor = new LeaderboardInteractor(leaderboardOutputBoundary, app.getDataAccessor());
 
-        LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor, leaderboardViewState);
+        LeaderboardController leaderboardController = new LeaderboardController(new LeaderboardExecutor(), leaderboardInteractor);
         leaderboardView.setLeaderboardController(leaderboardController);
         return this;
     }

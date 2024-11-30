@@ -2,10 +2,7 @@ package use_case.leaderboard;
 
 import data_access.IDataAccessor;
 import entity.leaderboard.LeaderboardEntry;
-import interface_adapter.leaderboard.LeaderboardController;
-import interface_adapter.leaderboard.LeaderboardPresenter;
-import interface_adapter.leaderboard.LeaderboardState;
-import interface_adapter.leaderboard.LeaderboardViewState;
+import interface_adapter.leaderboard.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -46,7 +43,7 @@ public class LeaderboardUseCaseTest {
 
 
         LeaderboardInteractor leaderboardInteractor = new LeaderboardInteractor(leaderboardOutputBoundary, dataAccessor);
-        LeaderboardController leaderboardController = new LeaderboardController(leaderboardInteractor, viewState);
+        LeaderboardController leaderboardController = new LeaderboardController(new LeaderboardExecutor(), leaderboardInteractor);
 
         leaderboardController.execute();
 
