@@ -1,5 +1,6 @@
 package entity.calculator;
 
+import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.yaku.*;
 
@@ -46,18 +47,35 @@ public class Calculator {
      * @return a list of possible HandGroupings.
      */
     public static List<HandGrouping> createHandGroupings(HandState handState) {
-        List<HandGrouping> initialGroupings = CalculatorHelper.extractPairs(handState);
+        List<HandGrouping> result = CalculatorHelper.extractPairs(handState);
 
-        if (initialGroupings == null) {
-            return new ArrayList<>();
+        if (result == null || result.isEmpty()) {
+            return null;
         }
 
-        List<HandGrouping> allGroupings = new ArrayList<>();
-        for (HandGrouping grouping : initialGroupings) {
-            allGroupings.addAll(CalculatorHelper.extractGroup(grouping));
+        for (HandGrouping pairGrouping : result) {
+            List<MahjongTile> pair = List.of(pairGrouping.getPair());
+            List<MahjongTile> tiles = handState.closedTiles();
+            tiles.add(handState.winningTile());
+            tiles.remove(pair.get(0));
+            tiles.remove(pair.get(1));
+
+            HandGrouping validhandgrouping = new HandGrouping(new ArrayList<>());
+            validhandgrouping.setPair(pair.get(0), pair.get(1));
+
+            List<HandGrouping> groups = CalculatorHelper.extractGroup(new HandGrouping(tiles));
+
+            if (groups.isEmpty()) {
+                result.remove(pairGrouping);
+                break;
+            }
+            for (HandGrouping group: groups) {
+                validhandgrouping.addGroup(group.getGroups().get(0));
+            }
+            result.add(validhandgrouping);
         }
 
-        return allGroupings;
+        return result;
     }
 
     /**

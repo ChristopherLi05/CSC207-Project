@@ -3,6 +3,7 @@ package entity.calculator.yaku;
 import entity.calculator.HandGrouping;
 import entity.calculator.HandState;
 import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongSuit;
 import entity.calculator.mahjong.MahjongTile;
 
 /**
@@ -18,6 +19,8 @@ public class ChinnitsuTestCase implements YakuTestCase {
         for (MahjongGroup group : handGrouping.getGroups()) {
             for (MahjongTile tile : group.getTiles()) {
                 if (tile.getSuit() != hand.winningTile().getSuit()) {
+                    return false;
+                } else if (tile.getSuit() == MahjongSuit.DRAGON || tile.getSuit() == MahjongSuit.WIND) {
                     return false;
                 }
             }
