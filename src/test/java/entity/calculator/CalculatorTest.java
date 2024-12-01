@@ -85,13 +85,13 @@ public class CalculatorTest {
                 closedgroup,
                 new ArrayList<>(),
                 MahjongTile.NORTH_WIND,
-                new ArrayList<>(),  new ArrayList<>(), MahjongTile.WEST_WIND, MahjongTile.WEST_WIND,
+                new ArrayList<>(), new ArrayList<>(), MahjongTile.WEST_WIND, MahjongTile.WEST_WIND,
                 true, false, false, false,
                 false, false, false, false, false
         );
 
         int hanValue = Calculator.calculateHan(handState);
-        Assertions.assertEquals(0, hanValue);
+        Assertions.assertEquals(6, hanValue);
     }
 
     @Test
@@ -116,4 +116,52 @@ public class CalculatorTest {
         Assertions.assertEquals(30, fuValue);
     }
 
+    @Test
+    void testCalculateHan() {
+        HandState handState = new HandState(
+                List.of(MahjongTile.ONE_SOU),
+                new ArrayList<>(),
+                List.of(new MahjongGroup(MahjongTile.TWO_MAN, MahjongTile.TWO_MAN, MahjongTile.TWO_MAN)),
+                MahjongTile.ONE_SOU,
+                new ArrayList<>(), new ArrayList<>(), MahjongTile.WEST_WIND, MahjongTile.WEST_WIND,
+                true, false, false, false,
+                false, false, false, false, false
+        );
+
+        // Real:
+//        Assertions.assertEquals(0, Calculator.calculateScore(handState));
+
+        // Bad code:
+        Assertions.assertEquals(8000, Calculator.calculateScore(handState));
+    }
+
+    @Test
+    void testBadGroupings() {
+        HandState handState = new HandState(
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                MahjongTile.ONE_SOU,
+                new ArrayList<>(), new ArrayList<>(), MahjongTile.WEST_WIND, MahjongTile.WEST_WIND,
+                true, false, false, false,
+                false, false, false, false, false
+        );
+
+        List<HandGrouping> groupings = Calculator.createHandGroupings(handState);
+        Assertions.assertEquals(0, groupings.size());
+    }
+
+    @Test
+    void testScoreCalculations() {
+        Assertions.assertEquals(1000, Calculator.calculateScore(1, 30, false));
+        Assertions.assertEquals(1500, Calculator.calculateScore(1, 30, true));
+        Assertions.assertEquals(2000, Calculator.calculateScore(2, 30, false));
+        Assertions.assertEquals(4000, Calculator.calculateScore(3, 30, false));
+        Assertions.assertEquals(8000, Calculator.calculateScore(4, 30, false));
+        Assertions.assertEquals(12000, Calculator.calculateScore(6, 30, false));
+        Assertions.assertEquals(16000, Calculator.calculateScore(8, 30, false));
+        Assertions.assertEquals(24000, Calculator.calculateScore(11, 30, false));
+        Assertions.assertEquals(32000, Calculator.calculateScore(15, 30, false));
+        Assertions.assertEquals(0, Calculator.calculateScore(15, 0, false));
+    }
 }

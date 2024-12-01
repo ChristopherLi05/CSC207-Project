@@ -5,6 +5,7 @@ import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.yaku.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 /**
@@ -49,36 +50,17 @@ public class Calculator {
      */
     public static List<HandGrouping> createHandGroupings(HandState handState) {
         List<HandGrouping> result = CalculatorHelper.extractPairs(handState);
-
         if (result == null || result.isEmpty()) {
-            return null;
+            return new ArrayList<>();
         }
+
+        List<HandGrouping> validGroups = new ArrayList<>();
 
         for (HandGrouping pairGrouping : result) {
-            List<MahjongTile> pair = List.of(pairGrouping.getPair());
-            List<MahjongTile> tiles = handState.closedTiles();
-            tiles.add(handState.winningTile());
-            tiles.remove(pair.get(0));
-            tiles.remove(pair.get(1));
-
-            HandGrouping validhandgrouping = new HandGrouping(new ArrayList<>());
-            validhandgrouping.setPair(pair.get(0), pair.get(1));
-
-            HandGrouping hand = new HandGrouping(tiles);
-
-            List<HandGrouping> groups = CalculatorHelper.extractGroup(hand);
-
-            if (groups.isEmpty()) {
-                result.remove(pairGrouping);
-                break;
-            }
-            for (HandGrouping group: groups) {
-                validhandgrouping.addGroup(group.getGroups().get(0));
-            }
-            result.add(validhandgrouping);
+            validGroups.addAll(CalculatorHelper.extractGroup(pairGrouping));
         }
 
-        return result;
+        return validGroups;
     }
 
     /**
@@ -96,8 +78,12 @@ public class Calculator {
     public static int calculateScore(HandState hand) {
         int han = calculateHan(hand);
         int fu = calculateFu(hand);
-        int basescore;
+        return calculateScore(han, fu, hand.seatWind() == MahjongTile.EAST_WIND);
+    }
+
+    public static int calculateScore(int han, int fu, boolean isDealer) {
         if (fu == 30) {
+            int basescore;
             if (han==1) {
                 basescore = 1000;
             } else if (han==2) {
@@ -115,7 +101,7 @@ public class Calculator {
             } else {
                 basescore = 32000;
             }
-            if (hand.seatWind()==MahjongTile.EAST_WIND) {
+            if (isDealer) {
                 return (int) Math.round(basescore * 1.5);
             }
             return basescore;
