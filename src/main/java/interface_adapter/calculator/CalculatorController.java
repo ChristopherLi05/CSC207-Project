@@ -32,4 +32,6 @@ public class CalculatorController {
     public void execute(HandState hand) {
         calculatorUseCaseInteractor.execute(hand);
     }
+
+    public void reset() {calculatorUseCaseInteractor.reset();}
 }

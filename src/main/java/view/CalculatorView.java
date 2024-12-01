@@ -87,6 +87,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         });
 
         reset.addActionListener(evt -> {
+            calculatorController.reset();
             displayHandComponent.reset(viewState.getState());
         });
 
