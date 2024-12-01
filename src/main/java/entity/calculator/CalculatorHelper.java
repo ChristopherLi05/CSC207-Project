@@ -21,7 +21,7 @@ public class CalculatorHelper {
      * @return list of handgroupings with a pair extracted
      */
     public static List<HandGrouping> extractPairs(HandState state) {
-        List<MahjongTile> tiles = state.closedTiles();
+        List<MahjongTile> tiles = new ArrayList<>(state.closedTiles());
         tiles.add(state.winningTile());
         tiles.sort(Comparator.comparingInt((MahjongTile tile) -> tile.getSuit().getSort()).thenComparing(MahjongTile::getValue));
 

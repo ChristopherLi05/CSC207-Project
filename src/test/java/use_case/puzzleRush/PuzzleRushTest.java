@@ -21,7 +21,7 @@ public class PuzzleRushTest {
         PuzzleRushController controller = new PuzzleRushController(puzzleRushInteractor);
         controller.execute(1, viewState.getState().getHandState());
 
-        Assertions.assertEquals("Correct score: 32000", viewState.getState().getFailMessage());
+        Assertions.assertEquals("Correct score: 1000", viewState.getState().getFailMessage());
 
         controller.execute(0, viewState.getState().getHandState());
 
