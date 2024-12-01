@@ -82,6 +82,8 @@ public class Calculator {
     }
 
     public static int calculateScore(int han, int fu, boolean isDealer) {
+        if (han == 0) return 0;
+
         if (fu == 30) {
             int basescore;
             if (han==1) {

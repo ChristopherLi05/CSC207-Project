@@ -91,7 +91,7 @@ public class CalculatorTest {
         );
 
         int hanValue = Calculator.calculateHan(handState);
-        Assertions.assertEquals(6, hanValue);
+        Assertions.assertEquals(0, hanValue);
     }
 
     @Test
@@ -128,11 +128,7 @@ public class CalculatorTest {
                 false, false, false, false, false
         );
 
-        // Real:
-//        Assertions.assertEquals(0, Calculator.calculateScore(handState));
-
-        // Bad code:
-        Assertions.assertEquals(8000, Calculator.calculateScore(handState));
+        Assertions.assertEquals(0, Calculator.calculateScore(handState));
     }
 
     @Test
