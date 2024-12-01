@@ -40,6 +40,17 @@ class HandStateTest {
     }
 
     @Test
+    void testFactoryDeserialize2() {
+        String serialization = "6s 4s4s4s4s;8s8s8s8s 5s5s5s;1s2s3s 6s 9m 2m ww ew 1";
+        HandStateFactory factory = new HandStateFactory();
+        HandState state = factory.createHandState(serialization);
+
+        Assertions.assertEquals(serialization, state.serializeHand(), "Invalid Hand Deserialization - Expected: " + serialization + " Received: " + state.serializeHand());
+        Assertions.assertEquals(serialization, state.toString(), "Invalid Hand Deserialization - Expected: " + serialization + " Received: " + state.serializeHand());
+    }
+
+
+    @Test
     void testFilePaths() {
         for (MahjongTile tile : MahjongTile.values()) {
             File image = new File("src/main/resources", tile.getFilePath());

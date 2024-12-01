@@ -39,6 +39,13 @@ public class CalculatorHelper {
                 MahjongTile tile2 = grouping.extractTile(tile.getValue(), tile.getSuit());
 
                 grouping.setPair(tile1, tile2);
+                for (MahjongGroup group : state.closedGroup()) {
+                    grouping.addGroup(group);
+                }
+                for (MahjongGroup group : state.openGroups()) {
+                    grouping.addGroup(group);
+                }
+
                 groups.add(grouping);
             }
         }

@@ -1,12 +1,15 @@
 package entity.calculator.yaku;
 
+import entity.calculator.Calculator;
 import entity.calculator.HandGrouping;
 import entity.calculator.HandState;
 import entity.calculator.HandStateFactory;
 import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongSuit;
 import entity.calculator.mahjong.MahjongTile;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -103,6 +106,21 @@ public class TanyaoTestCaseTest {
         int openHanValue = tanyaoTestCase.getOpenHanValue();
 
         assertEquals(1, openHanValue, "Expected open Han value to be 1 for Tanyao Yaku.");
+    }
+
+    @Test
+    void testTrueGrouping() {
+        HandState handState = handStateFactory.createHandState(
+                List.of(MahjongTile.TWO_SOU),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                MahjongTile.TWO_SOU,
+                new ArrayList<>(), new ArrayList<>(), MahjongTile.WEST_WIND, MahjongTile.WEST_WIND,
+                true, false, false, false,
+                false, false, false, false, false
+        );
+        assertTrue(tanyaoTestCase.isYaku(handState, Calculator.createHandGroupings(handState).get(0)));
+        Calculator.createHandGroupings(handState).get(0).extractTile(0, MahjongSuit.MAN);
     }
 }
 
