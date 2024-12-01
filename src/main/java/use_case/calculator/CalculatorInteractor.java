@@ -35,5 +35,10 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
         Integer score = Calculator.calculateScore(hand);
             // Otherwise, present the calculated score
             calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(score));
-        }
     }
+
+    @Override
+    public void reset() {
+        calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(0));
+    }
+}
