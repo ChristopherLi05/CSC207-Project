@@ -1,31 +1,84 @@
 package use_case.calculator;
 
-import entity.calculator.HandState;
+import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
+
+import java.util.List;
 
 /**
- * Data transfer object (DTO) for Calculator input data.
- * Encapsulates the hand state needed for the calculation process.
+ * Represents the input data required for calculating Mahjong game results.
+ * This class encapsulates the tiles, groups, and the winning tile needed to perform calculations.
  */
 public class CalculatorInputData {
 
-    /** The {@link HandState} representing the current hand for calculation. */
-    public final HandState hand;
+    /**
+     * A list of closed tiles (individual tiles not part of a group).
+     */
+    public final List<MahjongTile> closedTiles;
 
     /**
-     * Constructs a new {@code CalculatorInputData} object with the specified hand state.
-     *
-     * @param hand The {@link HandState} to be used for calculation.
+     * A list of closed groups (hidden melds or combinations of tiles).
      */
-    public CalculatorInputData(HandState hand) {
-        this.hand = hand;
+    public final List<MahjongGroup> closedGroups;
+
+    /**
+     * A list of open groups (melds or combinations of tiles revealed to other players).
+     */
+    public final List<MahjongGroup> openGroups;
+
+    /**
+     * The tile that completes the winning hand.
+     */
+    public final MahjongTile winningTile;
+
+    /**
+     * Constructs an instance of {@code CalculatorInputData} with the specified tiles and groups.
+     *
+     * @param closedTiles  the list of closed tiles
+     * @param closedGroups the list of closed groups
+     * @param openGroups   the list of open groups
+     * @param winningTile  the tile that completes the winning hand
+     */
+    public CalculatorInputData(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
+        this.closedTiles = closedTiles;
+        this.closedGroups = closedGroups;
+        this.openGroups = openGroups;
+        this.winningTile = winningTile;
     }
 
     /**
-     * Returns the {@link HandState} object representing the hand.
+     * Returns the list of closed tiles.
      *
-     * @return The current hand as a {@link HandState}.
+     * @return the list of closed tiles
      */
-    public HandState getHand() {
-        return hand;
+    public List<MahjongTile> getClosedTiles() {
+        return closedTiles;
+    }
+
+    /**
+     * Returns the list of closed groups.
+     *
+     * @return the list of closed groups
+     */
+    public List<MahjongGroup> getClosedGroups() {
+        return closedGroups;
+    }
+
+    /**
+     * Returns the list of open groups.
+     *
+     * @return the list of open groups
+     */
+    public List<MahjongGroup> getOpenGroups() {
+        return openGroups;
+    }
+
+    /**
+     * Returns the winning tile.
+     *
+     * @return the winning tile
+     */
+    public MahjongTile getWinningTile() {
+        return winningTile;
     }
 }

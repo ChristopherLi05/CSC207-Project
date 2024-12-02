@@ -1,8 +1,12 @@
 package interface_adapter.calculator;
 
-import entity.calculator.HandState;
+import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
 import use_case.calculator.CalculatorInputBoundary;
 import use_case.calculator.CalculatorInputData;
+
+import java.util.List;
+
 
 /**
  * Controller class for handling the Calculator use case.
@@ -28,10 +32,14 @@ public class CalculatorController {
     /**
      * Executes the calculator use case with the provided hand state.
      *
-     * @param input the hand state to be processed for score calculation
+     * @param closedTiles closedtiles for handstate
+     * @param closedGroups closedGroups for handstate
+     * @param openGroups openGroups for handstate
+     * @param winningTile winningtile for handstate
      */
-    public void execute(CalculatorInputData input) {
-        calculatorUseCaseInteractor.execute(input);
+    public void execute(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
+        final CalculatorInputData calculatorInputData = new CalculatorInputData(closedTiles, closedGroups, openGroups, winningTile);
+        calculatorUseCaseInteractor.execute(calculatorInputData);
     }
 
     public void reset() {calculatorUseCaseInteractor.reset();}
