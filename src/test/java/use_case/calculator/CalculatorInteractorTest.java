@@ -21,12 +21,11 @@ public class CalculatorInteractorTest {
     void testExecute_WithValidScore() {
         // Arrange
         IHandStateFactory handStateFactory = new HandStateFactory();
-        List<MahjongTile> closedTiles = Arrays.asList(RED_DRAGON, RED_DRAGON);
-        List<MahjongGroup> closedGroups = Arrays.asList(new MahjongGroup(ONE_PIN, ONE_PIN, ONE_PIN, ONE_PIN), new MahjongGroup(GREEN_DRAGON, GREEN_DRAGON, GREEN_DRAGON), new MahjongGroup(ONE_MAN, ONE_MAN, ONE_MAN, ONE_MAN));
+        List<MahjongTile> closedTiles = List.of(MahjongTile.ONE_SOU);
+        List<MahjongGroup> closedGroups = List.of(new MahjongGroup(MahjongTile.TWO_MAN, MahjongTile.TWO_MAN, MahjongTile.TWO_MAN));
         List<MahjongGroup> openGroups = new ArrayList<>();
-        MahjongTile winningTile = ONE_MAN;
-        HandState handState = handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false); // Create a valid hand state mock or object
-        int validScore = 48000;
+        MahjongTile winningTile = MahjongTile.ONE_SOU;
+        int validScore = 18000;
 
         CalculatorOutputBoundary presenter = new CalculatorOutputBoundary() {
             @Override
@@ -38,6 +37,36 @@ public class CalculatorInteractorTest {
             public void prepareSuccessView(String message, CalculatorOutputData outputData) {
                 assertEquals("Score is ", message);
                 assertEquals(validScore, outputData.getScore());
+            }
+        };
+
+        // Simulating Calculator.calculateScore to return a valid score
+        CalculatorInteractor interactor = new CalculatorInteractor(presenter, handStateFactory) {
+        };
+        CalculatorInputData calculatorInputData = new CalculatorInputData(closedTiles, closedGroups, openGroups, winningTile);
+        // Act
+        interactor.execute(calculatorInputData);
+    }
+
+    @Test
+    void testExecute_WithInValidScore() {
+        // Arrange
+        IHandStateFactory handStateFactory = new HandStateFactory();
+        List<MahjongTile> closedTiles = new ArrayList<>();
+        List<MahjongGroup> closedGroups = new ArrayList<>();
+        List<MahjongGroup> openGroups = new ArrayList<>();
+        MahjongTile winningTile = MahjongTile.ONE_SOU;
+        int validScore = 0;
+
+        CalculatorOutputBoundary presenter = new CalculatorOutputBoundary() {
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("This is not a valid hand", error);
+            }
+
+            @Override
+            public void prepareSuccessView(String message, CalculatorOutputData outputData) {
+                fail("Success view is unexpected.");
             }
         };
 
