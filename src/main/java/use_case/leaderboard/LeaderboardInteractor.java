@@ -32,7 +32,11 @@ public class LeaderboardInteractor implements LeaderboardInputBoundary {
     @Override
     public void execute() {
         List<LeaderboardEntry> entries = dataAccessor.getTopTenLeaderboard();
-        leaderboardPresenter.prepareSuccessView(new LeaderboardOutputData(entries, false));
+        if (!entries.isEmpty()) {
+            leaderboardPresenter.prepareSuccessView(new LeaderboardOutputData(entries, false));
+        } else {
+            leaderboardPresenter.prepareFailView("Could not retrieve leaderboard data");
+        }
     }
 }
 

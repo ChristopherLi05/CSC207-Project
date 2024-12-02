@@ -29,6 +29,7 @@ public class PuzzleRushController {
      * @param handState the current state of the hand (represented by {@code HandState})
      */
     public void execute(int proposedScore, HandState handState) {
+
         inputBoundary.execute(new PuzzleRushInputData(proposedScore, handState));
     }
 }

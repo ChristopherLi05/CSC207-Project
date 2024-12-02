@@ -102,7 +102,7 @@ public class HandStateFactory implements IHandStateFactory {
         String[] strings = serialization.split(" ");
 
         if (strings.length != 9) {
-            throw new IllegalArgumentException("Invalid hand serialization");
+            throw new IllegalArgumentException("Invalid hand serialization: " + serialization);
         }
 
         return createHandState(strings[0], strings[1], strings[2], strings[3], strings[4], strings[5], strings[6], strings[7], Integer.parseInt(strings[8]));

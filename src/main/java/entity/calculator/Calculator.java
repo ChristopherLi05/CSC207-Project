@@ -1,9 +1,12 @@
 package entity.calculator;
 
+import entity.calculator.mahjong.MahjongGroup;
 import entity.calculator.mahjong.MahjongTile;
 import entity.calculator.yaku.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 /**
  * Static class to calculate hand values
@@ -17,17 +20,47 @@ public class Calculator {
      * @return han value
      */
     public static int calculateHan(HandState hand) {
-        int result = 0;
-        if (hand.openGroups().isEmpty()) {
-            for (YakuTestCase testCase : yakuList) {
-                result += testCase.getClosedHanValue();
+        List<HandGrouping> handGroupings = createHandGroupings(hand);
+        List<Integer> results = new ArrayList<>();
+        for (HandGrouping handGrouping : handGroupings) {
+            int result = 0;
+            if (hand.openGroups().isEmpty()) {
+                for (YakuTestCase testCase : yakuList) {
+                    if (testCase.isYaku(hand, handGrouping)) {
+                        result += testCase.getClosedHanValue();
+                    }
+                }
+            } else {
+                for (YakuTestCase testCase : yakuList) {
+                    if (testCase.isYaku(hand, handGrouping)) {
+                        result += testCase.getOpenHanValue();
+                    }
+                }
             }
-        } else {
-            for (YakuTestCase testCase : yakuList) {
-                result += testCase.getOpenHanValue();
-            }
+            results.add(result);
         }
-        return result;
+        return results.stream().mapToInt(Integer::intValue).max().orElse(0);
+    }
+
+    /**
+     * Creates a list of possible HandGroupings from the given HandState.
+     *
+     * @param handState the HandState to process.
+     * @return a list of possible HandGroupings.
+     */
+    public static List<HandGrouping> createHandGroupings(HandState handState) {
+        List<HandGrouping> result = CalculatorHelper.extractPairs(handState);
+        if (result == null || result.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        List<HandGrouping> validGroups = new ArrayList<>();
+
+        for (HandGrouping pairGrouping : result) {
+            validGroups.addAll(CalculatorHelper.extractGroup(pairGrouping));
+        }
+
+        return validGroups;
     }
 
     /**
@@ -43,29 +76,41 @@ public class Calculator {
      * @return score value
      */
     public static int calculateScore(HandState hand) {
-        int fu = calculateHan(hand);
-        int basescore;
-        if (fu==1) {
-            basescore = 1000;
-        } else if (fu==2) {
-            basescore = 2000;
-        } else if (fu==3) {
-            basescore = 4000;
-        } else if (fu==4 || fu==5) {
-            basescore = 8000;
-        } else if (fu==6 || fu==7) {
-            basescore = 12000;
-        } else if (fu==8 || fu==9 || fu==10) {
-            basescore = 16000;
-        } else if (fu==11 || fu==12) {
-            basescore = 24000;
-        } else {
-            basescore = 32000;
+        int han = calculateHan(hand);
+        int fu = calculateFu(hand);
+        return calculateScore(han, fu, hand.seatWind() == MahjongTile.EAST_WIND);
+    }
+
+    public static int calculateScore(int han, int fu, boolean isDealer) {
+        if (han == 0) {
+            return 0;
         }
-        if (hand.seatWind()==MahjongTile.EAST_WIND) {
-            return (int) Math.round(basescore * 1.5);
+
+        if (fu == 30) {
+            int basescore;
+            if (han==1) {
+                basescore = 1000;
+            } else if (han==2) {
+                basescore = 2000;
+            } else if (han==3) {
+                basescore = 4000;
+            } else if (han==4 || han==5) {
+                basescore = 8000;
+            } else if (han==6 || han==7) {
+                basescore = 12000;
+            } else if (han==8 || han==9 || han==10) {
+                basescore = 16000;
+            } else if (han==11 || han==12) {
+                basescore = 24000;
+            } else {
+                basescore = 32000;
+            }
+            if (isDealer) {
+                return (int) Math.round(basescore * 1.5);
+            }
+            return basescore;
         }
-        return basescore;
+        return 0;
     }
 
     static {
