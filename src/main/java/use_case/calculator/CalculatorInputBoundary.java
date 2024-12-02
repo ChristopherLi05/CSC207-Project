@@ -10,10 +10,10 @@ import entity.calculator.HandState;
 public interface CalculatorInputBoundary {
 
     /**
-     * Executes the calculation logic based on the provided {@link HandState}.
+     * Executes the calculation logic based on the provided {@link CalculatorInputData}.
      * This method is called to perform the primary business logic for the calculation.
      *
-     * @param hand The {@link HandState} representing the current state of the hand to be calculated.
+     * @param input The {@link CalculatorInputData} representing the current state of the hand to be calculated.
      */
-    void execute(HandState hand);
+    void execute(CalculatorInputData input);
 }

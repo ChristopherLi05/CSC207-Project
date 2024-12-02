@@ -27,12 +27,12 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
      * If the score is valid, it sends the result to the presenter. If the score is zero,
      * it prepares a failure view with an error message.
      *
-     * @param hand The {@link HandState} representing the hand to be evaluated.
+     * @param input The {@link CalculatorInputData} representing the hand to be evaluated.
      */
     @Override
-    public void execute(HandState hand) {
+    public void execute(CalculatorInputData input) {
         // Calculate the score for the given hand
-        int score = Calculator.calculateScore(hand);
+        int score = Calculator.calculateScore(input.getHand());
             // Otherwise, present the calculated score
             calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(score));
         }

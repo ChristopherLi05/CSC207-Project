@@ -9,6 +9,7 @@ import interface_adapter.addTile.AddTileController;
 import interface_adapter.calculator.CalculatorController;
 import interface_adapter.calculator.CalculatorState;
 import interface_adapter.calculator.CalculatorViewState;
+import use_case.calculator.CalculatorInputData;
 import view.component.*;
 
 import javax.swing.*;
@@ -83,7 +84,8 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
 
             HandState handstate =
                     handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
-            calculatorController.execute(handstate);
+            CalculatorInputData input = new CalculatorInputData(handstate);
+            calculatorController.execute(input);
         });
 
         reset.addActionListener(evt -> {
