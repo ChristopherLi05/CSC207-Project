@@ -16,4 +16,6 @@ public interface CalculatorInputBoundary {
      * @param input The {@link CalculatorInputData} representing the current state of the hand to be calculated.
      */
     void execute(CalculatorInputData input);
+
+    void reset();
 }

@@ -67,7 +67,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
         calculate.setFont(new Font("Arial", Font.PLAIN, 30));
-        scoreLabel = new JLabel("Score: ");
+        scoreLabel = new JLabel("Score is 0");
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         JButton reset = new JButton("reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -82,8 +82,8 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
             List<MahjongGroup> openGroups = viewState.getState().getOpenGroups();
             MahjongTile winningTile = viewState.getState().getWinningTile();
 
-            HandState handstate =
-                    handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+            HandState handstate = handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+
             CalculatorInputData input = new CalculatorInputData(handstate);
             calculatorController.execute(input);
         });
