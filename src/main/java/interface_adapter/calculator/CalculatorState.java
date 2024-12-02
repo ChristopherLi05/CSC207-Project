@@ -20,7 +20,7 @@ public class CalculatorState implements TileModifierState {
     private MahjongTile winningTile;
     private boolean isAka = false;
     private SelectorType selectorType = SelectorType.NONE;
-    private static String messageState = null;
+    private static String messageState = "Score is 0";
 
     /**
      * Constructs a CalculatorState with the specified tiles and groups.

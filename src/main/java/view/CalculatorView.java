@@ -67,7 +67,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         final JPanel buttons = new JPanel();
         JButton calculate = new JButton("calculate");
         calculate.setFont(new Font("Arial", Font.PLAIN, 30));
-        scoreLabel = new JLabel("Score is 0");
+        scoreLabel = new JLabel("Score: ");
         scoreLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         JButton reset = new JButton("reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -89,7 +89,6 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
         });
 
         reset.addActionListener(evt -> {
-            calculatorController.reset();
             displayHandComponent.reset(viewState.getState());
         });
 
