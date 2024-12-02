@@ -2,6 +2,7 @@ package interface_adapter.calculator;
 
 import entity.calculator.HandState;
 import use_case.calculator.CalculatorInputBoundary;
+import use_case.calculator.CalculatorInputData;
 
 /**
  * Controller class for handling the Calculator use case.
@@ -27,10 +28,10 @@ public class CalculatorController {
     /**
      * Executes the calculator use case with the provided hand state.
      *
-     * @param hand the hand state to be processed for score calculation
+     * @param input the hand state to be processed for score calculation
      */
-    public void execute(HandState hand) {
-        calculatorUseCaseInteractor.execute(hand);
+    public void execute(CalculatorInputData input) {
+        calculatorUseCaseInteractor.execute(input);
     }
 
     public void reset() {calculatorUseCaseInteractor.reset();}
