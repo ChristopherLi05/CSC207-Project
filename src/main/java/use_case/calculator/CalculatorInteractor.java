@@ -2,6 +2,15 @@ package use_case.calculator;
 
 import entity.calculator.Calculator;
 import entity.calculator.HandState;
+import entity.calculator.HandStateFactory;
+import entity.calculator.IHandStateFactory;
+import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static entity.calculator.mahjong.MahjongTile.EAST_WIND;
 
 /**
  * Interactor for the Calculator use case.
@@ -12,14 +21,16 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
 
     /** The output boundary for presenting the result of the calculation. */
     private final CalculatorOutputBoundary calculatorPresenter;
+    private final IHandStateFactory handStateFactory;
 
     /**
      * Constructs a new {@code CalculatorInteractor} with the provided output boundary.
      *
      * @param calculatorOutputBoundary The output boundary to be used for presenting the result.
      */
-    public CalculatorInteractor(CalculatorOutputBoundary calculatorOutputBoundary) {
+    public CalculatorInteractor(CalculatorOutputBoundary calculatorOutputBoundary, IHandStateFactory handStateFactory) {
         this.calculatorPresenter = calculatorOutputBoundary;
+        this.handStateFactory = handStateFactory;
     }
 
     /**
@@ -32,7 +43,14 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
     @Override
     public void execute(CalculatorInputData input) {
         // Calculate the score for the given hand
-        int score = Calculator.calculateScore(input.getHand());
+        List<MahjongTile> closedTiles = input.getClosedTiles();
+        List<MahjongGroup> closedGroups = input.getClosedGroups();
+        List<MahjongGroup> openGroups = input.getOpenGroups();
+        MahjongTile winningTile = input.getWinningTile();
+
+        HandState handstate = handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
+
+        int score = Calculator.calculateScore(handstate);
         if (score > 0) {
             calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(score));
         } else {

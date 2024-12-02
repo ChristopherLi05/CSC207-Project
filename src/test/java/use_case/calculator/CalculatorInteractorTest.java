@@ -30,7 +30,9 @@ public class CalculatorInteractorTest {
 
         CalculatorOutputBoundary presenter = new CalculatorOutputBoundary() {
             @Override
-            public void prepareFailView(String error) { fail("Failure view is unexpected."); }
+            public void prepareFailView(String error) {
+                fail("Failure view is unexpected.");
+            }
 
             @Override
             public void prepareSuccessView(String message, CalculatorOutputData outputData) {
@@ -40,10 +42,35 @@ public class CalculatorInteractorTest {
         };
 
         // Simulating Calculator.calculateScore to return a valid score
-        CalculatorInteractor interactor = new CalculatorInteractor(presenter) {
+        CalculatorInteractor interactor = new CalculatorInteractor(presenter, handStateFactory) {
         };
-        CalculatorInputData input = new CalculatorInputData(handState);
+        CalculatorInputData calculatorInputData = new CalculatorInputData(closedTiles, closedGroups, openGroups, winningTile);
         // Act
-        interactor.execute(input);
+        interactor.execute(calculatorInputData);
+    }
+
+    @Test
+    void testreset() {
+        IHandStateFactory handStateFactory = new HandStateFactory();
+        int validScore = 0;
+
+        CalculatorOutputBoundary presenter = new CalculatorOutputBoundary() {
+            @Override
+            public void prepareFailView(String error) {
+                fail("Failure view is unexpected.");
+            }
+
+            @Override
+            public void prepareSuccessView(String message, CalculatorOutputData outputData) {
+                assertEquals("Score is ", message);
+                assertEquals(validScore, outputData.getScore());
+            }
+        };
+
+        // Simulating Calculator.calculateScore to return a valid score
+        CalculatorInteractor interactor = new CalculatorInteractor(presenter, handStateFactory) {
+        };
+        // Act
+        interactor.reset();
     }
 }

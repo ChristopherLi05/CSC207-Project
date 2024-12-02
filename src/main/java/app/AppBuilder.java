@@ -4,6 +4,7 @@ import data_access.APIDataAccessor;
 import data_access.DummyDataAccessor;
 import data_access.InMemoryDataAccessor;
 import entity.calculator.HandStateFactory;
+import entity.calculator.IHandStateFactory;
 import entity.user.LocalUserFactory;
 import entity.user.RemoteUserFactory;
 import entity.user.DefaultUserManager;
@@ -238,7 +239,7 @@ public class AppBuilder {
     public AppBuilder addCalculatorUseCase() {
         ensureState(BuildState.USE_CASE);
         CalculatorOutputBoundary calculatorOutputBoundary = new CalculatorPresenter(calculatorViewState);
-        CalculatorInteractor calculatorInteractor = new CalculatorInteractor(calculatorOutputBoundary);
+        CalculatorInteractor calculatorInteractor = new CalculatorInteractor(calculatorOutputBoundary, app.getHandStateFactory());
 
         CalculatorController calculatorController = new CalculatorController(calculatorInteractor);
         calculatorView.setCalculatorController(calculatorController);
