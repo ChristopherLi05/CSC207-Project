@@ -51,8 +51,11 @@ public class CalculatorInteractor implements CalculatorInputBoundary {
         HandState handstate = handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
 
         int score = Calculator.calculateScore(handstate);
-            // Otherwise, present the calculated score
+        if (score > 0) {
             calculatorPresenter.prepareSuccessView("Score is ", new CalculatorOutputData(score));
+        } else {
+            calculatorPresenter.prepareFailView("This is not a valid hand");
+        }
     }
 
     @Override
