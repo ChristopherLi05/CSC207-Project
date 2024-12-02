@@ -4,6 +4,7 @@ import app.DefaultApp;
 import app.App;
 import entity.user.user_type.IUser;
 
+import entity.user.user_type.RemoteUser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -44,8 +45,8 @@ public class LoginInteractorTest {
         String sessionId = app.getDataAccessor().logIn(username, password);
         int bestScore = app.getDataAccessor().getBestScore(sessionId);
 
-        IUser user = app.getUserManager().getUserFactory().create(sessionId, username, bestScore);
-        app.getUserManager().setUserLoggedIn(user.getSessionId(), user.getUsername(), user.getBestScore());
+        IUser user = new RemoteUser(sessionId, username, bestScore);
+        app.getUserManager().setUserLoggedIn(sessionId, username, bestScore);
 
         LoginOutputBoundary presenter = new LoginOutputBoundary() {
             @Override
@@ -53,7 +54,8 @@ public class LoginInteractorTest {
 
             @Override
             public void prepareCalculatorView(LoginOutputData loginOutputData) {
-                assertEquals("Max", user.getUsername());
+                assertEquals(loginOutputData.getUser().getUsername(), user.getUsername());
+                assertEquals(false, loginOutputData.isUseCaseFailed());
             }
 
             @Override

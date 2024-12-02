@@ -33,4 +33,6 @@ public class CalculatorController {
     public void execute(CalculatorInputData input) {
         calculatorUseCaseInteractor.execute(input);
     }
+
+    public void reset() {calculatorUseCaseInteractor.reset();}
 }
