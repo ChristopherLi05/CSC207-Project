@@ -1,31 +1,34 @@
 package use_case.calculator;
 
-import entity.calculator.HandState;
+import entity.calculator.mahjong.MahjongGroup;
+import entity.calculator.mahjong.MahjongTile;
 
-/**
- * Data transfer object (DTO) for Calculator input data.
- * Encapsulates the hand state needed for the calculation process.
- */
+import java.util.List;
+
 public class CalculatorInputData {
 
-    /** The {@link HandState} representing the current hand for calculation. */
-    public final HandState hand;
+    public final List<MahjongTile> closedTiles;
+    public final List<MahjongGroup> closedGroups;
+    public final List<MahjongGroup> openGroups;
+    public final MahjongTile winningTile;
 
-    /**
-     * Constructs a new {@code CalculatorInputData} object with the specified hand state.
-     *
-     * @param hand The {@link HandState} to be used for calculation.
-     */
-    public CalculatorInputData(HandState hand) {
-        this.hand = hand;
+    public CalculatorInputData(List<MahjongTile> closedTiles, List<MahjongGroup> closedGroups, List<MahjongGroup> openGroups, MahjongTile winningTile) {
+
+        this.closedTiles = closedTiles;
+        this.closedGroups = closedGroups;
+        this.openGroups = openGroups;
+        this.winningTile = winningTile;
     }
-
-    /**
-     * Returns the {@link HandState} object representing the hand.
-     *
-     * @return The current hand as a {@link HandState}.
-     */
-    public HandState getHand() {
-        return hand;
+    public List<MahjongTile> getClosedTiles() {
+        return closedTiles;
+    }
+    public List<MahjongGroup> getClosedGroups() {
+        return closedGroups;
+    }
+    public List<MahjongGroup> getOpenGroups() {
+        return openGroups;
+    }
+    public MahjongTile getWinningTile() {
+        return winningTile;
     }
 }

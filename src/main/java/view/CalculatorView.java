@@ -81,11 +81,7 @@ public class CalculatorView extends AbstractPanel<CalculatorState> implements Ac
             List<MahjongGroup> closedGroups = viewState.getState().getClosedGroup();
             List<MahjongGroup> openGroups = viewState.getState().getOpenGroups();
             MahjongTile winningTile = viewState.getState().getWinningTile();
-
-            HandState handstate = handStateFactory.createHandState(closedTiles, closedGroups, openGroups, winningTile, new ArrayList<>(), new ArrayList<>(), EAST_WIND, EAST_WIND, true, false, false, false, false, false, false, false, false);
-
-            CalculatorInputData input = new CalculatorInputData(handstate);
-            calculatorController.execute(input);
+            calculatorController.execute(closedTiles, closedGroups, openGroups, winningTile);
         });
 
         reset.addActionListener(evt -> {
