@@ -28,7 +28,7 @@ public class LoginInteractorTest {
             public void prepareFailView(String error) {fail("Use case failure is unexpected.");}
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(app, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(app.getUserManager(), app.getDataAccessor(), presenter);
         interactor.guestLogin();
     }
 
@@ -62,7 +62,7 @@ public class LoginInteractorTest {
             public void prepareFailView(String error) {fail("Use case failure is unexpected.");}
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(app, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(app.getUserManager(), app.getDataAccessor(), presenter);
         interactor.login(inputData);
     }
 
@@ -94,7 +94,7 @@ public class LoginInteractorTest {
             public void prepareFailView(String error) {fail("Use case failure is unexpected.");}
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(app, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(app.getUserManager(), app.getDataAccessor(), presenter);
         interactor.login(inputData);
     }
 
@@ -120,7 +120,7 @@ public class LoginInteractorTest {
                 assertEquals("Incorrect username or password", error);}
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(app, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(app.getUserManager(), app.getDataAccessor(), presenter);
         interactor.login(inputData);
     }
 
@@ -141,7 +141,7 @@ public class LoginInteractorTest {
                 assertEquals("Incorrect username or password", error);}
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(app, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(app.getUserManager(), app.getDataAccessor(), presenter);
         interactor.login(inputData);
     }
 
@@ -163,7 +163,7 @@ public class LoginInteractorTest {
             public void prepareFailView(String error) {fail("Use case failure is unexpected.");}
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(app, presenter);
+        LoginInputBoundary interactor = new LoginInteractor(app.getUserManager(), app.getDataAccessor(), presenter);
         interactor.signup();
     }
 }
